@@ -59,7 +59,24 @@ namespace AnyRPG {
             objectPooler.ReturnObjectToPool(go, 2);
             messageLogClient.WriteSystemMessage(message);
         }
-        
+
+        public void WriteColoredMessage(string message, Color color)
+        {
+            //Debug.Log($"MessageFeedManager.WriteMessage({message})");
+
+            if (PlayerPrefs.GetInt("UseMessageFeed") == 0)
+            {
+                return;
+            }
+            GameObject go = objectPooler.GetPooledObject(messagePrefab, messageFeedWindow.transform);
+            go.GetComponent<TextMeshProUGUI>().text = message;
+            go.GetComponent<TextMeshProUGUI>().color = color;
+            //uncomment the next line to make the messages spawn at the top instead of the bottom
+            //go.transform.SetAsFirstSibling();
+            objectPooler.ReturnObjectToPool(go, 2);
+            messageLogClient.WriteSystemMessage(message);
+        }
+
         public void LockUI() {
             if (PlayerPrefs.HasKey("LockUI")) {
                 if (PlayerPrefs.GetInt("LockUI") == 0) {

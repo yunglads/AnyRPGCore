@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AnyRPG {
@@ -195,6 +196,9 @@ namespace AnyRPG {
         public event Action<int, int> OnRequestSplitStack = delegate { };
         public event Action<Skill, int> OnAddSkillLevel = delegate { };
         public event Action<Skill, int> OnAddSkillExperience = delegate { };
+
+        public event System.Action<string, int, List<BuildingProgressSaveData>> OnBuildingProgressChanged = delegate { };
+
 
         //public event System.Action<BaseAbilityProperties, Interactable> OnTargetInAbilityRangeFail = delegate { };
 
@@ -1001,6 +1005,13 @@ namespace AnyRPG {
             OnWriteMessageFeedMessage(messageText);
         }
 
+        public void NotifyOnWriteColoredMessageFeedMessage(string messageText, Color color)
+        {
+            //Debug.Log($"{unitController.gameObject.name}.UnitEventController.NotifyOnWriteMessageFeedMessage({messageText})");
+
+            OnWriteMessageFeedMessage(messageText);
+        }
+
         public void NotifyOnItemCountChanged(Item item) {
             OnItemCountChanged(unitController, item);
         }
@@ -1077,6 +1088,11 @@ namespace AnyRPG {
 
         public void NotifyOnAddSkillExperience(Skill skill, int skillExperience) {
             OnAddSkillExperience(skill, skillExperience);
+        }
+
+        public void NotifyOnBuildingProgressChanged(string buildingID, int newPhase, List<BuildingProgressSaveData> buildingProgress)
+        {
+            OnBuildingProgressChanged.Invoke(buildingID, newPhase, buildingProgress);
         }
 
         #endregion

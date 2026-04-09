@@ -58,6 +58,9 @@ namespace AnyRPG {
         public List<QuestSaveData> AchievementSaveData = new List<QuestSaveData>();
         public List<DialogSaveData> DialogSaveData = new List<DialogSaveData>();
         public List<String> VisitedSceneNodes = new List<String>();
+
+        public List<BuildingProgressSaveData> BuildingProgressSaveData = new List<BuildingProgressSaveData>();
+        public List<SharedBuildingProgressSaveData> SharedBuildingProgressSaveData = new List<SharedBuildingProgressSaveData>();
     }
 
 
@@ -198,4 +201,24 @@ namespace AnyRPG {
 
     }
 
+    [Serializable]
+    public class BuildingProgressSaveData
+    {
+        public string BuildingID;
+        public int CurrentPhase;
+        public List<ResourceContributionSaveData> TurnedInResources = new List<ResourceContributionSaveData>();
+    }
+
+    [Serializable]
+    public class ResourceContributionSaveData
+    {
+        public string ItemID;
+        public int Amount;
+    }
+
+    [Serializable]
+    public class SharedBuildingProgressSaveData
+    {
+        public List<BuildingProgressSaveData> Buildings = new List<BuildingProgressSaveData>();
+    }
 }

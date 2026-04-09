@@ -73,9 +73,10 @@ namespace AnyRPG {
             //characterClassButton.OnInteract += OpenClassPanel;
             //classSpecializationButton.OnInteract += OpenSpecializationPanel;
 
-            if (systemConfigurationManager.EditPlayerName == false) {
+            if (systemConfigurationManager.EditPlayerName == false)
                 playerNameNavigation.SetActive(false);
-            }
+            else
+                playerNameNavigation.SetActive(true);
         }
 
         public override void SetGameManagerReferences() {

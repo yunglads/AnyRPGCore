@@ -594,6 +594,7 @@ namespace AnyRPG {
             questTrackerOpacitySlider.value = PlayerPrefs.GetFloat("QuestTrackerOpacity");
             messageLogOpacitySlider.value = PlayerPrefs.GetFloat("MessageLogOpacity");
             popupWindowOpacitySlider.value = PlayerPrefs.GetFloat("PopupWindowOpacity");
+            //popupWindowOpacitySlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("PopupWindowOpacity"));
             pagedButtonsOpacitySlider.value = PlayerPrefs.GetFloat("PagedButtonsOpacity");
             systemMenuOpacitySlider.value = PlayerPrefs.GetFloat("SystemMenuOpacity");
 

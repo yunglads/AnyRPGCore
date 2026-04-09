@@ -380,6 +380,7 @@ namespace AnyRPG {
         }
 
         protected void LateGlobalStateUpdate(double timeInterval) {
+            //Debug.Log($"LateGlobalStateUpdate: FaceCameraDirection = {currentMovementData.FaceCameraDirection}, WantedDirection = {currentMovementData.CameraWantedDirection}");
 
             if (unitController.CharacterStats.IsAlive == true) {
                 if ((currentMovementData.FaceCameraDirection == true)
@@ -1306,7 +1307,8 @@ namespace AnyRPG {
                 cachedMovementData.InputStrafe = accumulatedMovementData.InputStrafe;
 
                 // Cache these so mouse-based turning doesn't drop out
-                if (systemConfigurationManager.CameraViewMode == CameraViewMode.Free) {
+                if (systemConfigurationManager.CameraViewMode == CameraViewMode.Classic || 
+                    systemConfigurationManager.CameraViewMode == CameraViewMode.Action) {
                     cachedMovementData.RightMouseButtonDown = accumulatedMovementData.RightMouseButtonDown;
                     cachedMovementData.FaceCameraDirection = accumulatedMovementData.FaceCameraDirection;
                 }

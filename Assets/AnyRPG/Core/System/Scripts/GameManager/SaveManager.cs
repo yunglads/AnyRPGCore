@@ -946,7 +946,18 @@ namespace AnyRPG {
             }
         }
 
+        public bool SaveDataFile(PlayerCharacterSaveData playerCharacterSaveData)
+        {
 
+            playerCharacterSaveData.CharacterSaveData.DataSavedOn = DateTime.Now.ToLongDateString();
+
+            string jsonString = JsonUtility.ToJson(playerCharacterSaveData);
+            //Debug.Log(jsonString);
+            string jsonSavePath = $"{baseSaveFolderName}/{playerCharacterSaveData.CharacterSaveData.CharacterId}.json";
+            File.WriteAllText(jsonSavePath, jsonString);
+
+            return true;
+        }
     }
 
 }

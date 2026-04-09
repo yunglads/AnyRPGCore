@@ -134,7 +134,7 @@ namespace AnyRPG {
 
         private void LockMouse() {
             //Debug.Log("ControlsManager.LockMouse()");
-            //Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             mouseDisabled = true;
             if (playerManagerClient.PlayerController != null) {
@@ -145,18 +145,43 @@ namespace AnyRPG {
 
         private void UnlockMouse() {
             //Debug.Log("ControlsManager.UnlockMouse()");
-            //Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             mouseDisabled = false;
         }
 
-        private void CheckMouse() {
-            if (Input.GetAxis("Mouse X") != 0f || Input.GetAxis("Mouse Y") != 0f) {
-                UnlockMouse();
+        //private void CheckMouse() {
+        //    if (Input.GetAxis("Mouse X") != 0f || Input.GetAxis("Mouse Y") != 0f) {
+        //        UnlockMouse();
+        //    }
+        //    if (inputManager.leftMouseButtonClicked == true
+        //        || inputManager.rightMouseButtonClicked == true) {
+        //        UnlockMouse();
+        //        DeactivateGamepadInput();
+        //    }
+        //}
+
+        private void CheckMouse()
+        {
+            bool actionMode = systemConfigurationManager.CameraViewMode == CameraViewMode.Action;
+
+            if (actionMode && windowManager.WindowStack.Count == 0)
+            {
+                if (!mouseDisabled)
+                    LockMouse();
             }
-            if (inputManager.leftMouseButtonClicked == true
-                || inputManager.rightMouseButtonClicked == true) {
-                UnlockMouse();
+            else
+            {
+                if (Input.GetAxis("Mouse X") != 0f || Input.GetAxis("Mouse Y") != 0f)
+                    UnlockMouse();
+            }
+
+            if (inputManager.leftMouseButtonClicked == true || inputManager.rightMouseButtonClicked == true)
+            {
+                if (!actionMode || windowManager.WindowStack.Count > 0)
+                {
+                    UnlockMouse();
+                }
                 DeactivateGamepadInput();
             }
         }

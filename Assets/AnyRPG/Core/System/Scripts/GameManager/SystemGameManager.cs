@@ -69,6 +69,9 @@ namespace AnyRPG {
         [SerializeField]
         private NetworkManagerServer networkManagerServer = null;
 
+        [SerializeField]
+        private TownBuildingManager townManager = null;
+
         // system scripts
         private AuthenticationService authenticationService = new AuthenticationService();
         private AuctionManagerClient auctionManagerClient = new AuctionManagerClient();
@@ -246,6 +249,8 @@ namespace AnyRPG {
         public ushort CommandLineServerPort { get => commandLineServerPort; set => commandLineServerPort = value; }
         public NetworkServerMode CommandLineServerMode { get => commandLineServerMode; set => commandLineServerMode = value; }
 
+        public TownBuildingManager TownManager { get => townManager; set => townManager = value; }
+
         private void Awake() {
             Init();
         }
@@ -343,6 +348,7 @@ namespace AnyRPG {
             KeyBindManager.Configure(this);
             systemEnvironmentManager.Configure(this);
             craftingManager.Configure(this);
+            townManager.Configure(this);
             interactionManagerClient.Configure(this);
             interactionManagerServer.Configure(this);
             lootManager.Configure(this);
@@ -394,6 +400,8 @@ namespace AnyRPG {
             //localGameServerClient.Configure(this);
             friendServiceClient.Configure(this);
             friendServiceServer.Configure(this);
+
+            
         }
 
         private void ProcessCommandLineParameters() {

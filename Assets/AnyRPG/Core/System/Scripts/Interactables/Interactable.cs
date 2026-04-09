@@ -768,6 +768,7 @@ namespace AnyRPG {
         /// </summary>
         public void OnMouseIn() {
             //Debug.Log($"{gameObject.name}.Interactable.OnMouseIn()");
+            //Debug.Log($"{gameObject.name}.OnMouseIn() called from: {new System.Diagnostics.StackTrace()}");
 
             if (!isActiveAndEnabled) {
                 // this interactable is inactive, there is no reason to do anything

@@ -197,6 +197,8 @@ namespace AnyRPG {
         public CloseableWindow splitStackWindow;
         public CloseableWindow createGuildWindow;
 
+        public CloseableWindow buildingUpgradeWindow;
+
 
         [Header("System Windows")]
 
@@ -409,6 +411,7 @@ namespace AnyRPG {
             classChangeWindow.Configure(systemGameManager);
             contextMenuWindow.Configure(systemGameManager);
             craftingWindow.Configure(systemGameManager);
+            buildingUpgradeWindow.Configure(systemGameManager);
             createGuildWindow.Configure(systemGameManager);
             currencyListWindow.Configure(systemGameManager);
             dialogWindow.Configure(systemGameManager);
@@ -661,6 +664,10 @@ namespace AnyRPG {
 
             defaultWindowPositions.Add("MouseOverWindowX", MouseOverWindow.RectTransform.anchoredPosition.x);
             defaultWindowPositions.Add("MouseOverWindowY", MouseOverWindow.RectTransform.anchoredPosition.y);
+
+            defaultWindowPositions.Add("BuildingUpgradeWindowX", buildingUpgradeWindow.RectTransform.anchoredPosition.x);
+            defaultWindowPositions.Add("BuildingUpgradeWindowY", buildingUpgradeWindow.RectTransform.anchoredPosition.y);
+
         }
 
         public void LoadDefaultWindowPositions() {
@@ -695,6 +702,8 @@ namespace AnyRPG {
             tradeWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["TradeWindowX"], defaultWindowPositions["TradeWindowY"], 0);
             mainMapWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["MainMapWindowX"], defaultWindowPositions["MainMapWindowY"], 0);
             dialogWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["DialogWindowX"], defaultWindowPositions["DialogWindowY"], 0);
+            
+            buildingUpgradeWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["BuildingUpgradeWindowX"], defaultWindowPositions["BuildingUpgradeWindowY"], 0);
 
             // ui elements
             questTrackerWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["QuestTrackerWindowX"], defaultWindowPositions["QuestTrackerWindowY"], 0);
@@ -1008,6 +1017,8 @@ namespace AnyRPG {
             tradeWindow.CloseWindow();
             unitSpawnWindow.CloseWindow();
             vendorWindow.CloseWindow();
+
+            buildingUpgradeWindow.CloseWindow();
         }
 
         public void CloseAllSystemWindows() {
@@ -1615,6 +1626,7 @@ namespace AnyRPG {
             achievementListWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
             auctionWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
             craftingWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
+            buildingUpgradeWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
             createGuildWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
             characterPanelWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
             currencyListWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));

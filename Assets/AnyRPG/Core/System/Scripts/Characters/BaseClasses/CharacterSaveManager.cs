@@ -1183,6 +1183,29 @@ namespace AnyRPG {
             saveData.Completed = value;
             behaviorSaveDataDictionary[saveData.BehaviorName] = saveData;
         }
+
+        public void SaveTownData()
+        {
+            if (systemGameManager.TownManager == null)
+                return;
+            if (!systemGameManager.TownManager.BuildingProgressLoaded)
+                return;
+            if (unitController != systemGameManager.PlayerManagerClient.UnitController)
+                return;
+
+            saveData.BuildingProgressSaveData = systemGameManager.TownManager.GetBuildingProgress();
+            //foreach (var entry in saveData.BuildingProgressSaveData)
+            //{
+            //    string res = entry.TurnedInResources.Count == 0 ? "none" :
+            //        string.Join(", ", entry.TurnedInResources.ConvertAll(r => $"{r.ItemID}x{r.Amount}"));
+            //    Debug.Log($"SaveTownData: {entry.BuildingID} phase={entry.CurrentPhase} resources=[{res}]");
+            //}
+        }
+
+        public void SetSaveDataFromClient(CharacterSaveData data)
+        {
+            saveData = data;
+        }
     }
 
 }

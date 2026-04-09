@@ -8,6 +8,7 @@ using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AnyRPG {
@@ -2580,6 +2581,60 @@ namespace AnyRPG {
                 return;
             }
             unitController.UnitActionManager.BeginActionInternal(animatedAction, playerInitiated);
+        }
+
+        [ServerRpc]
+        public void HandleBuildingProgressChangedServer(string buildingID, int currentPhase, List<BuildingProgressSaveData> fullProgress)
+        {
+            systemGameManager.TownManager.SetBuildingPhase(buildingID, (BuildingPhase)currentPhase);
+
+            // update server's in-memory save data with client's progress
+            unitController.CharacterSaveManager.SaveData.BuildingProgressSaveData = fullProgress;
+
+            //BuildingDefinition buildingDef = systemGameManager.TownManager.GetDefinition(buildingID);
+            //if (buildingDef != null && buildingDef.BuildingScope == BuildingScope.SharedTown)
+            //systemGameManager.TownManager.SaveSharedProgress();
+            HandleBuildingProgressChanged(buildingID, currentPhase, fullProgress);
+        }
+
+        [ObserversRpc]
+        public void HandleBuildingProgressChanged(string buildingID, int newPhase, List<BuildingProgressSaveData> progress)
+        {
+            // update local progress on all clients
+            systemGameManager.TownManager.SetBuildingPhase(buildingID, (BuildingPhase)newPhase);
+            // notify UI
+            unitController.UnitEventController.NotifyOnBuildingProgressChanged(buildingID, newPhase, progress);
+
+            //refresh panel if open
+            BuildingPanel panel = systemGameManager.UIManager.buildingUpgradeWindow.CloseableWindowContents as BuildingPanel;
+            if (panel != null)
+                panel.RefreshUI();
+        }
+
+        [ServerRpc]
+        public void HandleRemoveItemInstancesServer(long[] itemInstanceIds)
+        {
+            foreach (int id in itemInstanceIds)
+            {
+                if (systemItemManager.InstantiatedItems.ContainsKey(id))
+                {
+                    unitController.CharacterInventoryManager.RemoveInventoryItem(
+                        systemItemManager.InstantiatedItems[id]);
+                }
+            }
+        }
+
+        [ServerRpc]
+        public void UpdateServerSaveDataServer(PlayerCharacterSaveData playerCharacterSaveData)
+        {
+            unitController.CharacterSaveManager.SetSaveDataFromClient(playerCharacterSaveData.CharacterSaveData);
+
+            // update the player monitor's cached save data
+            int accountId = systemGameManager.PlayerManagerServer.GetAccountIdFromUnitController(unitController);
+            if (accountId != 0 && systemGameManager.PlayerManagerServer.PlayerCharacterMonitors.ContainsKey(accountId))
+            {
+                systemGameManager.PlayerManagerServer.PlayerCharacterMonitors[accountId].characterSaveData = playerCharacterSaveData.CharacterSaveData;
+            }
         }
 
         private void TimeManager_OnTick() {
