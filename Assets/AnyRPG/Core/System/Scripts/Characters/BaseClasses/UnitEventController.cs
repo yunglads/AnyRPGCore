@@ -197,6 +197,8 @@ namespace AnyRPG {
         public event Action<Skill, int> OnAddSkillLevel = delegate { };
         public event Action<Skill, int> OnAddSkillExperience = delegate { };
 
+        public event System.Action<string, float, int> OnGainSkillXP = delegate { };
+        public event System.Action<string, int> OnSkillLevelChanged = delegate { };
         public event System.Action<string, int, List<BuildingProgressSaveData>> OnBuildingProgressChanged = delegate { };
 
 
@@ -674,7 +676,7 @@ namespace AnyRPG {
         public void NotifyOnLearnSkill(Skill newSkill) {
             //Debug.Log($"{unitController.gameObject.name}.UnitEventController.NotifyOnLearnSkill({newSkill.ResourceName})");
 
-            OnLearnSkill(unitController, newSkill);
+            OnLearnSkill?.Invoke(unitController, newSkill);
         }
 
         public void NotifyOnUnLearnSkill(Skill oldSkill) {
@@ -1082,12 +1084,24 @@ namespace AnyRPG {
             OnRequestSplitStack(inventorySlotIndex, stackSize);
         }
 
-        public void NotifyOnAddSkillLevel(Skill skill, int addLevel) {
+        public void NotifyOnAddSkillLevel(Skill skill, int addLevel)
+        {
             OnAddSkillLevel(skill, addLevel);
         }
 
-        public void NotifyOnAddSkillExperience(Skill skill, int skillExperience) {
+        public void NotifyOnAddSkillExperience(Skill skill, int skillExperience)
+        {
             OnAddSkillExperience(skill, skillExperience);
+        }
+
+        public void NotifyOnGainSkillXP(string skill, float currentXP, int nodeLevel)
+        {
+            OnGainSkillXP.Invoke(skill, currentXP, nodeLevel);
+        }
+
+        public void NotifyOnSkillLevelChanged(string skill, int currentLevel)
+        {
+            OnSkillLevelChanged.Invoke(skill, currentLevel);
         }
 
         public void NotifyOnBuildingProgressChanged(string buildingID, int newPhase, List<BuildingProgressSaveData> buildingProgress)

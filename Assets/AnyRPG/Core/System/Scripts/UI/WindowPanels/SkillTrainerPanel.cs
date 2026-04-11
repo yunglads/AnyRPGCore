@@ -80,6 +80,7 @@ namespace AnyRPG {
                 SkillTrainerSkillScript qs = go.GetComponent<SkillTrainerSkillScript>();
                 qs.Configure(systemGameManager);
                 qs.Text.text = skillPair.Value.DisplayName;
+                Debug.Log($"Skill Names: {skillPair.Value.DisplayName}");
                 qs.Text.color = Color.white;
                 qs.SetSkill(this, skillPair);
                 skillScripts.Add(qs);
@@ -117,6 +118,7 @@ namespace AnyRPG {
                 learnButton.Button.enabled = false;
                 unlearnButton.gameObject.SetActive(true);
                 unlearnButton.Button.enabled = true;
+                Debug.Log($"{newSkill.ResourceName} is known.");
             } else {
                 learnButton.gameObject.SetActive(true);
                 learnButton.Button.enabled = true;
@@ -193,7 +195,7 @@ namespace AnyRPG {
         public void LearnSkill() {
             //Debug.Log("SkillTrainerUI.LearnSkill()");
             if (currentSkill != null) {
-                skillTrainerManagerClient.RequestLearnSkill(playerManagerClient.UnitController, selectedSkillTrainerSkillScript.SkillId);
+                skillTrainerManagerClient.RequestLearnSkill(playerManagerClient.UnitController, selectedSkillTrainerSkillScript.Skill.ResourceName);
                 //ShowSkills();
             }
         }

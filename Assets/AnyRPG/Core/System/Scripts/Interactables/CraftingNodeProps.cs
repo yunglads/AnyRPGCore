@@ -18,6 +18,11 @@ namespace AnyRPG {
 
         private CraftAbilityProperties ability;
 
+        [SerializeField]
+        private Skill craftingSkill;
+
+        public Skill CraftingSkill => craftingSkill;
+
 
         // crafting nodes are special.  The image is based on what ability it supports
         public override Sprite Icon {

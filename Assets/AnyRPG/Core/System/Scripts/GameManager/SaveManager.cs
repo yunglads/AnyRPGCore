@@ -270,7 +270,7 @@ namespace AnyRPG {
                 characterSaveData.AbilitySaveData = new List<AbilitySaveData>();
             }
             if (characterSaveData.SkillSaveData == null || overWrite) {
-                characterSaveData.SkillSaveData = new List<CharacterSkillSaveData>();
+                characterSaveData.SkillSaveData = new List<SkillSaveData>();
             }
             if (characterSaveData.RecipeSaveData == null || overWrite) {
                 characterSaveData.RecipeSaveData = new List<RecipeSaveData>();

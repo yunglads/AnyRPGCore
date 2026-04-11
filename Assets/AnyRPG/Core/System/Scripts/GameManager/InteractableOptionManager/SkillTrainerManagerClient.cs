@@ -19,12 +19,12 @@ namespace AnyRPG {
             BeginInteraction(skillTrainerComponent, componentIndex, choiceIndex);
         }
 
-        public void RequestLearnSkill(UnitController sourceUnitController, int skillId) {
+        public void RequestLearnSkill(UnitController sourceUnitController, string skillName) {
 
             if (systemGameManager.GameMode == GameMode.Local) {
-                skillTrainerComponent.LearnSkill(sourceUnitController, skillId);
+                skillTrainerComponent.LearnSkill(sourceUnitController, skillName);
             } else {
-                networkManagerClient.RequestLearnSkill(skillTrainerComponent.Interactable, componentIndex, skillId);
+                networkManagerClient.RequestLearnSkill(skillTrainerComponent.Interactable, componentIndex, skillName);
             }
         }
 

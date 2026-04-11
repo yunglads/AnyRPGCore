@@ -85,7 +85,7 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 0
     - _BumpScale: 1
-    - _ClickTime: 44.077858
+    - _ClickTime: 25.282598
     - _Cull: 2
     - _Cutoff: 0
     - _DecalAngleFadeSupported: 1

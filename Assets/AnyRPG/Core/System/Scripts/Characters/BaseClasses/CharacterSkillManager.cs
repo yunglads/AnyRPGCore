@@ -1,172 +1,431 @@
-using AnyRPG;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace AnyRPG {
-    public class CharacterSkillManager : ConfiguredClass {
-
+namespace AnyRPG
+{
+    public class CharacterSkillManager : ConfiguredClass
+    {
         UnitController unitController;
 
-        private Dictionary<string, CharacterSkillData> skillList = new Dictionary<string, CharacterSkillData>();
+        private Dictionary<string, Skill> skillList = new Dictionary<string, Skill>();
+        private Dictionary<string, SkillProgress> skillProgress = new Dictionary<string, SkillProgress>();
 
         // game manager references
+        protected PlayerManagerClient playerManager = null;
         protected SystemEventManager systemEventManager = null;
+        protected TownBuildingManager townManager = null;
 
-        public Dictionary<string, CharacterSkillData> SkillList { get => skillList; }
+        public Dictionary<string, Skill> SkillList { get => skillList; }
 
-        public CharacterSkillManager(UnitController unitController, SystemGameManager systemGameManager) {
+        //public List<string> MySkillList { get => skillList;}
+
+        [Header("Skill Leveling")]
+
+        [Tooltip("Entry XP amount. All following levels are multiplied by XP scaling")]
+        [SerializeField] private float entryXP = 50f;
+
+        [Tooltip("Max Level for leveling skills")]
+        [SerializeField] private int skillLevelCap = 100;
+
+        [Tooltip("XP multiplier per level")]
+        [SerializeField] private float skillXPMultiplier = 0.2f;
+
+        [Tooltip("Penalty per level above node level")]
+        [SerializeField] private float xpLevelPenalty = 0.25f;
+
+        [Tooltip("Minimum XP that can be granted")]
+        [SerializeField] private int minXPGranted = 5;
+
+        private float scaledXP;
+
+        public float EntryXP { get => entryXP; set => entryXP = value; }
+        public int SkillLevelCap { get => skillLevelCap; set => skillLevelCap = value; }
+        public float SkillXPMultiplier { get => skillXPMultiplier; set => skillXPMultiplier = value; }
+        public float XPLevelPenalty { get => xpLevelPenalty; set => xpLevelPenalty = value; }
+        public int MinXPGranted { get => minXPGranted; set => minXPGranted = value; }
+
+        public float ScaledXP;
+
+        public CharacterSkillManager(UnitController unitController, SystemGameManager systemGameManager)
+        {
             this.unitController = unitController;
             Configure(systemGameManager);
         }
 
-        public override void SetGameManagerReferences() {
+        public override void SetGameManagerReferences()
+        {
             base.SetGameManagerReferences();
+            playerManager = systemGameManager.PlayerManagerClient;
             systemEventManager = systemGameManager.SystemEventManager;
+            townManager = systemGameManager.TownManager;
         }
 
-        public void UpdateSkillList(int newLevel) {
+        public void UpdateSkillList(int newLevel)
+        {
             //Debug.Log("CharacterSkillManager.UpdateSkillList()");
-            foreach (Skill skill in systemDataFactory.GetResourceList<Skill>()) {
-                if (!HasSkill(skill) && skill.RequiredLevel <= newLevel && skill.AutoLearn == true) {
+            foreach (Skill skill in systemDataFactory.GetResourceList<Skill>())
+            {
+                if (!HasSkill(skill) && skill.RequiredLevel <= newLevel && skill.AutoLearn == true)
+                {
                     LearnSkill(skill);
+                    //InitializeSkillProgress(skill);
                 }
             }
         }
 
-        public bool HasSkill(Skill checkSkill) {
-            //Debug.Log($"{gameObject.name}.CharacterSkillManager.HasSkill(" + skillName + ")");
-            if (skillList.ContainsKey(checkSkill.ResourceName)) {
-                return true;
+        public bool HasSkill(Skill checkSkill)
+        {
+            if (checkSkill == null)
+            {
+                Debug.LogWarning("CharacterSkillManager.HasSkill: checkSkill is null!");
+                return false;
             }
-            return false;
+
+            bool hasIt = skillList.ContainsKey(checkSkill.ResourceName);
+            //Debug.Log($"HasSkill({checkSkill.ResourceName}): {hasIt}");
+            return hasIt;
         }
 
-        public void LearnSkill(Skill newSkill) {
+        public void LearnSkill(Skill newSkill)
+        {
             //Debug.Log($"{unitController.gameObject.name}.CharacterSkillManager.LearnSkill({newSkill.ResourceName})");
 
-            if (!skillList.ContainsKey(newSkill.ResourceName)) {
-                skillList[newSkill.ResourceName] = new CharacterSkillData {
-                    Skill = newSkill,
-                    SkillLevel = 1
-                };
-                foreach (AbilityProperties ability in newSkill.AbilityList) {
+            if (!skillList.ContainsKey(newSkill.ResourceName))
+            {
+                skillList[newSkill.ResourceName] = newSkill;
+
+                foreach (AbilityProperties ability in newSkill.AbilityList)
+                {
                     unitController.CharacterAbilityManager.LearnAbility(ability);
                 }
 
-                /*
-                foreach (Recipe recipe in systemDataFactory.GetResourceList<Recipe>()) {
-                    if (unitController.CharacterStats.Level >= recipe.RequiredLevel && recipe.AutoLearn == true && newSkill.AbilityList.Contains(recipe.CraftAbility)) {
+                foreach (Recipe recipe in systemDataFactory.GetResourceList<Recipe>())
+                {
+                    if (unitController.CharacterStats.Level >= recipe.RecipeLevel && recipe.AutoLearn == true && newSkill.AbilityList.Contains(recipe.CraftAbility))
+                    {
                         unitController.CharacterRecipeManager.LearnRecipe(recipe);
                     }
                 }
-                */
-                // use this instead since it has the calculation that includes the skill level and not just the character level
-                unitController.CharacterRecipeManager.UpdateRecipeList(unitController.CharacterStats.Level);
+
+                InitializeSkillProgress(newSkill);
+
+                //Debug.Log($"Successfully added skill: {newSkill.ResourceName} to skillList. Total skills: {skillList.Count}");
 
                 unitController.UnitEventController.NotifyOnLearnSkill(newSkill);
             }
+            else
+            {
+                Debug.LogWarning($"Skill {newSkill.ResourceName} already learned, skipping.");
+            }
         }
 
-        public void LoadSkill(CharacterSkillSaveData characterSkillSaveData) {
+        public void LoadSkill(string skillName)
+        {
             //Debug.Log("CharacterSkillManager.LoadSkill()");
 
             // don't crash on loading old save Data
-            if (characterSkillSaveData?.SkillResourceName == null || characterSkillSaveData.SkillResourceName == string.Empty) {
+            if (skillName == null || skillName == string.Empty)
+            {
                 return;
             }
-            if (!skillList.ContainsKey(characterSkillSaveData.SkillResourceName)) {
-                Skill skill = systemDataFactory.GetResource<Skill>(characterSkillSaveData.SkillResourceName);
-                CharacterSkillData characterSkillData = new CharacterSkillData {
-                    Skill = skill,
-                    SkillLevel = characterSkillSaveData.SkillLevel,
-                    SkillExperience = characterSkillSaveData.SkillExperience
-                };
-                skillList[characterSkillSaveData.SkillResourceName] = characterSkillData;
+            if (!skillList.ContainsKey(skillName))
+            {
+                Skill skill = skillName != null ? systemDataFactory.GetResource<Skill>(skillName)
+                : systemDataFactory.GetResource<WeaponSkill>(skillName) as Skill;
             }
         }
 
+        public void UnLearnSkill(Skill oldSkill)
+        {
+            if (oldSkill == null) return;
 
-        public void UnLearnSkill(Skill oldSkill) {
-            if (skillList.ContainsKey(oldSkill.ResourceName)) {
+            if (skillList.ContainsKey(oldSkill.ResourceName))
+            {
                 skillList.Remove(oldSkill.ResourceName);
-                foreach (AbilityProperties ability in oldSkill.AbilityList) {
+
+                if (skillProgress.ContainsKey(oldSkill.ResourceName))
+                {
+                    skillProgress.Remove(oldSkill.ResourceName);
+                }
+
+                foreach (AbilityProperties ability in oldSkill.AbilityList)
+                {
                     unitController.CharacterAbilityManager.UnlearnAbility(ability);
                 }
+                //Debug.Log($"Unlearned skill: {oldSkill.ResourceName}");
             }
+
             unitController.UnitEventController.NotifyOnUnLearnSkill(oldSkill);
-
         }
 
-        public int GetSkillLevel(Skill skill) {
-            if (skillList.ContainsKey(skill.ResourceName)) {
-                return skillList[skill.ResourceName].SkillLevel;
+        public void InitializeSkillProgress(Skill skill)
+        {
+            if (!skillProgress.ContainsKey(skill.ResourceName))
+            {
+                skillProgress.Add(skill.ResourceName, new SkillProgress(skill));
             }
-            return 0;
         }
 
-        public void AddSkillLevel(Skill skill, int addLevel) {
-            AddSkillLevel(skill, addLevel, true);
+        public void GainSkillXP(Skill skill, float xp, int nodeLevel)
+        {
+            if (!skillProgress.ContainsKey(skill.ResourceName))
+                return;
+
+            SkillProgress prog = skillProgress[skill.ResourceName];
+            scaledXP = ScaleXP(prog.level, nodeLevel, xp);
+            prog.xp += Mathf.Round(scaledXP);
+
+            ScaledXP = scaledXP;
+
+            CheckLevelUp(prog);
         }
 
-        public void AddSkillLevel(Skill skill, int addLevel, bool notify) {
-            //Debug.Log($"{unitController.gameObject.name}.CharacterSkillManager.AddSkillLevel({skill.ResourceName}, {addLevel})");
+        private float ScaleXP(int playerLevel, int nodeLevel, float baseXP)
+        {
+            int diff = nodeLevel - playerLevel;
 
-            if (skillList.ContainsKey(skill.ResourceName) == false) {
+            // harder content = bonus XP
+            if (diff > 0)
+            {
+                return baseXP * (1f + diff * skillXPMultiplier);
+            }
+
+            // equal difficulty
+            if (diff == 0)
+                return baseXP;
+
+            // easier content = penalty
+            float penalty = 1f / (1f + (-diff) * xpLevelPenalty);
+            float scaled = baseXP * penalty;
+
+            return Mathf.Max(minXPGranted, scaled);
+        }
+
+        public void RequestGainSkillXP(Skill skill, float xp, int nodeLevel)
+        {
+            FishNetUnitController fishNet = unitController.GetComponent<FishNetUnitController>();
+
+            //explicitly call each possible skill gain
+            if (fishNet == null)
+            {
+                // True offline mode (no networking at all)
+                GainSkillXP(skill, xp, nodeLevel);
                 return;
             }
 
-            CharacterSkillData characterSkillData = skillList[skill.ResourceName];
-            if (characterSkillData.SkillLevel >= skill.GetSkillCapForLevel(unitController.CharacterStats.Level)) {
-                return;
+            if (fishNet.IsServerStarted)
+            {
+                // Already on server
+                GainSkillXP(skill, xp, nodeLevel);
+                fishNet.HandleGainSkillXP(skill.ResourceName, unitController.CharacterSkillManager.GetSkillXP(skill.ResourceName), nodeLevel, (int)ScaledXP);
             }
-            characterSkillData.SkillLevel += addLevel;
-            if (characterSkillData.SkillLevel > skill.GetSkillCapForLevel(unitController.CharacterStats.Level)) {
-                characterSkillData.SkillLevel = skill.GetSkillCapForLevel(unitController.CharacterStats.Level);
-            }
-            if (notify == true) {
-                unitController.UnitEventController.NotifyOnAddSkillLevel(skill, addLevel);
+            else
+            {
+                // Client asks server
+                fishNet.HandleGainSkillXPServer(skill.ResourceName, xp, nodeLevel);
             }
         }
 
-        public void AddSkillExperience(Skill skill, int addExperience) {
-            //Debug.Log($"{unitController.gameObject.name}.CharacterSkillManager.AddSkillExperience({skill.ResourceName}, {addExperience})");
+        public void SetSkillXP(Skill skill, float xp)
+        {
+            SkillProgress prog = skillProgress[skill.ResourceName];
+            prog.xp = xp;
+        }
 
-            if (skillList.ContainsKey(skill.ResourceName) == false) {
-                return;
+        public float GetSkillXP(string skillName)
+        {
+            if (!skillProgress.ContainsKey(skillName))
+                return 0;
+
+            return skillProgress[skillName].xp;
+        }
+
+        private int GetXPRequiredForLevel(int level)
+        {
+            int roundedXP = Mathf.RoundToInt(entryXP * Mathf.Pow(level, skillXPMultiplier));
+            return roundedXP;
+        }
+
+        private void CheckLevelUp(SkillProgress prog)
+        {
+            FishNetUnitController fishNet = unitController.GetComponent<FishNetUnitController>();
+
+            if (prog.level <= skillLevelCap)
+            {
+                float needed = GetXPRequiredForLevel(prog.level);
+
+                if (prog.xp >= needed)
+                {
+                    prog.xp -= needed;
+                    prog.level++;
+
+                    LevelUpSkillEffect();
+
+                    if (fishNet == null || fishNet.IsServerInitialized)
+                    {
+                        // already server/offline > sync directly
+                        if (fishNet != null)
+                            fishNet.HandleSetSkillLevel(prog.skill.ResourceName, prog.level);
+                    }
+                    else
+                    {
+                        // client > ask server
+                        fishNet.HandleSetSkillLevelServer(prog.skill.ResourceName, prog.level);
+                    }
+                    Debug.Log($"{prog.skill.ResourceName} leveled to {prog.level}");
+                }
+                //Debug.Log($"Players {prog.skill} Level: {prog.level} Current XP: {prog.xp} XP Needed: {needed -= prog.xp}");
             }
-            CharacterSkillData characterSkillData = skillList[skill.ResourceName];
-            if (skill.UseSkillExperience == true) {
-                characterSkillData.SkillExperience += addExperience;
-                while (characterSkillData.SkillLevel < skill.GetSkillCapForLevel(unitController.CharacterStats.Level) && characterSkillData.SkillExperience >= skill.SkillExperienceChart[characterSkillData.SkillLevel - 1]) {
-                    characterSkillData.SkillExperience -= skill.SkillExperienceChart[characterSkillData.SkillLevel - 1];
-                    // only notify on level up if the server is not active.
-                    // This will prevent the server sending an extra message to the client to update the skill level,
-                    // since the client will calculate the level up on its own when the experience is added.
-                    AddSkillLevel(skill, 1, networkManagerServer.ServerModeActive == false);
+            else
+            {
+                Debug.Log("Skill level cap reached. Cant earn anymore xp");
+                prog.level = skillLevelCap;
+            }
+        }
+
+        public void SetSkillLevel(Skill skill, int level)
+        {
+            SkillProgress prog = skillProgress[skill.ResourceName];
+            prog.level = level;
+        }
+
+        private void LevelUpSkillEffect()
+        {
+            if (systemConfigurationManager.LevelUpEffect != null)
+            {
+                playerManager.PlayLevelUpEffects(unitController, 0);
+            }
+
+        }
+
+        public Skill GetAnySkill(string skillName)
+        {
+            Skill skill = systemDataFactory.GetResource<Skill>(skillName);
+            if (skill == null)
+            {
+                skill = systemDataFactory.GetResource<WeaponSkill>(skillName) as Skill;
+            }
+            return skill;
+        }
+
+        public int GetSkillLevel(Skill skill)
+        {
+            if (!skillProgress.ContainsKey(skill.ResourceName))
+            {
+                return 1;
+            }
+
+            return skillProgress[skill.ResourceName].level;
+        }
+
+        public SkillProgress GetSkillProgress(Skill skill)
+        {
+            if (!skillProgress.ContainsKey(skill.ResourceName))
+            {
+                skillProgress[skill.ResourceName] = new SkillProgress(skill);
+            }
+            return skillProgress[skill.ResourceName];
+        }
+
+        public float GetXPToNextLevel(Skill skill)
+        {
+            SkillProgress prog = GetSkillProgress(skill);
+            return GetXPRequiredForLevel(prog.level);
+        }
+
+        public float GetSkillProgressPercent(Skill skill)
+        {
+            SkillProgress prog = GetSkillProgress(skill);
+
+            float needed = GetXPRequiredForLevel(prog.level);
+            return prog.xp / needed;
+        }
+
+        public void AddDeathXP()
+        {
+            Skill dyingSkill = systemDataFactory.GetResource<Skill>("Dying");
+
+            if (!SkillList.ContainsKey("Dying"))
+            {
+                LearnSkill(dyingSkill);
+            }
+
+            RequestGainSkillXP(dyingSkill, 25f, 1);
+        }
+
+        public void AddWeaponXP(UnitProfile enemy, WeaponSkill associatedSkill)
+        {
+            if (associatedSkill != null && !HasSkill(associatedSkill))
+            {
+                LearnSkill(associatedSkill);
+            }
+
+            foreach (Skill skill in SkillList.Values.Cast<WeaponSkill>())
+            {
+                if (skill.ResourceName == associatedSkill.ResourceName)
+                {
+                    RequestGainSkillXP(skill, enemy.BaseXP, enemy.EnemyLevel);
+                }
+                else
+                {
+                    Debug.LogWarning($"{associatedSkill.ResourceName} does not match any skill in list");
                 }
             }
-            unitController.UnitEventController.NotifyOnAddSkillExperience(skill, addExperience);
         }
 
-        public CharacterSkillData GetCharacterSkillData(Skill skill) {
-            if (skillList.ContainsKey(skill.ResourceName)) {
-                return skillList[skill.ResourceName];
+        public List<SkillSaveData> GetSkillSaveData()
+        {
+            List<SkillSaveData> saveList = new List<SkillSaveData>();
+
+            foreach (var kvp in skillProgress)
+            {
+                SkillProgress prog = kvp.Value;
+
+                SkillSaveData data = new SkillSaveData();
+                data.SkillName = prog.skill.ResourceName;
+                data.SkillLevel = prog.level;
+                data.SkillXP = prog.xp;
+
+                //Debug.Log($"Saving - Skill Name: {data.SkillName}, Level: {data.SkillLevel}, XP: {data.SkillXP}");
+
+                saveList.Add(data);
             }
-            return null;
+
+            return saveList;
         }
 
-        /*
-        public void SetSkillExperience(Skill skill, int experienceValue) {
-            //Debug.Log($"{unitController.gameObject.name}.CharacterSkillManager.SetSkillExperience({skill.ResourceName}, {experienceValue})");
+        public void LoadSkillProgress(List<SkillSaveData> savedSkills)
+        {
+            foreach (SkillSaveData saved in savedSkills)
+            {
+                // Try to load as regular Skill first
+                //Skill skill = systemDataFactory.GetResource<Skill>(saved.SkillName);
 
-            if (skillList.ContainsKey(skill.ResourceName) == false) {
-                return;
+                //// If not found, try WeaponSkill
+                //if (skill == null)
+                //{
+                //    skill = systemDataFactory.GetResource<WeaponSkill>(saved.SkillName) as Skill;
+                //}
+
+                Skill skill = GetAnySkill(saved.SkillName);
+
+                if (skill == null)
+                {
+                    //Debug.LogWarning($"Could not load skill: {saved.SkillName}");
+                    continue;
+                }
+
+                if (!skillList.ContainsKey(saved.SkillName))
+                    LearnSkill(skill);
+
+                skillProgress[saved.SkillName].level = saved.SkillLevel;
+                skillProgress[saved.SkillName].xp = saved.SkillXP;
+
+                //Debug.Log($"Loaded - Skill Name: {saved.SkillName}, Level: {saved.SkillLevel}, XP: {saved.SkillXP}");
             }
-            CharacterSkillData characterSkillData = skillList[skill.ResourceName];
-            characterSkillData.SkillExperience = experienceValue;
         }
-        */
     }
 }

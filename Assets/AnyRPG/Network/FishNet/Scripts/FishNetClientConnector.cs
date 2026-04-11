@@ -190,12 +190,12 @@ namespace AnyRPG {
                 Debug.LogWarning($"Could not find NetworkObject component on {unitProfile.UnitPrefabProps.NetworkUnitPrefab.name}");
                 return null;
             }
-
             NetworkObject nob = GetSpawnablePrefab(unitProfile.UnitPrefabProps.NetworkUnitPrefab, null, position, forward);
             if (nob == null) {
                 Debug.LogWarning($"Could not spawn prefab {unitProfile.UnitPrefabProps.NetworkUnitPrefab.name} for unit {unitProfile.ResourceName}");
                 return null;
             }
+
             // update syncvars
             FishNetUnitController networkCharacterUnit = nob.gameObject.GetComponent<FishNetUnitController>();
             if (networkCharacterUnit != null) {
@@ -995,22 +995,22 @@ namespace AnyRPG {
 
 
 
-        public void RequestLearnSkill(Interactable interactable, int componentIndex, int skillId) {
+        public void RequestLearnSkill(Interactable interactable, int componentIndex, string skillName) {
             FishNetInteractable networkInteractable = null;
             if (interactable != null) {
                 networkInteractable = interactable.GetComponent<FishNetInteractable>();
             }
-            RequestLearnSkillServer(networkInteractable, componentIndex, skillId);
+            RequestLearnSkillServer(networkInteractable, componentIndex, skillName);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void RequestLearnSkillServer(FishNetInteractable targetNetworkInteractable, int componentIndex, int skillId, NetworkConnection networkConnection = null) {
+        public void RequestLearnSkillServer(FishNetInteractable targetNetworkInteractable, int componentIndex, string skillName, NetworkConnection networkConnection = null) {
 
             Interactable interactable = null;
             if (targetNetworkInteractable != null) {
                 interactable = targetNetworkInteractable.Interactable;
             }
-            networkManagerServer.LearnSkill(interactable, componentIndex, skillId, networkConnection.ClientId);
+            networkManagerServer.LearnSkill(interactable, componentIndex, skillName, networkConnection.ClientId);
         }
 
         public void RequestAcceptQuest(Interactable interactable, int componentIndex, Quest quest) {

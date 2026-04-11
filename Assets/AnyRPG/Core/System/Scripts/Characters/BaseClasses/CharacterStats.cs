@@ -70,8 +70,32 @@ namespace AnyRPG {
         public bool IsAlive { get => isAlive; }
         //public BaseCharacter BaseCharacter { get => unitController; set => unitController = value; }
 
-        public int Level { get => currentLevel; }
+        //public int Level { get => currentLevel; }
         public int CurrentXP { get => currentXP; set => currentXP = value; }
+
+        public int Level
+        {
+            get
+            {
+                // Option A: Use highest skill level
+                if (unitController?.CharacterSkillManager != null)
+                {
+                    int maxSkillLevel = 1;
+                    foreach (var prog in unitController.CharacterSkillManager.SkillList.Values)
+                    {
+                        int skillLevel = unitController.CharacterSkillManager.GetSkillLevel(prog);
+                        if (skillLevel > maxSkillLevel)
+                        {
+                            maxSkillLevel = skillLevel;
+                        }
+                    }
+                    return maxSkillLevel;
+                }
+
+                // Option B: Just return a fixed level
+                return 1; // or systemConfigurationManager.SkillLevelCap
+            }
+        }
 
         public List<PowerResource> PowerResourceList {
             get {
@@ -1064,35 +1088,46 @@ namespace AnyRPG {
             ProcessStatusEffectChanges(statusEffect);
         }
 
-        public void GainExperience(int xp) {
-            //Debug.Log($"{unitController.gameObject.name}.CharacterStats.GainXP({xp})");
-            currentXP += xp;
-            int overflowXP = 0;
-            int initialLevel = currentLevel;
-            int levelGains = 0;
-            //adjust current xp before sending notification
-            while (currentXP - LevelEquations.GetXPNeededForLevel(initialLevel + levelGains, systemConfigurationManager) >= 0) {
-                overflowXP = currentXP - LevelEquations.GetXPNeededForLevel(initialLevel + levelGains, systemConfigurationManager);
-                levelGains++;
-                currentXP = overflowXP;
-            }
-            unitController.UnitEventController.NotifyOnGainXP(xp, currentXP);
-            while (levelGains > 0) {
-                GainLevel();
-                levelGains--;
-            }
+        // Disable character leveling
+        public void GainExperience(int xp)
+        {
+            // Do nothing - progression is through skills
         }
+
+        public void GainLevel()
+        {
+            // Do nothing - no character levels
+        }
+
+        //public void GainExperience(int xp) {
+        //    //Debug.Log($"{unitController.gameObject.name}.CharacterStats.GainXP({xp})");
+        //    currentXP += xp;
+        //    int overflowXP = 0;
+        //    int initialLevel = currentLevel;
+        //    int levelGains = 0;
+        //    //adjust current xp before sending notification
+        //    while (currentXP - LevelEquations.GetXPNeededForLevel(initialLevel + levelGains, systemConfigurationManager) >= 0) {
+        //        overflowXP = currentXP - LevelEquations.GetXPNeededForLevel(initialLevel + levelGains, systemConfigurationManager);
+        //        levelGains++;
+        //        currentXP = overflowXP;
+        //    }
+        //    unitController.UnitEventController.NotifyOnGainXP(xp, currentXP);
+        //    while (levelGains > 0) {
+        //        GainLevel();
+        //        levelGains--;
+        //    }
+        //}
 
         public void SetXP(int xp) {
             currentXP = xp;
         }
 
-        public void GainLevel() {
-            // make gain level sound and graphic
-            SetLevelInternal(currentLevel + 1);
-            unitController.UnitEventController.NotifyOnLevelChanged(currentLevel);
-            SetResourceAmountsToMaximum();
-        }
+        //public void GainLevel() {
+        //    // make gain level sound and graphic
+        //    SetLevelInternal(currentLevel + 1);
+        //    unitController.UnitEventController.NotifyOnLevelChanged(currentLevel);
+        //    SetResourceAmountsToMaximum();
+        //}
 
         public void SetLevel(int newLevel) {
             SetLevelInternal(newLevel);
@@ -1380,6 +1415,12 @@ namespace AnyRPG {
 
             if (isAlive) {
                 isAlive = false;
+
+                if (unitController.UnitControllerMode == UnitControllerMode.Player)
+                {
+                    unitController.CharacterSkillManager.AddDeathXP();
+                }
+
                 if (systemGameManager.GameMode == GameMode.Local || networkManagerServer.ServerModeActive || levelManagerClient.IsCutscene()) {
                     // should only be done on server
                     ClearStatusEffects(false);
