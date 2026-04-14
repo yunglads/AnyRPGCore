@@ -202,6 +202,7 @@ namespace AnyRPG {
         public abstract void LoadNewLobbyGameScene(int accountId, LobbyGame lobbyGame, SceneNode sceneNode);
         public abstract void AdvertiseOpenInteractionWindow(int accountId, Interactable targetInteractable);
         public abstract void RequestInteractWithInteractable(Interactable target);
+        public abstract GameObject SpawnDroppedItem(Scene scene, Vector3 position, Quaternion rotation);
     }
 
 }

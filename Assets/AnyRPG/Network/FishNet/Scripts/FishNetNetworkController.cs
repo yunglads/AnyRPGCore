@@ -19,7 +19,10 @@ namespace AnyRPG {
         
         [SerializeField]
         private GameObject networkConnectorSpawnPrefab = null;
-        
+
+        [SerializeField]
+        private GameObject droppedItemPrefab = null;
+
         //private GameObject networkConnectorSpawnReference = null;
 
         /// <summary>
@@ -1214,6 +1217,10 @@ namespace AnyRPG {
             clientConnector.LoadNewLobbyGameScene(accountId, lobbyGame, sceneNode);
         }
 
+        public override GameObject SpawnDroppedItem(Scene scene, Vector3 position, Quaternion rotation)
+        {
+            return clientConnector.SpawnDroppedItem(scene, droppedItemPrefab, position, rotation);
+        }
 
         /*
         public override void SetCraftingManagerAbility(int accountId, string abilityName) {

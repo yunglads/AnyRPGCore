@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishNetDroppedItemPickup
       objectReference: {fileID: 0}
+    - target: {fileID: 5009206862445062809, guid: cca1cf6988b3dab4ea0bb98b1bb6a6f0,
+        type: 3}
+      propertyPath: m_UUID
+      value: b9b47335-87b3-4e96-b9e5-7cae6f045fe0
+      objectReference: {fileID: 0}
     - target: {fileID: 8704278066669917025, guid: cca1cf6988b3dab4ea0bb98b1bb6a6f0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -151,7 +156,7 @@ MonoBehaviour:
   _teleportThreshold: 1
   <PrefabId>k__BackingField: 65535
   <SpawnableCollectionId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 8507044569923375823
   SceneId: 0
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}

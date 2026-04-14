@@ -196,6 +196,9 @@ namespace AnyRPG {
         public event Action<int, int> OnRequestSplitStack = delegate { };
         public event Action<Skill, int> OnAddSkillLevel = delegate { };
         public event Action<Skill, int> OnAddSkillExperience = delegate { };
+        public event Action<int> OnRequestDropItemOnGround = delegate { };
+        public event Action OnCarryWeightChanged = delegate { };
+        public event Action<bool> OnEncumberedChange = delegate { };
 
         public event System.Action<string, float, int> OnGainSkillXP = delegate { };
         public event System.Action<string, int> OnSkillLevelChanged = delegate { };
@@ -1082,6 +1085,21 @@ namespace AnyRPG {
 
         public void NotifyOnRequestSplitStack(int inventorySlotIndex, int stackSize) {
             OnRequestSplitStack(inventorySlotIndex, stackSize);
+        }
+
+        public void NotifyOnRequestDropItemOnGround(int slotIndex)
+        {
+            OnRequestDropItemOnGround(slotIndex);
+        }
+
+        public void NotifyOnCarryWeightChanged()
+        {
+            OnCarryWeightChanged();
+        }
+
+        public void NotifyOnEncumberedChange(bool isEncumbered)
+        {
+            OnEncumberedChange(isEncumbered);
         }
 
         public void NotifyOnAddSkillLevel(Skill skill, int addLevel)

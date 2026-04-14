@@ -38,10 +38,16 @@ namespace AnyRPG {
         private List<TradeSkillPrerequisite> tradeSkillPrerequisites = new List<TradeSkillPrerequisite>();
 
         [SerializeField]
+        private List<TradeSkillPrerequisite> weaponSkillPrerequisites = new List<TradeSkillPrerequisite>();
+
+        [SerializeField]
         private List<AbilityPrerequisite> abilityPrerequisites = new List<AbilityPrerequisite>();
 
         [SerializeField]
         private List<FactionPrerequisite> factionPrerequisites = new List<FactionPrerequisite>();
+
+        [SerializeField]
+        private List<ItemPrerequisite> itemPrerequisites = new List<ItemPrerequisite>();
 
         //private IPrerequisiteOwner prerequisiteOwner = null;
         private List<IPrerequisiteOwner> prerequisiteOwners = new List<IPrerequisiteOwner>();
@@ -86,11 +92,13 @@ namespace AnyRPG {
                 allPrerequisites.Add(levelPrerequisites.Cast<IPrerequisite>().ToList());
                 allPrerequisites.Add(characterClassPrerequisites.Cast<IPrerequisite>().ToList());
                 allPrerequisites.Add(tradeSkillPrerequisites.Cast<IPrerequisite>().ToList());
+                allPrerequisites.Add(weaponSkillPrerequisites.Cast<IPrerequisite>().ToList());
                 allPrerequisites.Add(abilityPrerequisites.Cast<IPrerequisite>().ToList());
                 allPrerequisites.Add(questPrerequisites.Cast<IPrerequisite>().ToList());
                 allPrerequisites.Add(dialogPrerequisites.Cast<IPrerequisite>().ToList());
                 allPrerequisites.Add(visitZonePrerequisites.Cast<IPrerequisite>().ToList());
                 allPrerequisites.Add(factionPrerequisites.Cast<IPrerequisite>().ToList());
+                allPrerequisites.Add(itemPrerequisites.Cast<IPrerequisite>().ToList());
             }
         }
 

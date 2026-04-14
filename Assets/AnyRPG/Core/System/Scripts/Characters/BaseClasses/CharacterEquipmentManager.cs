@@ -6,6 +6,8 @@ using UnityEngine.TextCore.Text;
 namespace AnyRPG {
     public class CharacterEquipmentManager : EquipmentManager {
 
+        // state tracking
+        private float equippedWeight = 0f;
 
         // component references
         protected UnitController unitController = null;
@@ -22,6 +24,7 @@ namespace AnyRPG {
         public List<AbilityAttachmentNode> WeaponAbilityAnimationObjects { get => weaponAbilityAnimationObjects; }
         public List<AbilityAttachmentNode> WeaponAbilityObjects { get => weaponAbilityObjects; }
         public UnitController UnitController { get => unitController; }
+        public float EquippedWeight { get => equippedWeight; }
 
         public CharacterEquipmentManager(UnitController unitController, SystemGameManager systemGameManager) : base(systemGameManager) {
             //Debug.Log($"{unitController.gameObject.name}.CharacterEquipmentManager.CharacterEquipmentManager()");
@@ -174,7 +177,8 @@ namespace AnyRPG {
             return base.EquipEquipment(newEquipment, equipmentSlotProfile);
         }
 
-        public void HandleAddEquipment(EquipmentInventorySlot equipmentInventorySlot, InstantiatedEquipment instantiatedEquipment) {
+        public void HandleAddEquipment(EquipmentInventorySlot equipmentInventorySlot, InstantiatedEquipment instantiatedEquipment)
+        {
             //Debug.Log($"{unitController.gameObject.name}.CharacterEquipmentManager.HandleAddEquipment({equipmentInventorySlot.ToString()}, {(instantiatedEquipment != null ? instantiatedEquipment.ResourceName : "null")})");
 
             EquipmentSlotProfile equipmentSlotProfile = currentEquipmentLookup[equipmentInventorySlot];
@@ -183,6 +187,8 @@ namespace AnyRPG {
             NotifyEquipmentChanged(instantiatedEquipment, null, -1, equipmentSlotProfile);
             // now that all stats have been recalculated, it's safe to fire this event, so things that listen will show the correct values
             unitController.UnitEventController.NotifyOnAddEquipment(equipmentSlotProfile, instantiatedEquipment);
+            equippedWeight += instantiatedEquipment.Equipment.Weight;
+            unitController.CharacterInventoryManager.CalculateEncumbered();
         }
 
         public override void UnequipEquipment(EquipmentSlotProfile equipmentSlotProfile) {
@@ -284,13 +290,16 @@ namespace AnyRPG {
             return null;
         }
 
-        public void HandleRemoveEquipment(EquipmentInventorySlot equipmentInventorySlot, InstantiatedEquipment instantiatedEquipment) {
+        public void HandleRemoveEquipment(EquipmentInventorySlot equipmentInventorySlot, InstantiatedEquipment instantiatedEquipment)
+        {
             EquipmentSlotProfile equipmentSlotProfile = currentEquipmentLookup[equipmentInventorySlot];
             // FIX ME - that slotIndex used to come from the Unequip function above so this will go into the first empty slot in the bag instead of the one the old item came from
             // during a swap - maybe not such a big deal ?
             NotifyEquipmentChanged(null, instantiatedEquipment, -1, equipmentSlotProfile);
             // now that all stats have been recalculated, it's safe to fire this event, so things that listen will show the correct values
             unitController.UnitEventController.NotifyOnRemoveEquipment(equipmentSlotProfile, instantiatedEquipment);
+            equippedWeight -= instantiatedEquipment.Equipment.Weight;
+            unitController.CharacterInventoryManager.CalculateEncumbered();
         }
 
         public override InstantiatedEquipment UnequipFromList(EquipmentSlotProfile equipmentSlotProfile) {
