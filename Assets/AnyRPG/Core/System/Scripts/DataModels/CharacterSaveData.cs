@@ -1,3 +1,4 @@
+using FishNet.Serializing.Helping;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace AnyRPG {
         public List<EquippedBagSaveData> EquippedBagSaveData = new List<EquippedBagSaveData>();
         public List<EquippedBagSaveData> EquippedBankBagSaveData = new List<EquippedBagSaveData>();
         public List<AbilitySaveData> AbilitySaveData = new List<AbilitySaveData>();
-        public List<CharacterSkillSaveData> SkillSaveData = new List<CharacterSkillSaveData>();
+        //public List<CharacterSkillSaveData> SkillSaveData = new List<CharacterSkillSaveData>();
         public List<RecipeSaveData> RecipeSaveData = new List<RecipeSaveData>();
         public List<ReputationSaveData> ReputationSaveData = new List<ReputationSaveData>();
         public List<EquipmentInventorySlotSaveData> EquipmentSaveData = new List<EquipmentInventorySlotSaveData>();
@@ -58,6 +59,10 @@ namespace AnyRPG {
         public List<QuestSaveData> AchievementSaveData = new List<QuestSaveData>();
         public List<DialogSaveData> DialogSaveData = new List<DialogSaveData>();
         public List<String> VisitedSceneNodes = new List<String>();
+
+        public List<SkillSaveData> SkillSaveData = new List<SkillSaveData>();
+        public List<BuildingProgressSaveData> BuildingProgressSaveData = new List<BuildingProgressSaveData>();
+        public List<SharedBuildingProgressSaveData> SharedBuildingProgressSaveData = new List<SharedBuildingProgressSaveData>();
     }
 
 
@@ -199,4 +204,33 @@ namespace AnyRPG {
 
     }
 
+    [Serializable]
+    public struct SkillSaveData
+    {
+
+        public string SkillName;
+        public float SkillXP;
+        public int SkillLevel;
+    }
+
+    [Serializable]
+    public class BuildingProgressSaveData
+    {
+        public string BuildingID;
+        public int CurrentPhase;
+        public List<ResourceContributionSaveData> TurnedInResources = new List<ResourceContributionSaveData>();
+    }
+
+    [Serializable]
+    public class ResourceContributionSaveData
+    {
+        public string ItemID;
+        public int Amount;
+    }
+
+    [Serializable]
+    public class SharedBuildingProgressSaveData
+    {
+        public List<BuildingProgressSaveData> Buildings = new List<BuildingProgressSaveData>();
+    }
 }

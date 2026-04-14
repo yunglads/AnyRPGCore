@@ -36,21 +36,23 @@ namespace AnyRPG {
             text.text = $"<color={colorstring}>{recipe.Output.DisplayName}{craftString}</color>";
         }
 
-        public string GetColorString() {
-            if (recipe.Skill.UseSkillExperience == false && recipe.Skill.GiveCharacterExperience == false) {
+        public string GetColorString()
+        {
+            if (recipe.CraftAbility.ResourceName != string.Empty  /*&& recipe.Skill.GiveCharacterExperience == false*/)
+            {
                 // default to white if recipe doesn't give any experience
                 return "#ffffff";
             }
-            if (recipe.Skill != null
-                && recipe.Skill.UseSkillExperience
-                && (recipe.MaxSkillExperienceLevel >= playerManagerClient.UnitController.CharacterSkillManager.GetSkillLevel(recipe.Skill) || recipe.MaxSkillExperienceLevel == 0)) {
-                return "#00ff00";
-            }
-            if (recipe.Skill != null
-                && recipe.Skill.GiveCharacterExperience
-                && (recipe.MaxCharacterExperienceLevel >= playerManagerClient.UnitController.CharacterStats.Level || recipe.MaxCharacterExperienceLevel == 0)) {
-                return "#00ff00";
-            }
+            //if (recipe.Skill != null
+            //    && recipe.Skill.UseSkillExperience
+            //    && (recipe.MaxSkillExperienceLevel >= playerManagerClient.UnitController.CharacterSkillManager.GetSkillLevel(recipe.Skill) || recipe.MaxSkillExperienceLevel == 0)) {
+            //    return "#00ff00";
+            //}
+            //if (recipe.Skill != null
+            //    && recipe.Skill.GiveCharacterExperience
+            //    && (recipe.MaxCharacterExperienceLevel >= playerManagerClient.UnitController.CharacterStats.Level || recipe.MaxCharacterExperienceLevel == 0)) {
+            //    return "#00ff00";
+            //}
 
             // if recipe gives experience but character is at max skill level, gray it out
             return "#cccccc";

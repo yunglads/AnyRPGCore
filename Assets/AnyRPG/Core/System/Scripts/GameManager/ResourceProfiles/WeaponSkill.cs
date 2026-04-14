@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AnyRPG {
     [CreateAssetMenu(fileName = "New Weapon Skill", menuName = "AnyRPG/WeaponSkill")]
-    public class WeaponSkill : DescribableResource {
+    public class WeaponSkill : Skill  {
 
         [SerializeField]
         private WeaponSkillProps weaponSkillProps = new WeaponSkillProps();

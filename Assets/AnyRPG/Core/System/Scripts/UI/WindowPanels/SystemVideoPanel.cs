@@ -20,6 +20,9 @@ namespace AnyRPG {
         [SerializeField]
         private TMP_Dropdown resolutionDropDown = null;
 
+        [SerializeField]
+        private TMP_Dropdown cameraDropdown = null;
+
         /*
         [SerializeField]
         private TMP_Text graphicsDescription = null;
@@ -79,6 +82,10 @@ namespace AnyRPG {
                 PlayerPrefs.SetInt("Shadows", 2);
             }
 
+            if (!PlayerPrefs.HasKey("CameraControlMode"))
+            {
+                PlayerPrefs.SetInt("CameraControlMode", 0); // 0 = Classic (hold right click)
+            }
         }
 
         private void InitializeSettings() {
@@ -247,6 +254,29 @@ namespace AnyRPG {
                 QualitySettings.shadowDistance = 500;
                 shadowQualityArea.SelectButton(2);
             }
+        }
+
+        private void CheckCameraControlMode()
+        {
+            cameraDropdown.ClearOptions();
+            cameraDropdown.AddOptions(new List<string> { "Classic", "Free Look", "Action" });
+            cameraDropdown.value = PlayerPrefs.GetInt("CameraControlMode", 0);
+            cameraDropdown.RefreshShownValue();
+
+            // apply the saved setting to the camera
+            ApplyCameraControlMode(PlayerPrefs.GetInt("CameraControlMode", 0));
+        }
+
+        public void SetCameraControlMode(int modeIndex)
+        {
+            PlayerPrefs.SetInt("CameraControlMode", modeIndex);
+            PlayerPrefs.Save();
+            ApplyCameraControlMode(modeIndex);
+        }
+
+        private void ApplyCameraControlMode(int modeIndex)
+        {
+            //systemGameManager.CameraManager.MainCameraController.SetCameraMode((AnyRPGCameraController)modeIndex);
         }
 
         public void ShadowsOff() {

@@ -86,6 +86,19 @@ namespace AnyRPG {
             return returnValue;
         }
 
+        public Weapon GetEquippedWeapon()
+        {
+            foreach (EquipmentInventorySlot slot in CurrentEquipment.Values)
+            {
+                if (slot.InstantiatedEquipment != null
+                    && slot.InstantiatedEquipment.Equipment is Weapon weapon)
+                {
+                    return weapon;
+                }
+            }
+            return null;
+        }
+
         /// <summary>
         /// meant to be called by SetUnitProfile since it relies on that for the equipment list
         /// </summary>
@@ -164,7 +177,8 @@ namespace AnyRPG {
             return base.EquipEquipment(newEquipment, equipmentSlotProfile);
         }
 
-        public void HandleAddEquipment(EquipmentInventorySlot equipmentInventorySlot, InstantiatedEquipment instantiatedEquipment) {
+        public void HandleAddEquipment(EquipmentInventorySlot equipmentInventorySlot, InstantiatedEquipment instantiatedEquipment)
+        {
             //Debug.Log($"{unitController.gameObject.name}.CharacterEquipmentManager.HandleAddEquipment({equipmentInventorySlot.ToString()}, {(instantiatedEquipment != null ? instantiatedEquipment.ResourceName : "null")})");
 
             EquipmentSlotProfile equipmentSlotProfile = currentEquipmentLookup[equipmentInventorySlot];
@@ -276,7 +290,8 @@ namespace AnyRPG {
             return null;
         }
 
-        public void HandleRemoveEquipment(EquipmentInventorySlot equipmentInventorySlot, InstantiatedEquipment instantiatedEquipment) {
+        public void HandleRemoveEquipment(EquipmentInventorySlot equipmentInventorySlot, InstantiatedEquipment instantiatedEquipment)
+        {
             EquipmentSlotProfile equipmentSlotProfile = currentEquipmentLookup[equipmentInventorySlot];
             // FIX ME - that slotIndex used to come from the Unequip function above so this will go into the first empty slot in the bag instead of the one the old item came from
             // during a swap - maybe not such a big deal ?

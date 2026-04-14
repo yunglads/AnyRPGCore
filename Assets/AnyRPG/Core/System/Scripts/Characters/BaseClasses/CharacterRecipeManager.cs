@@ -35,18 +35,18 @@ namespace AnyRPG {
                 return false;
             }
             // recipe is above the character's level
-            if (recipe.RequiredLevel <= newLevel) {
+            if (recipe.RecipeLevel <= newLevel) {
                 return false;
             }
-            if (recipe.Skill != null) {
-                if (unitController.CharacterSkillManager.HasSkill(recipe.Skill) == false) {
-                    return false;
-                }
-                CharacterSkillData skillData = unitController.CharacterSkillManager.GetCharacterSkillData(recipe.Skill);
-                if (skillData.SkillLevel < recipe.RequiredSkillLevel) {
-                    return false;
-                }
-            }
+            //if (recipe.Skill != null) {
+            //    if (unitController.CharacterSkillManager.HasSkill(recipe.CraftAbility) == false) {
+            //        return false;
+            //    }
+            //    //CharacterSkillData skillData = unitController.CharacterSkillManager.GetCharacterSkillData(recipe.Skill);
+            //    //if (skillData.SkillLevel < recipe.RequiredSkillLevel) {
+            //    //    return false;
+            //    //}
+            //}
             return true;
         }
 

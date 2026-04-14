@@ -134,16 +134,19 @@ namespace AnyRPG {
             interactables.Clear();
         }
 
-        private void CollectMoveInput() {
+        private void CollectMoveInput()
+        {
             //Debug.Log("PlayerController.CollectMoveInput()");
             movementData.ResetMoveInput();
 
-            if (allowedInput == false) {
+            if (allowedInput == false)
+            {
                 //Debug.Log("Not allowed to Collect Move Input. Exiting PlayerController.CollectMoveInput()");
                 return;
             }
-            
-            if (windowManager.CurrentWindow == null) {
+
+            if (windowManager.CurrentWindow == null)
+            {
                 movementData.RightAnalogHorizontal = Input.GetAxis("RightAnalogHorizontal");
             }
 
@@ -152,26 +155,34 @@ namespace AnyRPG {
 
             //movementData.GamepadModeActive = controlsManager.GamepadModeActive;
             if (strafeModeActive == false
-                && cameraManager.MainCameraController.FirstPersonView == false) {
+                && cameraManager.MainCameraController.FirstPersonView == false)
+            {
                 //Debug.Log("PlayerController.CollectMoveInput() setting RotateModelMode to true because strafe mode is off and we are not in first person view");
                 movementData.RotateModelMode = true;
-            } else {
+            }
+            else
+            {
                 //Debug.Log("PlayerController.CollectMoveInput() setting RotateModelMode to false because strafe mode is on or we are in first person view");
                 movementData.RotateModelMode = false;
             }
 
             // don't allow jump or crouch while activating action bars
-            if (controlsManager.LeftTriggerDown == false && controlsManager.RightTriggerDown == false) {
-                if (inputManager.KeyBindWasPressed("JUMP")) {
+            if (controlsManager.LeftTriggerDown == false && controlsManager.RightTriggerDown == false)
+            {
+                if (inputManager.KeyBindWasPressed("JUMP"))
+                {
                     movementData.InputJump = true;
                 }
-                if (inputManager.KeyBindWasPressedOrHeld("JUMP")) {
+                if (inputManager.KeyBindWasPressedOrHeld("JUMP"))
+                {
                     movementData.InputFly = true;
                 }
-                if (inputManager.KeyBindWasPressedOrHeld("CROUCH")) {
+                if (inputManager.KeyBindWasPressedOrHeld("CROUCH"))
+                {
                     movementData.InputSink = true;
                 }
-                if (inputManager.KeyBindWasPressed("CROUCH")) {
+                if (inputManager.KeyBindWasPressed("CROUCH"))
+                {
                     movementData.InputCrouch = true;
                 }
             }
@@ -191,11 +202,13 @@ namespace AnyRPG {
 
             // turn off autorun if there is any movement input
             if (autorunActive
-                && ((movementData.InputHorizontal != 0f) || (movementData.InputVertical != 0f) || movementData.InputJump || movementData.InputFly || movementData.InputSink || movementData.InputStrafe || movementData.InputCrouch)) {
+                && ((movementData.InputHorizontal != 0f) || (movementData.InputVertical != 0f) || movementData.InputJump || movementData.InputFly || movementData.InputSink || movementData.InputStrafe || movementData.InputCrouch))
+            {
                 ToggleAutorun();
             }
 
-            if (autorunActive) {
+            if (autorunActive)
+            {
                 movementData.InputVertical = 1;
             }
 
@@ -203,14 +216,17 @@ namespace AnyRPG {
             movementData.TurnInput = new Vector3(movementData.InputTurn, 0, 0);
 
             if (inputManager.rightMouseButtonDown
-                && (inputManager.rightMouseButtonClickedOverUI == false || (namePlateManager != null ? namePlateManager.MouseOverNamePlate() : false))) {
+                && (inputManager.rightMouseButtonClickedOverUI == false || (namePlateManager != null ? namePlateManager.MouseOverNamePlate() : false)))
+            {
                 movementData.RightMouseButtonDown = true;
                 // we will pretend the right mouse was dragged if we have move input so the character will run away from the screen if the camera was pointing
                 // behind them at the start of the right mouse down, which is a common situation when trying to run away from something attacking you.
                 // Otherwise, the player would have to drag the mouse in a direction before the character would start moving, which could be frustrating in a combat situation.
-                if (inputManager.rightMouseButtonDownPosition != Input.mousePosition || movementData.HasMoveInput()) {
+                if (inputManager.rightMouseButtonDownPosition != Input.mousePosition || movementData.HasMoveInput())
+                {
                     if (movementData.RotateModelMode == false
-                        || cameraManager.MainCameraController.FirstPersonView == true) {
+                        || cameraManager.MainCameraController.FirstPersonView == true)
+                    {
                         movementData.FaceCameraDirection = true;
                     }
                 }
@@ -219,29 +235,48 @@ namespace AnyRPG {
             if (cameraManager.MainCameraController.FirstPersonView == true
                 && inputManager.leftMouseButtonDown
                 && (inputManager.leftMouseButtonClickedOverUI == false || (namePlateManager != null ? namePlateManager.MouseOverNamePlate() : false))
-                && (inputManager.leftMouseButtonDownPosition != Input.mousePosition || movementData.HasMoveInput())) {
+                && (inputManager.leftMouseButtonDownPosition != Input.mousePosition || movementData.HasMoveInput()))
+            {
                 movementData.FaceCameraDirection = true;
             }
 
             // if we are in first person view, we want to face the camera direction anytime we have move input, even if the mouse is not being used, because the player will expect that pushing forward will move them in the direction they are looking, and pushing back will move them backwards relative to the direction they are looking, etc.  This is a common behavior in first person games, and not having it would be frustrating.
-            if (cameraManager.MainCameraController.FirstPersonView == true && movementData.HasMoveInput() && movementData.HasTurnInput() == false) {
+            if (cameraManager.MainCameraController.FirstPersonView == true && movementData.HasMoveInput() && movementData.HasTurnInput() == false)
+            {
                 movementData.FaceCameraDirection = true;
             }
 
             if (mouseLookActive
                 && (movementData.RotateModelMode == false || cameraManager.MainCameraController.FirstPersonView == true)
-                && (Input.GetAxis("Mouse X") != 0f || Input.GetAxis("Mouse Y") != 0f)) { 
+                && (Input.GetAxis("Mouse X") != 0f || Input.GetAxis("Mouse Y") != 0f))
+            {
                 movementData.FaceCameraDirection = true;
             }
 
-            if (movementData.HasAnyInput()) {
+            if (systemConfigurationManager.CameraViewMode == CameraViewMode.Action)
+            {
+                movementData.FaceCameraDirection = true;
+                //Debug.Log($"Action mode: FaceCameraDirection = {movementData.FaceCameraDirection}, WantedDirection = {movementData.CameraWantedDirection}");
+            }
+
+            if (movementData.HasAnyInput())
+            {
                 // turn off the projector, so it has to be done client side
                 playerManagerClient.ActiveUnitController.CommonMovementNotifier();
             }
 
             playerManagerClient.ActiveUnitController.UnitMovementController.AddMovementData(movementData);
-        }
 
+            if (systemConfigurationManager.CameraViewMode == CameraViewMode.Action
+                && windowManager.CurrentWindow == null
+                && mouseOverInteractable != null)
+            {
+                if (inputManager.KeyBindWasPressed("INTERACT"))
+                {
+                    InterActWithTarget(mouseOverInteractable);
+                }
+            }
+        }
         public void ProcessInput() {
             //Debug.Log("PlayerController.ProcessInput()");
             //ResetMoveInput();
@@ -380,70 +415,112 @@ namespace AnyRPG {
         /// this code is necessary because the only other solution to mouseover through the player is to set the player to layer Ignore Raycast
         /// which breaks the invector controller
         /// </summary>
-        private void HandleMouseOver() {
-            //Debug.Log($"{gameObject.name}.PlayerController.HandleMouseOver()");
-            if (cameraManager.ActiveMainCamera == null) {
-                // we are in a cutscene and shouldn't be dealing with mouseover
+        private void HandleMouseOver()
+        {
+            if (cameraManager.ActiveMainCamera == null) return;
+
+            Ray ray;
+            if (systemConfigurationManager.CameraViewMode == CameraViewMode.Action)
+            {
+                
+                // Action mode: raycast from camera centre, ignore player layer
+                int playerMask = 1 << LayerMask.NameToLayer("Player");
+                int ignoreMask = 1 << LayerMask.NameToLayer("Ignore Raycast");
+                int spellMask = 1 << LayerMask.NameToLayer("SpellEffects");
+                int waterMask = 1 << LayerMask.NameToLayer("Water");
+                int layerMask = ~(playerMask | ignoreMask | spellMask | waterMask);
+                ray = cameraManager.ActiveMainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.yellow, 0.1f);
+
+                if (Physics.Raycast(ray, out mouseOverhit, 100f, layerMask))
+                {
+                    //Debug.Log($"Ray hit: {mouseOverhit.collider.gameObject.name} on layer: {LayerMask.LayerToName(mouseOverhit.collider.gameObject.layer)}");
+                    Interactable newInteractable = mouseOverhit.collider.GetComponent<Interactable>();
+                    if (newInteractable == null)
+                    {
+                        newInteractable = mouseOverhit.collider.GetComponentInParent<Interactable>();
+                    }
+
+                    if (mouseOverInteractable != null && mouseOverInteractable != newInteractable)
+                    {
+                        mouseOverInteractable.IsMouseOverUnit = false;
+                        mouseOverInteractable.OnMouseOut();
+                    }
+                    if (newInteractable != null && mouseOverInteractable != newInteractable)
+                    {
+                        newInteractable.IsMouseOverUnit = true;
+                        newInteractable.OnMouseIn();
+                    }
+                    mouseOverInteractable = newInteractable;
+                }
+                else
+                {
+                    //Debug.Log("Ray missed everything");
+                    DisableMouseOver();
+                }
                 return;
             }
 
-            // don't do anything if the mouse is outside the screen bounds
-            if (MouseOutsideScreen()) {
-                DisableMouseOver();
-                return;
-            }
+            if (systemConfigurationManager.CameraViewMode == CameraViewMode.Classic
+            || systemConfigurationManager.CameraViewMode == CameraViewMode.Isometric)
+            {
+                // Classic mode: original mouse raycast behavior below, unchanged
+                if (MouseOutsideScreen())
+                {
+                    DisableMouseOver();
+                    return;
+                }
+                if (controlsManager.MouseDisabled == true)
+                {
+                    return;
+                }
 
-            // gamepad mode can hide the cursor.  Mouseover should not be activated when the cursor is hidden
-            if (controlsManager.MouseDisabled == true) {
-                return;
-            }
+                ray = cameraManager.ActiveMainCamera.ScreenPointToRay(Input.mousePosition);
+                int playerMask2 = 1 << LayerMask.NameToLayer("Player");
+                int ignoreMask2 = 1 << LayerMask.NameToLayer("Ignore Raycast");
+                int spellMask2 = 1 << LayerMask.NameToLayer("SpellEffects");
+                int waterMask2 = 1 << LayerMask.NameToLayer("Water");
+                int layerMask2 = ~(playerMask2 | ignoreMask2 | spellMask2 | waterMask2);
 
-            Ray ray = cameraManager.ActiveMainCamera.ScreenPointToRay(Input.mousePosition);
-            int playerMask = 1 << LayerMask.NameToLayer("Player");
-            int ignoreMask = 1 << LayerMask.NameToLayer("Ignore Raycast");
-            int spellMask = 1 << LayerMask.NameToLayer("SpellEffects");
-            int waterMask = 1 << LayerMask.NameToLayer("Water");
-            int layerMask = ~(playerMask | ignoreMask | spellMask | waterMask);
-            //int layerMask = ~( ignoreMask | spellMask | waterMask);
+                bool disableMouseOver = false;
+                bool mouseOverNamePlate = namePlateManager.MouseOverNamePlate();
 
-            bool disableMouseOver = false;
-            bool mouseOverNamePlate = false;
-            mouseOverNamePlate = namePlateManager.MouseOverNamePlate();
-
-            if (!EventSystem.current.IsPointerOverGameObject() && !mouseOverNamePlate) {
-                if (Physics.Raycast(ray, out mouseOverhit, 100, layerMask)) {
-                    // prevent clicking on mount
-                    if (mouseOverhit.collider.gameObject != playerManagerClient.ActiveUnitController.gameObject
-                        && mouseOverhit.collider.gameObject != playerManagerClient.UnitController.gameObject) {
-                        Interactable newInteractable = mouseOverhit.collider.GetComponent<Interactable>();
-                        if (newInteractable == null) {
-                            newInteractable = mouseOverhit.collider.GetComponentInParent<Interactable>();
+                if (!EventSystem.current.IsPointerOverGameObject() && !mouseOverNamePlate)
+                {
+                    if (Physics.Raycast(ray, out mouseOverhit, 100, layerMask2))
+                    {
+                        if (mouseOverhit.collider.gameObject != playerManagerClient.ActiveUnitController.gameObject
+                            && mouseOverhit.collider.gameObject != playerManagerClient.UnitController.gameObject)
+                        {
+                            Interactable newInteractable = mouseOverhit.collider.GetComponent<Interactable>();
+                            if (newInteractable == null)
+                            {
+                                newInteractable = mouseOverhit.collider.GetComponentInParent<Interactable>();
+                            }
+                            if (mouseOverInteractable != null && mouseOverInteractable != newInteractable)
+                            {
+                                mouseOverInteractable.IsMouseOverUnit = false;
+                                mouseOverInteractable.OnMouseOut();
+                            }
+                            if (newInteractable != null && mouseOverInteractable != newInteractable)
+                            {
+                                newInteractable.IsMouseOverUnit = true;
+                                newInteractable.OnMouseIn();
+                            }
+                            mouseOverInteractable = newInteractable;
                         }
-
-                        if (mouseOverInteractable != null && mouseOverInteractable != newInteractable) {
-                            // since we hit something, and our existing thing was not null, we have to exit the old one
-                            mouseOverInteractable.IsMouseOverUnit = false;
-                            mouseOverInteractable.OnMouseOut();
-                        }
-
-                        if (newInteractable != null && mouseOverInteractable != newInteractable) {
-                            // we have a new interactable, activate mouseover
-                            newInteractable.IsMouseOverUnit = true;
-                            newInteractable.OnMouseIn();
-                        }
-                        mouseOverInteractable = newInteractable;
                     }
                 }
-            } else {
-                disableMouseOver = true;
-                //Debug.Log($"{gameObject.name}.PlayerController.HandleMouseOver(): mouseovernameplate: " + namePlateManager.MouseOverNamePlate() + "; pointerovergameobject: " + EventSystem.current.IsPointerOverGameObject());
-            }
+                else
+                {
+                    disableMouseOver = true;
+                }
 
-            if (disableMouseOver) {
-                // we did not hit any interactable, check if a current interactable is set and unset it
-                DisableMouseOver();
+                if (disableMouseOver)
+                {
+                    DisableMouseOver();
+                }
             }
-
         }
 
         public void DisableMouseOver() {
@@ -1026,11 +1103,12 @@ namespace AnyRPG {
         public void SubscribeToUnitEvents() {
             //Debug.Log($"PlayerController.SubscribeToUnitEvents() activeUnitController: {(playerManagerClient.ActiveUnitController == null ? "null" : playerManagerClient.ActiveUnitController.gameObject.name)}");
 
-            // this one catches the initial player unit spawn
+            /*
             if (playerManagerClient.ActiveUnitController.UnitProfile.UnitPrefabProps.ForceRotateModelMode == true) {
                 //Debug.Log($"PlayerController.SubscribeToUnitEvents() force rotate model mode enabled, disabling strafe mode");
                 strafeModeActive = false;
             }
+            */
 
             // if player was agrod at spawn, they may have a target already since we subscribe on model ready
             playerManagerClient.ActiveUnitController.UnitEventController.OnSetTarget += HandleSetTarget;
@@ -1114,9 +1192,8 @@ namespace AnyRPG {
         }
 
         public void ProcessSetActiveUnitController() {
-            Debug.Log($"PlayerController.ProcessSetActiveUnitController() activeUnitController: {(playerManagerClient.ActiveUnitController == null ? "null" : playerManagerClient.ActiveUnitController.gameObject.name)}");
+            //Debug.Log($"PlayerController.ProcessSetActiveUnitController() activeUnitController: {(playerManagerClient.ActiveUnitController == null ? "null" : playerManagerClient.ActiveUnitController.gameObject.name)}");
             
-            // this one captures the switch between mounted and normal states
             if (playerManagerClient.ActiveUnitController.UnitProfile.UnitPrefabProps.ForceRotateModelMode == true) {
                 //Debug.Log($"PlayerController.ProcessSetActiveUnitController() force rotate model mode enabled, disabling strafe mode");
                 strafeModeActive = false;

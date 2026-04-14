@@ -48,17 +48,17 @@ namespace AnyRPG {
                 // add string for required skill level if there is a required skill
                 string skillLevelString = string.Empty;
                 if (recipe.Skill != null) {
-                    if (playerManagerClient.UnitController.CharacterSkillManager.HasSkill(recipe.Skill) && playerManagerClient.UnitController.CharacterSkillManager.GetSkillLevel(recipe.Skill) > recipe.RequiredSkillLevel) {
-                        skillLevelString = $"<color=white>Requires: {recipe.Skill.DisplayName} level {recipe.RequiredLevel}</color>\n";
+                    if (playerManagerClient.UnitController.CharacterSkillManager.HasSkill(recipe.Skill) && playerManagerClient.UnitController.CharacterSkillManager.GetSkillLevel(recipe.Skill) > recipe.RecipeLevel) {
+                        skillLevelString = $"<color=white>Requires: {recipe.Skill.DisplayName} level {recipe.RecipeLevel}</color>\n";
                     } else {
-                        skillLevelString = $"<color=red>Requires: {recipe.Skill.DisplayName} level {recipe.RequiredLevel}</color>\n";
+                        skillLevelString = $"<color=red>Requires: {recipe.Skill.DisplayName} level {recipe.RecipeLevel}</color>\n";
                     }
                 }
                 string characterLevelString = string.Empty;
-                if (playerManagerClient.UnitController.CharacterStats.Level >= recipe.RequiredLevel) {
-                    characterLevelString = $"<color=white>Requires Character Level {recipe.RequiredLevel}</color>\n";
+                if (playerManagerClient.UnitController.CharacterStats.Level >= recipe.RecipeLevel) {
+                    characterLevelString = $"<color=white>Requires Character Level {recipe.RecipeLevel}</color>\n";
                 } else {
-                    characterLevelString = $"<color=red>Requires Character Level {recipe.RequiredLevel}</color>\n";
+                    characterLevelString = $"<color=red>Requires Character Level {recipe.RecipeLevel}</color>\n";
                 }
                 returnString += $"\n<color=green>Recipe</color>\n{alreadyKnownString}{characterLevelString}{abilityKnownString}{skillLevelString}{recipe.Output.GetDescription()}";
             }

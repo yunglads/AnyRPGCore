@@ -12,6 +12,9 @@ namespace AnyRPG {
 
         // game manager references
         private PlayerManagerClient playerManagerClient = null;
+        private CraftingNodeComponent activeCraftingNode;
+
+        public CraftingNodeComponent ActiveNode => activeCraftingNode;
 
         public override void SetGameManagerReferences() {
             base.SetGameManagerReferences();
@@ -55,6 +58,11 @@ namespace AnyRPG {
 
         public void CancelCrafting(UnitController sourceUnitController) {
             sourceUnitController.CharacterCraftingManager.CancelCrafting();
+        }
+
+        public void SetActiveCraftingNode(CraftingNodeComponent node)
+        {
+            activeCraftingNode = node;
         }
 
     }

@@ -932,7 +932,7 @@ namespace AnyRPG {
         }
 
 
-        public void LearnSkill(Interactable interactable, int componentIndex, int skillId, int clientId) {
+        public void LearnSkill(Interactable interactable, int componentIndex, string skillName, int clientId) {
             int accountId = authenticationService.GetAccountId(clientId);
             if (accountId == -1) {
                 return;
@@ -940,7 +940,7 @@ namespace AnyRPG {
             if (playerManagerServer.ActiveUnitControllers.ContainsKey(accountId) == false) {
                 return;
             }
-            skillTrainerManagerServer.LearnSkill(playerManagerServer.ActiveUnitControllers[accountId], interactable, componentIndex, skillId);
+            skillTrainerManagerServer.LearnSkill(playerManagerServer.ActiveUnitControllers[accountId], interactable, componentIndex, skillName);
         }
 
         public void RequestSendMail(Interactable interactable, int componentIndex, MailMessageRequest sendMailRequest, int clientId) {
@@ -2025,7 +2025,8 @@ namespace AnyRPG {
             interactionManagerServer.InteractWithInteractable(unitController, interactable);
         }
 
-        public GameObject SpawnDroppedItem(Scene scene, Vector3 position, Quaternion rotation) {
+        public GameObject SpawnDroppedItem(Scene scene, Vector3 position, Quaternion rotation)
+        {
             return networkController.SpawnDroppedItem(scene, position, rotation);
         }
     }

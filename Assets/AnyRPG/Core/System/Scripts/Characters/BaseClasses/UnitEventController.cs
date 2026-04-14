@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AnyRPG {
@@ -198,6 +199,11 @@ namespace AnyRPG {
         public event Action<int> OnRequestDropItemOnGround = delegate { };
         public event Action OnCarryWeightChanged = delegate { };
         public event Action<bool> OnEncumberedChange = delegate { };
+
+        public event System.Action<string, float, int> OnGainSkillXP = delegate { };
+        public event System.Action<string, int> OnSkillLevelChanged = delegate { };
+        public event System.Action<string, int, List<BuildingProgressSaveData>> OnBuildingProgressChanged = delegate { };
+
 
         //public event System.Action<BaseAbilityProperties, Interactable> OnTargetInAbilityRangeFail = delegate { };
 
@@ -673,7 +679,7 @@ namespace AnyRPG {
         public void NotifyOnLearnSkill(Skill newSkill) {
             //Debug.Log($"{unitController.gameObject.name}.UnitEventController.NotifyOnLearnSkill({newSkill.ResourceName})");
 
-            OnLearnSkill(unitController, newSkill);
+            OnLearnSkill?.Invoke(unitController, newSkill);
         }
 
         public void NotifyOnUnLearnSkill(Skill oldSkill) {
@@ -1004,6 +1010,13 @@ namespace AnyRPG {
             OnWriteMessageFeedMessage(messageText);
         }
 
+        public void NotifyOnWriteColoredMessageFeedMessage(string messageText, Color color)
+        {
+            //Debug.Log($"{unitController.gameObject.name}.UnitEventController.NotifyOnWriteMessageFeedMessage({messageText})");
+
+            OnWriteMessageFeedMessage(messageText);
+        }
+
         public void NotifyOnItemCountChanged(Item item) {
             OnItemCountChanged(unitController, item);
         }
@@ -1074,24 +1087,44 @@ namespace AnyRPG {
             OnRequestSplitStack(inventorySlotIndex, stackSize);
         }
 
-        public void NotifyOnAddSkillLevel(Skill skill, int addLevel) {
-            OnAddSkillLevel(skill, addLevel);
-        }
-
-        public void NotifyOnAddSkillExperience(Skill skill, int skillExperience) {
-            OnAddSkillExperience(skill, skillExperience);
-        }
-
-        public void NotifyOnRequestDropItemOnGround(int slotIndex) {
+        public void NotifyOnRequestDropItemOnGround(int slotIndex)
+        {
             OnRequestDropItemOnGround(slotIndex);
         }
 
-        public void NotifyOnCarryWeightChanged() {
+        public void NotifyOnCarryWeightChanged()
+        {
             OnCarryWeightChanged();
         }
 
-        public void NotifyOnEncumberedChange(bool isEncumbered) {
+        public void NotifyOnEncumberedChange(bool isEncumbered)
+        {
             OnEncumberedChange(isEncumbered);
+        }
+
+        public void NotifyOnAddSkillLevel(Skill skill, int addLevel)
+        {
+            OnAddSkillLevel(skill, addLevel);
+        }
+
+        public void NotifyOnAddSkillExperience(Skill skill, int skillExperience)
+        {
+            OnAddSkillExperience(skill, skillExperience);
+        }
+
+        public void NotifyOnGainSkillXP(string skill, float currentXP, int nodeLevel)
+        {
+            OnGainSkillXP.Invoke(skill, currentXP, nodeLevel);
+        }
+
+        public void NotifyOnSkillLevelChanged(string skill, int currentLevel)
+        {
+            OnSkillLevelChanged.Invoke(skill, currentLevel);
+        }
+
+        public void NotifyOnBuildingProgressChanged(string buildingID, int newPhase, List<BuildingProgressSaveData> buildingProgress)
+        {
+            OnBuildingProgressChanged.Invoke(buildingID, newPhase, buildingProgress);
         }
 
         #endregion

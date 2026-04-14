@@ -1,8 +1,13 @@
+using AnyRPG;
+using FishNet.Serializing.Helping;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.ShaderGraph.Internal;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace AnyRPG {
     public class CharacterInventoryManager : ConfiguredClass {
@@ -26,11 +31,8 @@ namespace AnyRPG {
         private List<EquipmentInventorySlot> equipmentSlots = new List<EquipmentInventorySlot>();
 
         //private Dictionary<int, InstantiatedItem> instantiatedItems = new Dictionary<int, InstantiatedItem>();
-
-        private UnitController unitController = null;
-        
-        // state tracking
         private float weight = 0f;
+        private UnitController unitController = null;
 
         // game manager references
         private LootManager lootManager = null;
@@ -80,8 +82,7 @@ namespace AnyRPG {
         public List<InventorySlot> InventorySlots { get => inventorySlots; set => inventorySlots = value; }
         public List<InventorySlot> BankSlots { get => bankSlots; set => bankSlots = value; }
         public List<EquipmentInventorySlot> EquipmentSlots { get => equipmentSlots; set => equipmentSlots = value; }
-        public float Weight { get => weight; }
-
+        public float Weight { get => weight; set => weight = value; }
         public CharacterInventoryManager(UnitController unitController, SystemGameManager systemGameManager) {
             //Debug.Log(baseCharacter.gameObject.name + ".CharacterStats()");
             this.unitController = unitController;
@@ -178,9 +179,10 @@ namespace AnyRPG {
             OnAddInventorySlot(inventorySlot);
         }
 
-        private void HandleRemoveItemFromInventorySlot(InventorySlot slot, InstantiatedItem instantiatedItem) {
+        private void HandleRemoveItemFromInventorySlot(InventorySlot slot, InstantiatedItem instantiatedItem)
+        {
             //Debug.Log($"{unitController.gameObject.name}.CharacterInventoryManager.HandleRemoveItemFromInventorySlot({instantiatedItem.Item.ResourceName})");
-            
+
             weight -= instantiatedItem.Item.Weight;
             NotifyOnItemCountChanged(instantiatedItem.Item);
             unitController.UnitEventController.NotifyOnRemoveItemFromInventorySlot(slot, instantiatedItem);
@@ -188,9 +190,10 @@ namespace AnyRPG {
             unitController.UnitEventController.NotifyOnCarryWeightChanged();
         }
 
-        private void HandleAddItemToInventorySlot(InventorySlot slot, InstantiatedItem instantiatedItem) {
+        private void HandleAddItemToInventorySlot(InventorySlot slot, InstantiatedItem instantiatedItem)
+        {
             //Debug.Log($"{unitController.gameObject.name}.CharacterInventoryManager.HandleAddItemToInventorySlot({slot.GetCurrentInventorySlotIndex(unitController)}, {instantiatedItem.Item.ResourceName})");
-            
+
             weight += instantiatedItem.Item.Weight;
             NotifyOnItemCountChanged(instantiatedItem.Item);
             unitController.UnitEventController.NotifyOnAddItemToInventorySlot(slot, instantiatedItem);
@@ -198,11 +201,15 @@ namespace AnyRPG {
             unitController.UnitEventController.NotifyOnCarryWeightChanged();
         }
 
-        public void CalculateEncumbered() {
+        public void CalculateEncumbered()
+        {
             float totalWeight = weight + unitController.CharacterEquipmentManager.EquippedWeight;
-            if (totalWeight > systemConfigurationManager.BaseCarryWeight + unitController.CharacterStats.SecondaryStats[SecondaryStatType.CarryWeight].CurrentValue) {
+            if (totalWeight > systemConfigurationManager.BaseCarryWeight + unitController.CharacterStats.SecondaryStats[SecondaryStatType.CarryWeight].CurrentValue)
+            {
                 unitController.SetEncumbered(true);
-            } else {
+            }
+            else
+            {
                 unitController.SetEncumbered(false);
             }
         }
@@ -663,6 +670,38 @@ namespace AnyRPG {
             unitController.UnitEventController.NotifyOnItemCountChanged(item);
         }
 
+        public int GetInvItemCount(string type, bool partialMatch = false)
+        {
+            //Debug.Log("InventoryManager.GetItemCount(" + type + ")");
+            int itemCount = 0;
+
+            foreach (InventorySlot slot in inventorySlots)
+            {
+                if (!slot.IsEmpty && SystemDataUtility.MatchResource(slot.InstantiatedItem.Item.ResourceName, type, partialMatch))
+                {
+                    itemCount += slot.Count;
+                }
+            }
+
+            return itemCount;
+        }
+
+        public int GetBankItemCount(string type, bool partialMatch = false)
+        {
+            //Debug.Log("InventoryManager.GetItemCount(" + type + ")");
+            int itemCount = 0;
+
+            foreach (InventorySlot slot in bankSlots)
+            {
+                if (!slot.IsEmpty && SystemDataUtility.MatchResource(slot.InstantiatedItem.Item.ResourceName, type, partialMatch))
+                {
+                    itemCount += slot.Count;
+                }
+            }
+
+            return itemCount;
+        }
+
         public int GetItemCount(string type, bool partialMatch = false) {
             //Debug.Log("InventoryManager.GetItemCount(" + type + ")");
             int itemCount = 0;
@@ -886,85 +925,111 @@ namespace AnyRPG {
             messageLogServer.WriteSystemMessage(unitController, $"Destroyed {instantiatedItem.DisplayName}");
         }
 
-        public void RequestDropItemOnGround(InventorySlot inventorySlot) {
-            if (systemGameManager.GameMode == GameMode.Local) {
+        public void RequestDropItemOnGround(InventorySlot inventorySlot)
+        {
+            if (systemGameManager.GameMode == GameMode.Local)
+            {
                 DropItemOnGround(inventorySlot);
-            } else {
+            }
+            else
+            {
                 unitController.UnitEventController.NotifyOnRequestDropItemOnGround(inventorySlot.GetCurrentInventorySlotIndex(unitController));
             }
         }
 
-        public void DropItemOnGround(int inventorySlotIndex) {
-            if (inventorySlots.Count > inventorySlotIndex) {
+        public void DropItemOnGround(int inventorySlotIndex)
+        {
+            if (inventorySlots.Count > inventorySlotIndex)
+            {
                 DropItemOnGround(inventorySlots[inventorySlotIndex]);
             }
         }
 
-        public void DropItemOnGround(InventorySlot inventorySlot) {
+        public void DropItemOnGround(InventorySlot inventorySlot)
+        {
             //Debug.Log($"{unitController.gameObject.name}.CharacterInventoryManager.DropItemOnGround()");
-            if (inventorySlot.IsEmpty) {
+            if (inventorySlot.IsEmpty)
+            {
                 return;
             }
-            if (inventorySlot.InstantiatedItem?.Item?.ItemPickupPrefabProfile == null) {
+            if (inventorySlot.InstantiatedItem?.Item?.ItemPickupPrefabProfile == null)
+            {
                 return;
             }
             List<InstantiatedItem> itemsToDrop = new List<InstantiatedItem>();
-            foreach (InstantiatedItem instantiatedItem in inventorySlot.InstantiatedItems.Values) {
+            foreach (InstantiatedItem instantiatedItem in inventorySlot.InstantiatedItems.Values)
+            {
                 itemsToDrop.Add(instantiatedItem);
             }
             inventorySlot.RemoveAllItems();
 
-            if (systemConfigurationManager.SplitStacksOnDrop == true) {
-                foreach (InstantiatedItem instantiatedItem in itemsToDrop) {
+            if (systemConfigurationManager.SplitStacksOnDrop == true)
+            {
+                foreach (InstantiatedItem instantiatedItem in itemsToDrop)
+                {
                     List<InstantiatedItem> singleItemList = new List<InstantiatedItem>();
                     singleItemList.Add(instantiatedItem);
                     DropItemsOnGround(singleItemList);
                 }
-            } else {
+            }
+            else
+            {
                 DropItemsOnGround(itemsToDrop);
             }
         }
 
-        private void DropItemsOnGround(List<InstantiatedItem> itemsToDrop) {
+        private void DropItemsOnGround(List<InstantiatedItem> itemsToDrop)
+        {
             //Debug.Log($"{unitController.gameObject.name}.CharacterInventoryManager.DropItemsOnGround(count: {itemsToDrop.Count})");
 
             GameObject droppedPrefab = null;
             // spawn the item drop prefab for each item we are dropping
-            if (systemGameManager.GameMode == GameMode.Local) {
+            if (systemGameManager.GameMode == GameMode.Local)
+            {
                 droppedPrefab = objectPooler.GetPooledObject(systemGameManager.DroppedItemPrefab, unitController.transform.position, Quaternion.identity, null);
-            } else {
+            }
+            else
+            {
                 droppedPrefab = networkManagerServer.SpawnDroppedItem(unitController.gameObject.scene, unitController.transform.position, Quaternion.identity);
             }
-            if (droppedPrefab == null) {
+            if (droppedPrefab == null)
+            {
                 Debug.LogWarning($"{unitController.gameObject.name}.CharacterInventoryManager.DropItemOnGround() could not spawn dropped item prefab");
                 return;
             }
-            if (systemGameManager.GameMode == GameMode.Local) {
+            if (systemGameManager.GameMode == GameMode.Local)
+            {
                 droppedPrefab.transform.position = unitController.transform.position;
             }
             SceneManager.MoveGameObjectToScene(droppedPrefab, unitController.gameObject.scene);
             UUID uuidComponent = droppedPrefab.GetComponent<UUID>();
-            if (uuidComponent != null) {
+            if (uuidComponent != null)
+            {
                 // generate a new uuid for this dropped item so it doesn't conflict with the UUID of the prefab it was spawned from
                 uuidComponent.ForceUpdateUUID = true;
             }
             Interactable _interactable = droppedPrefab.GetComponent<Interactable>();
-            if (_interactable == null) {
+            if (_interactable == null)
+            {
                 Debug.LogWarning($"{unitController.gameObject.name}.CharacterInventoryManager.DropItemOnGround() could not find interactable component on dropped item prefab");
                 return;
             }
             _interactable.Configure(systemGameManager);
             _interactable.PersistentObjectComponent.MoveOnStart = false;
             DroppedItemComponent droppedItemComponent = _interactable.GetFirstInteractableOption(typeof(DroppedItemComponent)) as DroppedItemComponent;
-            if (droppedItemComponent != null) {
+            if (droppedItemComponent != null)
+            {
                 droppedItemComponent.SetDroppedItems(itemsToDrop);
-            } else {
+            }
+            else
+            {
                 Debug.LogWarning($"{unitController.gameObject.name}.CharacterInventoryManager.DropItemOnGround() could not find DroppedItemComponent on dropped item prefab");
             }
             levelManagerServer.RegisterDroppedItem(_interactable);
             _interactable.Init();
 
-            if (droppedItemComponent.Rigidbody != null) {
+            if (droppedItemComponent.Rigidbody != null)
+            {
                 // 1. Reset everything
                 // first, move the object up so that the bottom of the object collider bounds is at the player's feet, so it doesn't drop through the ground when spawned
                 float yOffset = droppedItemComponent.BoxCollider.bounds.extents.y;

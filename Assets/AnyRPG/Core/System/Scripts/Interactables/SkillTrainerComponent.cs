@@ -2,6 +2,7 @@ using AnyRPG;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace AnyRPG {
@@ -60,7 +61,12 @@ namespace AnyRPG {
 
         public void HandleSkillListChanged(UnitController sourceUnitController, Skill skill) {
             // this is a special case.  since skill is not a prerequisites, we need to subscribe directly to the event to get notified things have changed
-            if (Props.Skills.Contains(skill)) {
+            //if (Props.Skills.Contains(skill)) {
+            //    HandlePrerequisiteUpdates(sourceUnitController);
+            //}
+
+            if (Props.Skills.Exists(s => s.ResourceName == skill.ResourceName))
+            {
                 HandlePrerequisiteUpdates(sourceUnitController);
             }
         }
@@ -110,18 +116,33 @@ namespace AnyRPG {
                     returnList.Add(counter, skill);
                 }
                 counter++;
+
+                Debug.Log($"Skills in list: {returnList.Values}");
             }
 
             return returnList;
         }
 
-        public void LearnSkill(UnitController sourceUnitController, int skillId) {
-            Dictionary<int, Skill> skillList = GetAvailableSkillList(sourceUnitController);
-            if (!skillList.ContainsKey(skillId)) {
-                //Debug.Log($"{gameObject.name}.SkillTrainerComponent.LearnSkill(): player does not have skill {skillId}");
+        public void LearnSkill(UnitController sourceUnitController, string skillName) {
+            //Dictionary<int, Skill> skillList = GetAvailableSkillList(sourceUnitController);
+            //if (!skillList.ContainsKey(skillId)) {
+            //    //Debug.Log($"{gameObject.name}.SkillTrainerComponent.LearnSkill(): player does not have skill {skillId}");
+            //    return;
+            //}
+            //Debug.Log($"SkillTrainerComponent.LearnSkill() called with skillName: {skillName}");
+            Skill skill = Props.Skills.Find(s => s.ResourceName == skillName);
+            if (skill == null)
+            {
+                //Debug.Log($"Not found in Props.Skills, trying systemDataFactory for WeaponSkill...");
+                skill = systemDataFactory.GetResource<WeaponSkill>(skillName) as Skill;
+            }
+            Debug.Log($"SkillTrainerComponent.LearnSkill() found skill: {(skill == null ? "NULL" : skill.ResourceName)}");
+            if (skill == null)
+            {
+                Debug.LogError($"Could not find skill '{skillName}' anywhere!");
                 return;
             }
-            sourceUnitController.CharacterSkillManager.LearnSkill(skillList[skillId]);
+            sourceUnitController.CharacterSkillManager.LearnSkill(skill);
             NotifyOnConfirmAction(sourceUnitController);
         }
 

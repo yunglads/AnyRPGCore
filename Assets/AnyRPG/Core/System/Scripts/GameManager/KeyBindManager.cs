@@ -69,6 +69,7 @@ namespace AnyRPG {
             InitializeKey("TOGGLEAUTORUN", KeyCode.KeypadMultiply, KeyCode.None, KeyCode.None, "Toggle Autorun", KeyBindType.Normal);
             InitializeKey("TOGGLESTRAFE", KeyCode.T, KeyCode.JoystickButton9, KeyCode.JoystickButton9, "Toggle Strafe", KeyBindType.Normal);
             InitializeKey("TOGGLEMOUSELOOK", KeyCode.V, KeyCode.V, KeyCode.V, "Toggle Mouse Look", KeyBindType.Normal);
+            InitializeKey("INTERACT", KeyCode.Mouse1, KeyCode.None, KeyCode.None, "Interact", KeyBindType.Normal);
 
             InitializeKey("ACCEPT", KeyCode.KeypadEnter, xBoxKeys["ACCEPT"], KeyCode.None, "Accept", KeyBindType.Constant);
             //InitializeKey("CANCEL", KeyCode.Backspace, KeyCode.None, KeyCode.None, "Cancel", KeyBindType.Constant);
@@ -86,7 +87,6 @@ namespace AnyRPG {
             InitializeKey("JOYSTICKBUTTON7", KeyCode.None, xBoxKeys["JOYSTICKBUTTON7"], KeyCode.None, "Joystick Button 7", KeyBindType.Hidden);
             InitializeKey("JOYSTICKBUTTON8", KeyCode.None, xBoxKeys["JOYSTICKBUTTON8"], KeyCode.None, "Joystick Button 8", KeyBindType.Hidden);
             InitializeKey("JOYSTICKBUTTON9", KeyCode.None, xBoxKeys["JOYSTICKBUTTON9"], KeyCode.None, "Joystick Button 9", KeyBindType.Hidden);
-
 
             InitializeKey("QUESTLOG", KeyCode.L, KeyCode.None, KeyCode.None, "Quest Log", KeyBindType.System);
             InitializeKey("CHARACTERPANEL", KeyCode.C, KeyCode.None, KeyCode.None, "Character Panel", KeyBindType.System);

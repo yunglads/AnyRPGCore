@@ -164,7 +164,7 @@ namespace AnyRPG {
 
         [Tooltip("In free mode, the player can move the camera.  In isometric mode, the camera is locked to the specified angle")]
         [SerializeField]
-        private CameraViewMode cameraViewMode = CameraViewMode.Free;
+        private CameraViewMode cameraViewMode = CameraViewMode.Classic;
 
         [Tooltip("When the camera is in isometric mode, this is the world space initial vector from the target (defaults to looking NorthEast).")]
         [SerializeField]
@@ -1216,6 +1216,6 @@ namespace AnyRPG {
 
     public enum PlayerNameSource { DefaultPlayerName, UnitProfile }
 
-    public enum CameraViewMode { Free, Isometric }
+    public enum CameraViewMode { Classic, Isometric, Action }
 
 }

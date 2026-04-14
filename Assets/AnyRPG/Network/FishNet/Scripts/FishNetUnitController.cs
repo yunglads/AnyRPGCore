@@ -8,6 +8,7 @@ using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AnyRPG {
@@ -495,8 +496,12 @@ namespace AnyRPG {
             unitController.UnitEventController.OnReachDestination += HandleReachDestinationServer;
             unitController.UnitEventController.OnSetParent += HandleSetParent;
             unitController.UnitEventController.OnUnsetParent += HandleUnsetParent;
-            unitController.UnitEventController.OnAddSkillLevel += HandleAddSkillLevel;
-            unitController.UnitEventController.OnAddSkillExperience += HandleAddSkillExperienceServer;
+            //unitController.UnitEventController.OnAddSkillLevel += HandleAddSkillLevel;
+            //unitController.UnitEventController.OnAddSkillExperience += HandleAddSkillExperienceServer;
+
+            unitController.UnitEventController.OnGainSkillXP += HandleGainSkillXPServer;
+            unitController.UnitEventController.OnBuildingProgressChanged += HandleBuildingProgressChangedServer;
+            unitController.UnitEventController.OnSkillLevelChanged += HandleSetSkillLevelServer;
         }
 
         public void UnsubscribeFromServerUnitEvents() {
@@ -601,35 +606,39 @@ namespace AnyRPG {
             unitController.UnitEventController.OnSetGroupId -= HandleSetGroupId;
             unitController.UnitEventController.OnSetGuildId -= HandleSetGuildId;
             unitController.UnitEventController.OnReachDestination -= HandleReachDestinationServer;
-            unitController.UnitEventController.OnAddSkillLevel -= HandleAddSkillLevel;
-            unitController.UnitEventController.OnAddSkillExperience -= HandleAddSkillExperienceServer;
+            //unitController.UnitEventController.OnAddSkillLevel -= HandleAddSkillLevel;
+            //unitController.UnitEventController.OnAddSkillExperience -= HandleAddSkillExperienceServer;
+
+            unitController.UnitEventController.OnGainSkillXP -= HandleGainSkillXPServer;
+            unitController.UnitEventController.OnBuildingProgressChanged -= HandleBuildingProgressChangedServer;
+            unitController.UnitEventController.OnSkillLevelChanged -= HandleSetSkillLevelServer;
         }
 
-        private void HandleAddSkillExperienceServer(Skill skill, int experienceValue) {
-            HandleAddSkillExperienceClient(skill.ResourceName, experienceValue);
-        }
+        //private void HandleAddSkillExperienceServer(Skill skill, int experienceValue) {
+        //    HandleAddSkillExperienceClient(skill.ResourceName, experienceValue);
+        //}
 
-        [ObserversRpc]
-        private void HandleAddSkillExperienceClient(string skillResourceName, int experienceValue) {
-            Skill skill = systemDataFactory.GetResource<Skill>(skillResourceName);
-            if (skill == null) {
-                return;
-            }
-            unitController.CharacterSkillManager.AddSkillExperience(skill, experienceValue);
-        }
+        //[ObserversRpc]
+        //private void HandleAddSkillExperienceClient(string skillResourceName, int experienceValue) {
+        //    Skill skill = systemDataFactory.GetResource<Skill>(skillResourceName);
+        //    if (skill == null) {
+        //        return;
+        //    }
+        //    unitController.CharacterSkillManager.AddSkillExperience(skill, experienceValue);
+        //}
 
-        private void HandleAddSkillLevel(Skill skill, int addLevel) {
-            HandleAddSkillLevelClient(skill.ResourceName, addLevel);
-        }
+        //private void HandleAddSkillLevel(Skill skill, int addLevel) {
+        //    HandleAddSkillLevelClient(skill.ResourceName, addLevel);
+        //}
 
-        [ObserversRpc]
-        private void HandleAddSkillLevelClient(string skillResourceName, int addLevel) {
-            Skill skill = systemDataFactory.GetResource<Skill>(skillResourceName);
-            if (skill == null) {
-                return;
-            }
-            unitController.CharacterSkillManager.AddSkillLevel(skill, addLevel);
-        }
+        //[ObserversRpc]
+        //private void HandleAddSkillLevelClient(string skillResourceName, int addLevel) {
+        //    Skill skill = systemDataFactory.GetResource<Skill>(skillResourceName);
+        //    if (skill == null) {
+        //        return;
+        //    }
+        //    unitController.CharacterSkillManager.AddSkillLevel(skill, addLevel);
+        //}
 
         /*
         private void HandleRiderMountedServer() {
@@ -1941,9 +1950,22 @@ namespace AnyRPG {
 
         [ObserversRpc]
         public void HandleLearnSkillClient(string skillName) {
-            Skill skill = systemDataFactory.GetResource<Skill>(skillName);
-            if (skill != null) {
+            //Skill skill = systemDataFactory.GetResource<Skill>(skillName);
+
+            //if (skill == null)
+            //{
+            //    skill = systemDataFactory.GetResource<WeaponSkill>(skillName) as Skill;
+            //}
+
+            Skill skill = unitController.CharacterSkillManager.GetAnySkill(skillName);
+
+            if (skill != null)
+            {
                 unitController.CharacterSkillManager.LearnSkill(skill);
+            }
+            else
+            {
+                Debug.LogError($"[CLIENT] Could not find skill: {skillName}");
             }
         }
 
@@ -1953,9 +1975,22 @@ namespace AnyRPG {
 
         [ObserversRpc]
         public void HandleUnLearnSkillClient(string skillName) {
-            Skill skill = systemDataFactory.GetResource<Skill>(skillName);
-            if (skill != null) {
+            //Skill skill = systemDataFactory.GetResource<Skill>(skillName);
+
+            //if (skill == null)
+            //{
+            //    skill = systemDataFactory.GetResource<WeaponSkill>(skillName) as Skill;
+            //}
+
+            Skill skill = unitController.CharacterSkillManager.GetAnySkill(skillName);
+
+            if (skill != null)
+            {
                 unitController.CharacterSkillManager.UnLearnSkill(skill);
+            }
+            else
+            {
+                Debug.LogError($"[CLIENT] Could not find skill: {skillName}");
             }
         }
 
@@ -2592,6 +2627,133 @@ namespace AnyRPG {
                 return;
             }
             unitController.UnitActionManager.BeginActionInternal(animatedAction, playerInitiated);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void HandleGainSkillXPServer(string skillName, float xp, int nodeLevel)
+        {
+            //Skill skill = systemDataFactory.GetResource<Skill>(skillName);
+            //if (skill == null)
+            //{
+            //    skill = systemDataFactory.GetResource<WeaponSkill>(skillName) as Skill;
+            //}
+
+            Skill skill = unitController.CharacterSkillManager.GetAnySkill(skillName);
+
+            if (skill == null)
+                return;
+
+            unitController.CharacterSkillManager.GainSkillXP(skill, xp, nodeLevel);
+            //unitController.UnitEventController.NotifyOnGainSkillXP(skill.ResourceName, xp);
+            float newXP = unitController.CharacterSkillManager.GetSkillXP(skillName);
+            HandleGainSkillXP(skillName, newXP, nodeLevel, 0);
+            Debug.Log("Server RPC reached");
+        }
+
+        [ObserversRpc]
+        public void HandleGainSkillXP(string skillName, float xp, int nodeLevel, int scaledXP)
+        {
+            //Skill skill = systemDataFactory.GetResource<Skill>(skillName);
+            //if (skill == null)
+            //{
+            //    skill = systemDataFactory.GetResource<WeaponSkill>(skillName) as Skill;
+            //}
+
+            Skill skill = unitController.CharacterSkillManager.GetAnySkill(skillName);
+
+            if (skill == null) return;
+
+            unitController.CharacterSkillManager.SetSkillXP(skill, xp);
+            unitController.UnitEventController.NotifyOnGainSkillXP(skill.ResourceName, xp, nodeLevel);
+            unitController.UnitEventController.NotifyOnAddSkillExperience(skill, scaledXP);
+        }
+
+        [ServerRpc]
+        public void HandleSetSkillLevelServer(string skillName, int level)
+        {
+            //Skill skill = systemDataFactory.GetResource<Skill>(skillName);
+            //if (skill == null)
+            //{
+            //    skill = systemDataFactory.GetResource<WeaponSkill>(skillName) as Skill;
+            //}
+
+            Skill skill = unitController.CharacterSkillManager.GetAnySkill(skillName);
+
+            if (skill == null) return;
+
+            HandleSetSkillLevel(skillName, level);
+        }
+
+        [ObserversRpc]
+        public void HandleSetSkillLevel(string skillName, int level)
+        {
+            //Skill skill = systemDataFactory.GetResource<Skill>(skillName);
+            //if (skill == null)
+            //{
+            //    skill = systemDataFactory.GetResource<WeaponSkill>(skillName) as Skill;
+            //}
+
+            Skill skill = unitController.CharacterSkillManager.GetAnySkill(skillName);
+
+            if (skill == null) return;
+
+            unitController.CharacterSkillManager.SetSkillLevel(skill, level);
+            unitController.UnitEventController.NotifyOnSkillLevelChanged(skill.ResourceName, level);
+            unitController.UnitEventController.NotifyOnAddSkillLevel(skill, level);
+        }
+
+        [ServerRpc]
+        public void HandleBuildingProgressChangedServer(string buildingID, int currentPhase, List<BuildingProgressSaveData> fullProgress)
+        {
+            systemGameManager.TownManager.SetBuildingPhase(buildingID, (BuildingPhase)currentPhase);
+
+            // update server's in-memory save data with client's progress
+            unitController.CharacterSaveManager.SaveData.BuildingProgressSaveData = fullProgress;
+
+            //BuildingDefinition buildingDef = systemGameManager.TownManager.GetDefinition(buildingID);
+            //if (buildingDef != null && buildingDef.BuildingScope == BuildingScope.SharedTown)
+            //systemGameManager.TownManager.SaveSharedProgress();
+            HandleBuildingProgressChanged(buildingID, currentPhase, fullProgress);
+        }
+
+        [ObserversRpc]
+        public void HandleBuildingProgressChanged(string buildingID, int newPhase, List<BuildingProgressSaveData> progress)
+        {
+            // update local progress on all clients
+            systemGameManager.TownManager.SetBuildingPhase(buildingID, (BuildingPhase)newPhase);
+            // notify UI
+            unitController.UnitEventController.NotifyOnBuildingProgressChanged(buildingID, newPhase, progress);
+
+            //refresh panel if open
+            BuildingPanel panel = systemGameManager.UIManager.buildingUpgradeWindow.CloseableWindowContents as BuildingPanel;
+            if (panel != null)
+                panel.RefreshUI();
+        }
+
+        [ServerRpc]
+        public void HandleRemoveItemInstancesServer(long[] itemInstanceIds)
+        {
+            foreach (int id in itemInstanceIds)
+            {
+                if (systemItemManager.InstantiatedItems.ContainsKey(id))
+                {
+                    unitController.CharacterInventoryManager.RemoveInventoryItem(
+                        systemItemManager.InstantiatedItems[id]);
+                }
+            }
+        }
+
+        [ServerRpc]
+        public void UpdateServerSaveDataServer(PlayerCharacterSaveData playerCharacterSaveData)
+        {
+            unitController.CharacterSaveManager.SetSaveDataFromClient(playerCharacterSaveData.CharacterSaveData);
+
+            // update the player monitor's cached save data
+            int accountId = systemGameManager.PlayerManagerServer.GetAccountIdFromUnitController(unitController);
+            if (accountId != 0 && systemGameManager.PlayerManagerServer.PlayerCharacterMonitors.ContainsKey(accountId))
+            {
+                systemGameManager.PlayerManagerServer.PlayerCharacterMonitors[accountId].characterSaveData = playerCharacterSaveData.CharacterSaveData;
+            }
         }
 
         private void TimeManager_OnTick() {

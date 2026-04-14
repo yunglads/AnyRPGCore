@@ -506,8 +506,8 @@ namespace AnyRPG {
             networkController.CheckGuildName(interactable, componentIndex, guildName);
         }
 
-        public void RequestLearnSkill(Interactable interactable, int componentIndex, int skillId) {
-            networkController.RequestLearnSkill(interactable, componentIndex, skillId);
+        public void RequestLearnSkill(Interactable interactable, int componentIndex, string skillName) {
+            networkController.RequestLearnSkill(interactable, componentIndex, skillName);
         }
 
         public void RequestAcceptQuest(Interactable interactable, int componentIndex, Quest quest) {

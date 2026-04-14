@@ -270,7 +270,7 @@ namespace AnyRPG {
                 characterSaveData.AbilitySaveData = new List<AbilitySaveData>();
             }
             if (characterSaveData.SkillSaveData == null || overWrite) {
-                characterSaveData.SkillSaveData = new List<CharacterSkillSaveData>();
+                characterSaveData.SkillSaveData = new List<SkillSaveData>();
             }
             if (characterSaveData.RecipeSaveData == null || overWrite) {
                 characterSaveData.RecipeSaveData = new List<RecipeSaveData>();
@@ -992,7 +992,18 @@ namespace AnyRPG {
             }
         }
 
+        public bool SaveDataFile(PlayerCharacterSaveData playerCharacterSaveData)
+        {
 
+            playerCharacterSaveData.CharacterSaveData.DataSavedOn = DateTime.Now.ToLongDateString();
+
+            string jsonString = JsonUtility.ToJson(playerCharacterSaveData);
+            //Debug.Log(jsonString);
+            string jsonSavePath = $"{baseSaveFolderName}/{playerCharacterSaveData.CharacterSaveData.CharacterId}.json";
+            File.WriteAllText(jsonSavePath, jsonString);
+
+            return true;
+        }
     }
 
 }

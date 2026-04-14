@@ -27,6 +27,8 @@ namespace AnyRPG {
         // components
         protected UnitController unitController;
 
+        private UnitProfile enemyProf = null;
+
         // track equipped weapons for managing default hit effects
         protected List<Weapon> equippedWeapons = new List<Weapon>();
 
@@ -68,6 +70,7 @@ namespace AnyRPG {
         public List<AbilityEffectProperties> DefaultHitEffects { get => defaultHitEffects; set => defaultHitEffects = value; }
         public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
         public float LastAttackBegin { get => lastAttackBegin; }
+        public UnitProfile EnemyProf { get => enemyProf; set => enemyProf = value; }
 
         public CharacterCombat(UnitController unitController, SystemGameManager systemGameManager) {
             this.unitController = unitController;
@@ -680,6 +683,38 @@ namespace AnyRPG {
             aggroTable.ClearSingleTarget(sourceCharacter.CharacterUnit);
             TryToDropCombat();
             unitController?.UnitEventController.NotifyOnKillTarget();
+
+            //Debug.Log($"OnKillConfirmed - Source: {unitController.gameObject.name} | Mode: {unitController.UnitControllerMode}");
+
+            CharacterEquipmentManager equipmentManager = unitController.CharacterEquipmentManager;
+            WeaponSkill weaponSkill = equipmentManager.GetEquippedWeapon()?.WeaponSkill;
+            CharacterSkillManager skillManager = unitController.CharacterSkillManager;
+            enemyProf = sourceCharacter.UnitProfile;
+
+            //Debug.Log($"Current WeaponSkill is: {weaponSkill}");
+
+            if (unitController.UnitControllerMode != UnitControllerMode.Player)
+            {
+                Debug.Log($"Skipping XP - {unitController.gameObject.name} is not a player, mode is: {unitController.UnitControllerMode}");
+                return;
+            }
+
+            if (weaponSkill == null || weaponSkill.ResourceName == string.Empty)
+            {
+                WeaponSkill skill = systemDataFactory.GetResource<WeaponSkill>("Pugilism");
+
+                weaponSkill = skill;
+            }
+
+            if (weaponSkill != null && enemyProf != null)
+            {
+                //Debug.Log($"Killer: {unitController.gameObject.name} | Weapon: {weaponSkill.DisplayName} | Enemy: {enemyProf.DisplayName}");
+                skillManager.AddWeaponXP(enemyProf, weaponSkill);
+            }
+            else
+            {
+                Debug.Log($"Missing data - weaponSkill: {weaponSkill?.DisplayName ?? "null"} | enemyProf: {enemyProf?.DisplayName ?? "null"}");
+            }
         }
 
         public virtual void BroadcastCharacterDeath() {

@@ -481,6 +481,9 @@ namespace AnyRPG {
 
 
         public void OnPointerEnter(PointerEventData eventData) {
+            if (systemConfigurationManager.CameraViewMode == CameraViewMode.Action)
+                return;
+
             if (unitNamePlateController?.Interactable != playerManagerClient?.UnitController?.gameObject) {
                 uIManager.NamePlateManager.AddMouseOver(this);
                 if (unitNamePlateController.Interactable != null) {

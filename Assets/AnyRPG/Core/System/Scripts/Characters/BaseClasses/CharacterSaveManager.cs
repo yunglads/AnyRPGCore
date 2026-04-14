@@ -756,11 +756,39 @@ namespace AnyRPG {
         }
 
 
-        public void LoadSkillData(CharacterSaveData characterSaveData) {
-            //Debug.Log($"{unitController.gameObject.name}.CharacterSavemanager.LoadSkillData()");
-            foreach (CharacterSkillSaveData skillSaveData in characterSaveData.SkillSaveData) {
-                unitController.CharacterSkillManager.LoadSkill(skillSaveData);
+        //public void LoadSkillData(CharacterSaveData characterSaveData) {
+        //    //Debug.Log($"{unitController.gameObject.name}.CharacterSavemanager.LoadSkillData()");
+        //    foreach (CharacterSkillSaveData skillSaveData in characterSaveData.SkillSaveData) {
+        //        unitController.CharacterSkillManager.LoadSkill(skillSaveData);
+        //    }
+        //}
+
+        public void LoadSkillData(CharacterSaveData characterSaveData)
+        {
+            if (unitController.CharacterSkillManager == null)
+                return;
+            //if (unitController.UnitControllerMode != UnitControllerMode.Player)
+            //    return;
+            unitController.CharacterSkillManager.LoadSkillProgress(characterSaveData.SkillSaveData);
+        }
+
+        public void LoadTownData(CharacterSaveData characterSaveData)
+        {
+            if (unitController != systemGameManager.PlayerManagerClient.UnitController)
+                return;
+
+            if (systemGameManager.TownManager == null)
+            {
+                Debug.Log("TownManager NULL");
+                return;
             }
+
+            //Debug.Log("LoadTownData() called");
+            //Debug.Log($"LoadTownData called. Stack: {System.Environment.StackTrace}");   
+            //Debug.Log($"LoadTownData building entries: {characterSaveData.BuildingProgressSaveData.Count}");
+
+            systemGameManager.TownManager.LoadBuildingProgress(characterSaveData.BuildingProgressSaveData);
+            //systemGameManager.TownManager.LoadSharedProgress();
         }
 
         public void LoadRecipeData(CharacterSaveData characterSaveData) {
@@ -1155,18 +1183,18 @@ namespace AnyRPG {
             }
         }
 
-        public void SaveSkillData() {
-            //Debug.Log($"{unitController.gameObject.name}.CharacterSavemanager.SaveSkillData()");
-            saveData.SkillSaveData.Clear();
-            foreach (CharacterSkillData characterSkillData in unitController.CharacterSkillManager.SkillList.Values) {
-                CharacterSkillSaveData skillSaveData = new CharacterSkillSaveData() {
-                    SkillResourceName = characterSkillData.Skill.ResourceName,
-                    SkillLevel = characterSkillData.SkillLevel,
-                    SkillExperience = characterSkillData.SkillExperience
-                };
-                saveData.SkillSaveData.Add(skillSaveData);
-            }
-        }
+        //public void SaveSkillData() {
+        //    //Debug.Log($"{unitController.gameObject.name}.CharacterSavemanager.SaveSkillData()");
+        //    saveData.SkillSaveData.Clear();
+        //    foreach (CharacterSkillData characterSkillData in unitController.CharacterSkillManager.SkillList.Values) {
+        //        CharacterSkillSaveData skillSaveData = new CharacterSkillSaveData() {
+        //            SkillResourceName = characterSkillData.Skill.ResourceName,
+        //            SkillLevel = characterSkillData.SkillLevel,
+        //            SkillExperience = characterSkillData.SkillExperience
+        //        };
+        //        saveData.SkillSaveData.Add(skillSaveData);
+        //    }
+        //}
 
         public void SaveRecipeData() {
             //Debug.Log($"{unitController.gameObject.name}.CharacterSavemanager.SaveRecipeData()");
@@ -1189,6 +1217,34 @@ namespace AnyRPG {
             BehaviorSaveData saveData = GetBehaviorSaveData(behaviorProfile);
             saveData.Completed = value;
             behaviorSaveDataDictionary[saveData.BehaviorName] = saveData;
+        }
+
+        public void SaveSkillData()
+        {
+            saveData.SkillSaveData = unitController.CharacterSkillManager.GetSkillSaveData();
+        }
+
+        public void SaveTownData()
+        {
+            if (systemGameManager.TownManager == null)
+                return;
+            if (!systemGameManager.TownManager.BuildingProgressLoaded)
+                return;
+            if (unitController != systemGameManager.PlayerManagerClient.UnitController)
+                return;
+
+            saveData.BuildingProgressSaveData = systemGameManager.TownManager.GetBuildingProgress();
+            //foreach (var entry in saveData.BuildingProgressSaveData)
+            //{
+            //    string res = entry.TurnedInResources.Count == 0 ? "none" :
+            //        string.Join(", ", entry.TurnedInResources.ConvertAll(r => $"{r.ItemID}x{r.Amount}"));
+            //    Debug.Log($"SaveTownData: {entry.BuildingID} phase={entry.CurrentPhase} resources=[{res}]");
+            //}
+        }
+
+        public void SetSaveDataFromClient(CharacterSaveData data)
+        {
+            saveData = data;
         }
     }
 

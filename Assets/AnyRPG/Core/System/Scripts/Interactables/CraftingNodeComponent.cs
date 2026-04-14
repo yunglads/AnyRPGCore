@@ -21,10 +21,13 @@ namespace AnyRPG {
         }
 
         public override bool PrerequisitesMet(UnitController sourceUnitController) {
-                if (sourceUnitController.CharacterAbilityManager.HasAbility(Props.Ability) == false) {
-                    return false;
-                }
-                return base.PrerequisitesMet(sourceUnitController);
+            craftingManager.SetActiveCraftingNode(this);
+            sourceUnitController.CharacterCraftingManager.SetActiveNode(this);
+            if (sourceUnitController.CharacterAbilityManager.HasAbility(Props.Ability) == false)
+            {
+                return false;
+            }
+            return base.PrerequisitesMet(sourceUnitController);
         } 
 
         public override void ProcessCreateEventSubscriptions() {
