@@ -201,8 +201,7 @@ namespace AnyRPG {
             ProcessOpenWindow();
         }
 
-        private void ProcessOpenWindow()
-        {
+        private void ProcessOpenWindow() {
             //Debug.Log("NewGamePanel.ProcessOpenWindow()");
 
             newGameManager.OnSetPlayerName += HandleSetPlayerName;
@@ -254,53 +253,48 @@ namespace AnyRPG {
             detailsPanel.ReceiveOpenWindowNotification();
 
             mainNavigationController.SetCurrentButton(detailsButton);
-            if (controlsManager.GamePadInputActive == true)
-            {
+            if (controlsManager.GamePadInputActive == true) {
                 mainNavigationController.FocusCurrentButton();
             }
 
 
             OpenDetailsPanel();
 
-            if (systemConfigurationManager.NewGameAudioProfile != null)
-            {
+            if (systemConfigurationManager.NewGameAudioProfile != null) {
                 audioManager.StopMusic();
                 audioManager.PlayMusic(systemConfigurationManager.NewGameAudioProfile.AudioClip);
             }
 
             characterCreatorManager.EnableLight();
 
-            if (systemGameManager.GameMode == GameMode.Local)
-            {
+            if (systemGameManager.GameMode == GameMode.Local) {
                 startButtonText.text = "Start Game";
-            }
-            else
-            {
+            } else {
                 // network mode
-                if (networkManagerClient.ClientMode == NetworkServerMode.Lobby)
-                {
+                if (networkManagerClient.ClientMode == NetworkServerMode.Lobby) {
                     startButtonText.text = "Select Character";
-                }
-                else
-                {
+                } else {
                     // MMO mode
                     startButtonText.text = "Create Character";
                 }
             }
 
-            if (systemGameManager.GameMode == GameMode.Network && networkManagerClient.ClientMode == NetworkServerMode.Lobby)
-            {
+            if (systemGameManager.GameMode == GameMode.Network && networkManagerClient.ClientMode == NetworkServerMode.Lobby) {
+                if (playerNameInput.activeSelf == true) {
+                    playerNameInput.SetActive(false);
+                }
                 playerNameLabel.text = networkManagerClient.Username;
-            }
-
-            if (systemConfigurationManager.EditPlayerName == false)
-            {
-                playerNameInput.SetActive(false);
-                playerNameLabel.text = newGameManager.PlayerName;
-            }
-            else
-            {
-                playerNameInput.SetActive(true);
+            } else {
+                if (systemConfigurationManager.EditPlayerName == false) {
+                    if (playerNameInput.activeSelf == true) {
+                        playerNameInput.SetActive(false);
+                    }
+                    playerNameLabel.text = newGameManager.PlayerName;
+                } else {
+                    if (playerNameInput.activeSelf == false) {
+                        playerNameInput.SetActive(true);
+                    }
+                }
             }
         }
 

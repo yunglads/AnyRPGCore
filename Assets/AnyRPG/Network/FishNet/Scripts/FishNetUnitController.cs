@@ -339,6 +339,7 @@ namespace AnyRPG {
                 unitController.UnitEventController.OnRequestFollowInteractionTarget += HandleRequestFollowInteractionTarget;
                 unitController.UnitEventController.OnRequestFollowAttackTarget += HandleRequestFollowAttackTarget;
                 unitController.UnitEventController.OnRequestSplitStack += HandleRequestSplitStack;
+                unitController.UnitEventController.OnRequestDropItemOnGround += HandleRequestDropItemOnGround;
             }
             // all clients
             //unitController.UnitEventController.OnDespawn += HandleDespawnClient;
@@ -381,6 +382,7 @@ namespace AnyRPG {
                 unitController.UnitEventController.OnRequestFollowInteractionTarget -= HandleRequestFollowInteractionTarget;
                 unitController.UnitEventController.OnRequestFollowAttackTarget -= HandleRequestFollowAttackTarget;
                 unitController.UnitEventController.OnRequestSplitStack -= HandleRequestSplitStack;
+                unitController.UnitEventController.OnRequestDropItemOnGround -= HandleRequestDropItemOnGround;
             }
         }
 
@@ -1691,6 +1693,16 @@ namespace AnyRPG {
                 unitController.CharacterEquipmentManager.UnequipToSlot(systemItemManager.InstantiatedItems[itemInstanceId] as InstantiatedEquipment, inventorySlotId);
             }
         }
+
+        private void HandleRequestDropItemOnGround(int inventorySlotIndex) {
+            RequestDropItemOnGround(inventorySlotIndex);
+        }
+
+        [ServerRpc]
+        private void RequestDropItemOnGround(int inventorySlotIndex) {
+            unitController.CharacterInventoryManager.DropItemOnGround(inventorySlotIndex);
+        }
+
 
         private void HandleRequestSplitStack(int inventorySlotIndex, int stackSize) {
             RequestSplitStack(inventorySlotIndex, stackSize);
