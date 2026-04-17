@@ -44,20 +44,28 @@ namespace AnyRPG {
         //    50000,54000,58000,62000,66000,70000,75000,80000,85000,90000,
         //    95000,100000,105000,110000,116000,122000,128000,134000,140000,145000,
         //    151000,158000,165000,172000,179500,187000,194500,202000,209500,217000};
+        [Header("Abilities")]
 
-        [Tooltip("List of abilities that are learned when this skill is learned")]
+        [Tooltip("LEGACY: List of abilities that are learned when this skill is learned")]
         [SerializeField]
         [ResourceSelector(resourceType = typeof(Ability))]
-        private List<string> abilityNames = new List<string>();
+        private List<string> abilityNamesLegacy = new List<string>();
 
+        [Tooltip("NEW: Abilities that unlock at specific skill levels")]
+        [SerializeField]
+        private List<SkillAbilityNode> skillAbilities = new List<SkillAbilityNode>();
+
+        // Combined list of all abilities (for backward compatibility)
         private List<AbilityProperties> abilityList = new List<AbilityProperties>();
 
         public int RequiredLevel { get => requiredLevel; }
         public bool AutoLearn { get => autoLearn; }
         public List<AbilityProperties> AbilityList { get => abilityList; set => abilityList = value; }
+        public bool UseSkillExperience { get => useSkillExperience; set => useSkillExperience = value; }
+        public List<SkillAbilityNode> SkillAbilities { get => skillAbilities; }
+
         //public bool UseSkillLevels { get => useSkillLevels; set => useSkillLevels = value; }
         //public bool GiveCharacterExperience { get => giveCharacterExperience; set => giveCharacterExperience = value; }
-        public bool UseSkillExperience { get => useSkillExperience; set => useSkillExperience = value; }
         //public List<int> SkillExperienceChart { get => skillExperienceChart; set => skillExperienceChart = value; }
 
         // game manager references
@@ -111,17 +119,63 @@ namespace AnyRPG {
         //    return skillExperienceChart[skillExperienceChart.Count - 1];
         //}
 
-        public override void SetupScriptableObjects(SystemGameManager systemGameManager) {
-            base.SetupScriptableObjects(systemGameManager);
-            abilityList = new List<AbilityProperties>();
-            if (abilityNames != null) {
-                foreach (string abilityName in abilityNames) {
-                    Ability baseAbility = systemDataFactory.GetResource<Ability>(abilityName);
-                    if (baseAbility != null) {
-                        abilityList.Add(baseAbility.AbilityProperties);
-                    } else {
-                        Debug.LogError("SystemSkillManager.SetupScriptableObjects(): Could not find ability : " + abilityName + " while inititalizing " + ResourceName + ".  CHECK INSPECTOR");
+        // Get all abilities that should be known at or below a specific skill level
+        public List<AbilityProperties> GetAbilitiesForLevel(int skillLevel)
+        {
+            List<AbilityProperties> abilities = new List<AbilityProperties>();
+
+            // Add abilities from the new system
+            foreach (SkillAbilityNode skillAbilityNode in skillAbilities)
+            {
+                if (skillAbilityNode.RequiredSkillLevel <= skillLevel && skillAbilityNode.Ability != null)
+                {
+                    if (!abilities.Contains(skillAbilityNode.Ability))
+                    {
+                        abilities.Add(skillAbilityNode.Ability);
                     }
+                }
+            }
+
+            // Legacy support: always add old ability list (treated as level 1)
+            foreach (AbilityProperties ability in abilityList)
+            {
+                if (!abilities.Contains(ability))
+                {
+                    abilities.Add(ability);
+                }
+            }
+
+            return abilities;
+        }
+
+        public override void SetupScriptableObjects(SystemGameManager systemGameManager)
+        {
+            base.SetupScriptableObjects(systemGameManager);
+
+            // Setup legacy ability list
+            abilityList = new List<AbilityProperties>();
+            if (abilityNamesLegacy != null)
+            {
+                foreach (string abilityName in abilityNamesLegacy)
+                {
+                    Ability baseAbility = systemDataFactory.GetResource<Ability>(abilityName);
+                    if (baseAbility != null)
+                    {
+                        abilityList.Add(baseAbility.AbilityProperties);
+                    }
+                    else
+                    {
+                        Debug.LogError($"Skill.SetupScriptableObjects(): Could not find ability: {abilityName} while initializing {ResourceName}. CHECK INSPECTOR");
+                    }
+                }
+            }
+
+            // Setup new skill ability nodes
+            if (skillAbilities != null)
+            {
+                foreach (SkillAbilityNode skillAbilityNode in skillAbilities)
+                {
+                    skillAbilityNode.SetupScriptableObjects(systemGameManager, ResourceName);
                 }
             }
         }

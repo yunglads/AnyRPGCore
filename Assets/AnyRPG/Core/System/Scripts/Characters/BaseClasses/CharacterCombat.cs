@@ -701,7 +701,7 @@ namespace AnyRPG {
 
             if (weaponSkill == null || weaponSkill.ResourceName == string.Empty)
             {
-                WeaponSkill skill = systemDataFactory.GetResource<WeaponSkill>("Pugilism");
+                WeaponSkill skill = systemDataFactory.GetResource<WeaponSkill>("Brawler");
 
                 weaponSkill = skill;
             }

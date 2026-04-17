@@ -91,20 +91,37 @@ namespace AnyRPG
 
         public void LearnSkill(Skill newSkill)
         {
-            //Debug.Log($"{unitController.gameObject.name}.CharacterSkillManager.LearnSkill({newSkill.ResourceName})");
+            if (newSkill == null)
+            {
+                Debug.LogError("CharacterSkillManager.LearnSkill: newSkill is null!");
+                return;
+            }
+
+            Debug.Log($"{unitController.gameObject.name}.CharacterSkillManager.LearnSkill({newSkill.ResourceName})");
 
             if (!skillList.ContainsKey(newSkill.ResourceName))
             {
                 skillList[newSkill.ResourceName] = newSkill;
 
-                foreach (AbilityProperties ability in newSkill.AbilityList)
+                // Learn abilities up to current skill level (usually 1 when first learning)
+                int currentSkillLevel = 1;
+                if (skillProgress.ContainsKey(newSkill.ResourceName))
+                {
+                    currentSkillLevel = skillProgress[newSkill.ResourceName].level;
+                }
+
+                List<AbilityProperties> abilitiesToLearn = newSkill.GetAbilitiesForLevel(currentSkillLevel);
+                foreach (AbilityProperties ability in abilitiesToLearn)
                 {
                     unitController.CharacterAbilityManager.LearnAbility(ability);
                 }
 
+                // Learn recipes
                 foreach (Recipe recipe in systemDataFactory.GetResourceList<Recipe>())
                 {
-                    if (unitController.CharacterStats.Level >= recipe.RecipeLevel && recipe.AutoLearn == true && newSkill.AbilityList.Contains(recipe.CraftAbility))
+                    if (unitController.CharacterStats.Level >= recipe.RecipeLevel
+                        && recipe.AutoLearn == true
+                        && abilitiesToLearn.Contains(recipe.CraftAbility))
                     {
                         unitController.CharacterRecipeManager.LearnRecipe(recipe);
                     }
@@ -112,13 +129,29 @@ namespace AnyRPG
 
                 InitializeSkillProgress(newSkill);
 
-                //Debug.Log($"Successfully added skill: {newSkill.ResourceName} to skillList. Total skills: {skillList.Count}");
+                Debug.Log($"Successfully added skill: {newSkill.ResourceName}");
 
                 unitController.UnitEventController.NotifyOnLearnSkill(newSkill);
             }
             else
             {
                 Debug.LogWarning($"Skill {newSkill.ResourceName} already learned, skipping.");
+            }
+        }
+
+        private void LearnAbilitiesForSkillLevel(Skill skill, int skillLevel)
+        {
+            Debug.Log($"CharacterSkillManager.LearnAbilitiesForSkillLevel({skill.ResourceName}, {skillLevel})");
+
+            List<AbilityProperties> newAbilities = skill.GetAbilitiesForLevel(skillLevel);
+
+            foreach (AbilityProperties ability in newAbilities)
+            {
+                if (!unitController.CharacterAbilityManager.HasAbility(ability))
+                {
+                    Debug.Log($"Learning new ability: {ability.DisplayName} at {skill.ResourceName} level {skillLevel}");
+                    unitController.CharacterAbilityManager.LearnAbility(ability);
+                }
             }
         }
 
@@ -263,6 +296,8 @@ namespace AnyRPG
                     prog.level++;
 
                     LevelUpSkillEffect();
+
+                    LearnAbilitiesForSkillLevel(prog.skill, prog.level);
 
                     if (fishNet == null || fishNet.IsServerInitialized)
                     {

@@ -1,5 +1,43 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7059865810236922396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79425504febc2843801a7aa28fd9495, type: 3}
+  m_Name: Layer_0
+  m_EditorClassIdentifier: Assembly-CSharp::GSPAWN.PluginObjectLayer
+  _guid:
+    _guidString: 60e2ce89-b069-48ca-ae53-e72a3646b101
+  _layer: 0
+  _isErasable: 1
+  _isTerrainMesh: 0
+  _isSphericalMesh: 0
+  _uiSelected: 0
+--- !u!114 &-3466128704972556614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79425504febc2843801a7aa28fd9495, type: 3}
+  m_Name: Layer_4
+  m_EditorClassIdentifier: Assembly-CSharp::GSPAWN.PluginObjectLayer
+  _guid:
+    _guidString: e020c3c7-6e7a-47bc-aa2f-65d76cfb9ea2
+  _layer: 4
+  _isErasable: 1
+  _isTerrainMesh: 0
+  _isSphericalMesh: 0
+  _uiSelected: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13,6 +51,11 @@ MonoBehaviour:
   m_Name: PluginObjectLayerDb
   m_EditorClassIdentifier: Assembly-CSharp::GSPAWN.PluginObjectLayerDb
   _layers:
+  - {fileID: -7059865810236922396}
+  - {fileID: 0}
+  - {fileID: 1480779662852342170}
+  - {fileID: 0}
+  - {fileID: -3466128704972556614}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -25,17 +68,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7849819047302311568}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 3023613108208523986}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6477698825359501210}
   - {fileID: 569671886078505354}
   - {fileID: 0}
   - {fileID: 0}
@@ -64,6 +102,25 @@ MonoBehaviour:
   _isTerrainMesh: 0
   _isSphericalMesh: 0
   _uiSelected: 0
+--- !u!114 &1480779662852342170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79425504febc2843801a7aa28fd9495, type: 3}
+  m_Name: Layer_2
+  m_EditorClassIdentifier: Assembly-CSharp::GSPAWN.PluginObjectLayer
+  _guid:
+    _guidString: f86f2a5a-bfc9-40a9-92e3-e49e1b835395
+  _layer: 2
+  _isErasable: 1
+  _isTerrainMesh: 0
+  _isSphericalMesh: 0
+  _uiSelected: 0
 --- !u!114 &3023613108208523986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +136,44 @@ MonoBehaviour:
   _guid:
     _guidString: b422b2ac-21de-43d0-bdf9-c2de48b03e8b
   _layer: 20
+  _isErasable: 1
+  _isTerrainMesh: 0
+  _isSphericalMesh: 0
+  _uiSelected: 0
+--- !u!114 &6477698825359501210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79425504febc2843801a7aa28fd9495, type: 3}
+  m_Name: Layer_22
+  m_EditorClassIdentifier: Assembly-CSharp::GSPAWN.PluginObjectLayer
+  _guid:
+    _guidString: d4d04e4f-fd74-4f46-9fa6-3e613d97c963
+  _layer: 22
+  _isErasable: 1
+  _isTerrainMesh: 0
+  _isSphericalMesh: 0
+  _uiSelected: 0
+--- !u!114 &7849819047302311568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79425504febc2843801a7aa28fd9495, type: 3}
+  m_Name: Layer_17
+  m_EditorClassIdentifier: Assembly-CSharp::GSPAWN.PluginObjectLayer
+  _guid:
+    _guidString: 1e9bc22c-6aaa-41ec-a0f2-ce5a1b805c37
+  _layer: 17
   _isErasable: 1
   _isTerrainMesh: 0
   _isSphericalMesh: 0
