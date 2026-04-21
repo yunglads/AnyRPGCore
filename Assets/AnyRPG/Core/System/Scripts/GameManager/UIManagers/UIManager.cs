@@ -170,6 +170,7 @@ namespace AnyRPG {
         public CloseableWindow auctionWindow;
         public CloseableWindow bankWindow;
         public CloseableWindow inventoryWindow;
+        public CloseableWindow storageContainerWindow;
         public CloseableWindow questLogWindow;
         public CloseableWindow questGiverWindow;
         public CloseableWindow skillTrainerWindow;
@@ -196,8 +197,6 @@ namespace AnyRPG {
         public CloseableWindow nameChangeWindow;
         public CloseableWindow splitStackWindow;
         public CloseableWindow createGuildWindow;
-
-        public CloseableWindow buildingUpgradeWindow;
 
 
         [Header("System Windows")]
@@ -411,7 +410,6 @@ namespace AnyRPG {
             classChangeWindow.Configure(systemGameManager);
             contextMenuWindow.Configure(systemGameManager);
             craftingWindow.Configure(systemGameManager);
-            buildingUpgradeWindow.Configure(systemGameManager);
             createGuildWindow.Configure(systemGameManager);
             currencyListWindow.Configure(systemGameManager);
             dialogWindow.Configure(systemGameManager);
@@ -419,6 +417,7 @@ namespace AnyRPG {
             inspectCharacterPanelWindow.Configure(systemGameManager);
             interactionWindow.Configure(systemGameManager);
             inventoryWindow.Configure(systemGameManager);
+            storageContainerWindow.Configure(systemGameManager);
             lootWindow.Configure(systemGameManager);
             musicPlayerWindow.Configure(systemGameManager);
             mainMapWindow.Configure(systemGameManager);
@@ -596,6 +595,8 @@ namespace AnyRPG {
             defaultWindowPositions.Add("QuestLogWindowY", questLogWindow.RectTransform.anchoredPosition.y);
             defaultWindowPositions.Add("AchievementListWindowX", achievementListWindow.RectTransform.anchoredPosition.x);
             defaultWindowPositions.Add("AchievementListWindowY", achievementListWindow.RectTransform.anchoredPosition.y);
+            defaultWindowPositions.Add("StorageContainerWindowX", storageContainerWindow.RectTransform.anchoredPosition.x);
+            defaultWindowPositions.Add("StorageContainerWindowY", storageContainerWindow.RectTransform.anchoredPosition.y);
             defaultWindowPositions.Add("QuestGiverWindowX", questGiverWindow.RectTransform.anchoredPosition.x);
             defaultWindowPositions.Add("QuestGiverWindowY", questGiverWindow.RectTransform.anchoredPosition.y);
             defaultWindowPositions.Add("SkillTrainerWindowX", skillTrainerWindow.RectTransform.anchoredPosition.x);
@@ -685,6 +686,7 @@ namespace AnyRPG {
             //chestWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["ChestWindowX"], defaultWindowPositions["ChestWindowY"], 0);
             bankWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["BankWindowX"], defaultWindowPositions["BankWindowY"], 0);
             inventoryWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["InventoryWindowX"], defaultWindowPositions["InventoryWindowY"], 0);
+            storageContainerWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["StorageContainerWindowX"], defaultWindowPositions["StorageContainerWindowY"], 0);
             questLogWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["QuestLogWindowX"], defaultWindowPositions["QuestLogWindowY"], 0);
             achievementListWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["AchievementListWindowX"], defaultWindowPositions["AchievementListWindowY"], 0);
             questGiverWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["QuestGiverWindowX"], defaultWindowPositions["QuestGiverWindowY"], 0);
@@ -702,8 +704,6 @@ namespace AnyRPG {
             tradeWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["TradeWindowX"], defaultWindowPositions["TradeWindowY"], 0);
             mainMapWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["MainMapWindowX"], defaultWindowPositions["MainMapWindowY"], 0);
             dialogWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["DialogWindowX"], defaultWindowPositions["DialogWindowY"], 0);
-            
-            buildingUpgradeWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["BuildingUpgradeWindowX"], defaultWindowPositions["BuildingUpgradeWindowY"], 0);
 
             // ui elements
             questTrackerWindow.RectTransform.anchoredPosition = new Vector3(defaultWindowPositions["QuestTrackerWindowX"], defaultWindowPositions["QuestTrackerWindowY"], 0);
@@ -830,18 +830,15 @@ namespace AnyRPG {
             interactionTooltipController.ShowInteractionTooltip(interactable);
         }
 
-        public void ShowToolTip(Vector3 position, IDescribable describable)
-        {
+        public void ShowToolTip(Vector3 position, IDescribable describable) {
             tooltipController.ShowToolTip(position, describable);
         }
 
-        public void ShowToolTip(Vector2 pivot, Vector3 position, IDescribable describable)
-        {
+        public void ShowToolTip(Vector2 pivot, Vector3 position, IDescribable describable) {
             tooltipController.ShowToolTip(pivot, position, describable);
         }
 
-        public void ShowGamepadTooltip(RectTransform paneltransform, Transform buttonTransform, IDescribable describable)
-        {
+        public void ShowGamepadTooltip(RectTransform paneltransform, Transform buttonTransform, IDescribable describable) {
             tooltipController.ShowGamepadTooltip(paneltransform, buttonTransform, describable);
         }
 
@@ -860,7 +857,7 @@ namespace AnyRPG {
 
         public void ProcessInput() {
 
-            if (handScript.Moveable != null) {
+            if (handScript.MoveableOwner != null) {
                 hadMoveable = true;
             } else {
                 hadMoveable = false;
@@ -935,6 +932,10 @@ namespace AnyRPG {
                     }
                     return;
                 } else {
+                    if (contextMenuWindow.IsOpen == true) {
+                        contextMenuWindow.CloseWindow();
+                        return;
+                    }
                     CloseAllPopupWindows();
                 }
             }
@@ -1000,6 +1001,7 @@ namespace AnyRPG {
             inspectCharacterPanelWindow.CloseWindow();
             interactionWindow.CloseWindow();
             inventoryWindow.CloseWindow();
+            storageContainerWindow.CloseWindow();
             lootWindow.CloseWindow();
             mainMapWindow.CloseWindow();
             musicPlayerWindow.CloseWindow();
@@ -1020,8 +1022,6 @@ namespace AnyRPG {
             tradeWindow.CloseWindow();
             unitSpawnWindow.CloseWindow();
             vendorWindow.CloseWindow();
-
-            buildingUpgradeWindow.CloseWindow();
         }
 
         public void CloseAllSystemWindows() {
@@ -1619,6 +1619,9 @@ namespace AnyRPG {
             if (inventoryWindow.CloseableWindowContents != null) {
                 inventoryWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
             }
+            if (storageContainerWindow.CloseableWindowContents != null) {
+                storageContainerWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
+            }
 
         }
 
@@ -1629,7 +1632,6 @@ namespace AnyRPG {
             achievementListWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
             auctionWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
             craftingWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
-            buildingUpgradeWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
             createGuildWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
             characterPanelWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));
             currencyListWindow.CloseableWindowContents.SetBackGroundColor(new Color32(0, 0, 0, (byte)opacityLevel));

@@ -133,6 +133,8 @@ namespace AnyRPG {
         private SkillTrainerManagerServer skillTrainerManagerServer = new SkillTrainerManagerServer();
         private SpecializationChangeManagerClient specializationChangeManagerClient = new SpecializationChangeManagerClient();
         private SpecializationChangeManagerServer specializationChangeManagerServer = new SpecializationChangeManagerServer();
+        private StorageContainerManagerClient storageContainerManagerClient = new StorageContainerManagerClient();
+        private StorageContainerManagerServer storageContainerManagerServer = new StorageContainerManagerServer();
         private SystemAchievementManager systemAchievementManager = new SystemAchievementManager();
         private SystemDataFactory systemDataFactory = new SystemDataFactory();
         private SystemEnvironmentManager systemEnvironmentManager = new SystemEnvironmentManager();
@@ -223,6 +225,8 @@ namespace AnyRPG {
         public InspectCharacterService InspectCharacterService { get => inspectCharacterService; set => inspectCharacterService = value; }
         public SpecializationChangeManagerClient SpecializationChangeManagerClient { get => specializationChangeManagerClient; set => specializationChangeManagerClient = value; }
         public SpecializationChangeManagerServer SpecializationChangeManagerServer { get => specializationChangeManagerServer; set => specializationChangeManagerServer = value; }
+        public StorageContainerManagerClient StorageContainerManagerClient { get => storageContainerManagerClient; set => storageContainerManagerClient = value; }
+        public StorageContainerManagerServer StorageContainerManagerServer { get => storageContainerManagerServer; set => storageContainerManagerServer = value; }
         public MusicPlayerManager MusicPlayerManager { get => musicPlayerManager; set => musicPlayerManager = value; }
         public MailboxManagerClient MailboxManagerClient { get => mailboxManagerClient; set => mailboxManagerClient = value; }
         public MailboxManagerServer MailboxManagerServer { get => mailboxManagerServer; set => mailboxManagerServer = value; }
@@ -253,7 +257,6 @@ namespace AnyRPG {
         public ushort CommandLineServerPort { get => commandLineServerPort; set => commandLineServerPort = value; }
         public NetworkServerMode CommandLineServerMode { get => commandLineServerMode; set => commandLineServerMode = value; }
         public GameObject DroppedItemPrefab { get => droppedItemPrefab; set => droppedItemPrefab = value; }
-        public TownBuildingManager TownManager { get => townManager; set => townManager = value; }
 
         private void Awake() {
             Init();
@@ -352,7 +355,6 @@ namespace AnyRPG {
             KeyBindManager.Configure(this);
             systemEnvironmentManager.Configure(this);
             craftingManager.Configure(this);
-            townManager.Configure(this);
             interactionManagerClient.Configure(this);
             interactionManagerServer.Configure(this);
             lootManager.Configure(this);
@@ -378,6 +380,8 @@ namespace AnyRPG {
             inspectCharacterService.Configure(this);
             specializationChangeManagerClient.Configure(this);
             specializationChangeManagerServer.Configure(this);
+            storageContainerManagerClient.Configure(this);
+            storageContainerManagerServer.Configure(this);
             musicPlayerManager.Configure(this);
             auctionManagerClient.Configure(this);
             auctionManagerServer.Configure(this);
@@ -404,8 +408,6 @@ namespace AnyRPG {
             //localGameServerClient.Configure(this);
             friendServiceClient.Configure(this);
             friendServiceServer.Configure(this);
-
-            
         }
 
         private void ProcessCommandLineParameters() {

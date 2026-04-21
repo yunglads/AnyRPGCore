@@ -506,8 +506,8 @@ namespace AnyRPG {
             networkController.CheckGuildName(interactable, componentIndex, guildName);
         }
 
-        public void RequestLearnSkill(Interactable interactable, int componentIndex, string skillName) {
-            networkController.RequestLearnSkill(interactable, componentIndex, skillName);
+        public void RequestLearnSkill(Interactable interactable, int componentIndex, int skillId) {
+            networkController.RequestLearnSkill(interactable, componentIndex, skillId);
         }
 
         public void RequestAcceptQuest(Interactable interactable, int componentIndex, Quest quest) {
@@ -815,6 +815,10 @@ namespace AnyRPG {
 
         public void RequestAcceptTrade() {
             networkController.RequestAcceptTrade();
+        }
+
+        public void RequestAddItemsToTrade(List<long> itemInstanceIdList) {
+            networkController.RequestAddItemsToTrade(itemInstanceIdList);
         }
 
         public void RequestAddItemsToTradeSlot(int buttonIndex, List<long> itemInstanceIdList) {

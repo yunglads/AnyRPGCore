@@ -4,10 +4,7 @@ using FishNet.Managing.Scened;
 using FishNet.Managing.Server;
 using FishNet.Object;
 using FishNet.Transporting;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -522,8 +519,8 @@ namespace AnyRPG {
             clientConnector.AcceptFriendInvite(inviteCharacterId);
         }
 
-        public override void RequestLearnSkill(Interactable interactable, int componentIndex, string skillName) {
-            clientConnector.RequestLearnSkill(interactable, componentIndex, skillName);
+        public override void RequestLearnSkill(Interactable interactable, int componentIndex, int skillId) {
+            clientConnector.RequestLearnSkill(interactable, componentIndex, skillId);
         }
 
         public override void RequestSendMail(Interactable interactable, int componentIndex, MailMessageRequest sendMailRequest) {
@@ -723,6 +720,10 @@ namespace AnyRPG {
 
         public override void RequestAcceptTrade() {
             clientConnector.RequestAcceptTrade();
+        }
+
+        public override void RequestAddItemsToTrade(List<long> itemInstanceIdList) {
+            clientConnector.RequestAddItemsToTrade(itemInstanceIdList);
         }
 
         public override void RequestAddItemsToTradeSlot(int buttonIndex, List<long> itemInstanceIdList) {
@@ -1217,10 +1218,10 @@ namespace AnyRPG {
             clientConnector.LoadNewLobbyGameScene(accountId, lobbyGame, sceneNode);
         }
 
-        public override GameObject SpawnDroppedItem(Scene scene, Vector3 position, Quaternion rotation)
-        {
+        public override GameObject SpawnDroppedItem(Scene scene, Vector3 position, Quaternion rotation) {
             return clientConnector.SpawnDroppedItem(scene, droppedItemPrefab, position, rotation);
         }
+
 
         /*
         public override void SetCraftingManagerAbility(int accountId, string abilityName) {

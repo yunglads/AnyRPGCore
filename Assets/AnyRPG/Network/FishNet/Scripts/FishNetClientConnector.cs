@@ -190,12 +190,12 @@ namespace AnyRPG {
                 Debug.LogWarning($"Could not find NetworkObject component on {unitProfile.UnitPrefabProps.NetworkUnitPrefab.name}");
                 return null;
             }
+
             NetworkObject nob = GetSpawnablePrefab(unitProfile.UnitPrefabProps.NetworkUnitPrefab, null, position, forward);
             if (nob == null) {
                 Debug.LogWarning($"Could not spawn prefab {unitProfile.UnitPrefabProps.NetworkUnitPrefab.name} for unit {unitProfile.ResourceName}");
                 return null;
             }
-
             // update syncvars
             FishNetUnitController networkCharacterUnit = nob.gameObject.GetComponent<FishNetUnitController>();
             if (networkCharacterUnit != null) {
@@ -995,22 +995,22 @@ namespace AnyRPG {
 
 
 
-        public void RequestLearnSkill(Interactable interactable, int componentIndex, string skillName) {
+        public void RequestLearnSkill(Interactable interactable, int componentIndex, int skillId) {
             FishNetInteractable networkInteractable = null;
             if (interactable != null) {
                 networkInteractable = interactable.GetComponent<FishNetInteractable>();
             }
-            RequestLearnSkillServer(networkInteractable, componentIndex, skillName);
+            RequestLearnSkillServer(networkInteractable, componentIndex, skillId);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void RequestLearnSkillServer(FishNetInteractable targetNetworkInteractable, int componentIndex, string skillName, NetworkConnection networkConnection = null) {
+        public void RequestLearnSkillServer(FishNetInteractable targetNetworkInteractable, int componentIndex, int skillId, NetworkConnection networkConnection = null) {
 
             Interactable interactable = null;
             if (targetNetworkInteractable != null) {
                 interactable = targetNetworkInteractable.Interactable;
             }
-            networkManagerServer.LearnSkill(interactable, componentIndex, skillName, networkConnection.ClientId);
+            networkManagerServer.LearnSkill(interactable, componentIndex, skillId, networkConnection.ClientId);
         }
 
         public void RequestAcceptQuest(Interactable interactable, int componentIndex, Quest quest) {
@@ -1501,6 +1501,12 @@ namespace AnyRPG {
             //Debug.Log($"FishnetClientConnector.RequestAcceptTrade()");
 
             networkManagerServer.RequestAcceptTrade(networkConnection.ClientId);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void RequestAddItemsToTrade(List<long> itemInstanceIdList, NetworkConnection networkConnection = null) {
+
+            networkManagerServer.RequestAddItemsToTrade(networkConnection.ClientId, itemInstanceIdList);
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -2466,13 +2472,16 @@ namespace AnyRPG {
             networkManagerServer.RequestInteractWithInteractable(networkConnection.ClientId, networkInteractable.Interactable);
         }
 
-        public GameObject SpawnDroppedItem(Scene scene, GameObject droppedItemPrefab, Vector3 position, Quaternion rotation)
-        {
+        public void DespawnPrefab(GameObject gameObjectToDespawn) {
+            
+        }
+
+        public GameObject SpawnDroppedItem(Scene scene, GameObject droppedItemPrefab, Vector3 position, Quaternion rotation) {
             //Debug.Log($"FishNetClientConnector.SpawnDroppedItem(scene: {scene.name}, prefab: {droppedItemPrefab.name}, position: {position}, rotation: {rotation})");
 
             NetworkObject nob = GetSpawnablePrefab(droppedItemPrefab, null, position, Vector3.forward);
             SpawnPrefab(nob, null, scene);
-
+            
             return nob.gameObject;
         }
 

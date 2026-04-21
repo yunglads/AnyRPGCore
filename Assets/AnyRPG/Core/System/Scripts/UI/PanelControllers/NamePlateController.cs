@@ -228,10 +228,10 @@ namespace AnyRPG {
             CharacterName.text = unitNamePlateController.GetNamePlateString();
         }
 
-        public void SetNamePlateUnit(NamePlateUnit namePlateUnit, bool usePositionOffset) {
+        public void SetNamePlateUnit(Interactable interactable, bool usePositionOffset) {
             //Debug.Log($"NamePlateController.SetNamePlateUnit({namePlateUnit.gameObject.name}) setting namePlateUnit on nameplate in instanceid {GetInstanceID()}");
 
-            unitNamePlateController = namePlateUnit.NamePlateController;
+            unitNamePlateController = interactable.NamePlateController;
 
             // moved code here from awake since a nameplate always has to be initialized so this method will always be called before anything else
             CreateEventSubscriptions();
@@ -481,9 +481,6 @@ namespace AnyRPG {
 
 
         public void OnPointerEnter(PointerEventData eventData) {
-            if (systemConfigurationManager.CameraViewMode == CameraViewMode.Action)
-                return;
-
             if (unitNamePlateController?.Interactable != playerManagerClient?.UnitController?.gameObject) {
                 uIManager.NamePlateManager.AddMouseOver(this);
                 if (unitNamePlateController.Interactable != null) {

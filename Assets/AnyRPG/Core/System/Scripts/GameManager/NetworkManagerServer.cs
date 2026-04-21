@@ -932,7 +932,7 @@ namespace AnyRPG {
         }
 
 
-        public void LearnSkill(Interactable interactable, int componentIndex, string skillName, int clientId) {
+        public void LearnSkill(Interactable interactable, int componentIndex, int skillId, int clientId) {
             int accountId = authenticationService.GetAccountId(clientId);
             if (accountId == -1) {
                 return;
@@ -940,7 +940,7 @@ namespace AnyRPG {
             if (playerManagerServer.ActiveUnitControllers.ContainsKey(accountId) == false) {
                 return;
             }
-            skillTrainerManagerServer.LearnSkill(playerManagerServer.ActiveUnitControllers[accountId], interactable, componentIndex, skillName);
+            skillTrainerManagerServer.LearnSkill(playerManagerServer.ActiveUnitControllers[accountId], interactable, componentIndex, skillId);
         }
 
         public void RequestSendMail(Interactable interactable, int componentIndex, MailMessageRequest sendMailRequest, int clientId) {
@@ -1731,6 +1731,14 @@ namespace AnyRPG {
             tradeServiceServer.RequestAddItemsToTradeSlot(accountId, buttonIndex, itemInstanceIdList);
         }
 
+        public void RequestAddItemsToTrade(int clientId, List<long> itemInstanceIdList) {
+            int accountId = authenticationService.GetAccountId(clientId);
+            if (accountId == -1) {
+                return;
+            }
+            tradeServiceServer.RequestAddItemsToTrade(accountId, itemInstanceIdList);
+        }
+
         public void AdvertiseAddItemsToTargetTradeSlot(int targetAccountId, int buttonIndex, List<long> itemInstanceIdList) {
             networkController.AdvertiseAddItemsToTargetTradeSlot(targetAccountId, buttonIndex, itemInstanceIdList);
         }
@@ -2025,8 +2033,7 @@ namespace AnyRPG {
             interactionManagerServer.InteractWithInteractable(unitController, interactable);
         }
 
-        public GameObject SpawnDroppedItem(Scene scene, Vector3 position, Quaternion rotation)
-        {
+        public GameObject SpawnDroppedItem(Scene scene, Vector3 position, Quaternion rotation) {
             return networkController.SpawnDroppedItem(scene, position, rotation);
         }
     }
