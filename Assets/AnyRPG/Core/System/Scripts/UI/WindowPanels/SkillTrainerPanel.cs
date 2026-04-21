@@ -80,7 +80,7 @@ namespace AnyRPG {
                 SkillTrainerSkillScript qs = go.GetComponent<SkillTrainerSkillScript>();
                 qs.Configure(systemGameManager);
                 qs.Text.text = skillPair.Value.DisplayName;
-                Debug.Log($"Skill Names: {skillPair.Value.DisplayName}");
+                //Debug.Log($"Skill Names: {skillPair.Value.DisplayName}");
                 qs.Text.color = Color.white;
                 qs.SetSkill(this, skillPair);
                 skillScripts.Add(qs);

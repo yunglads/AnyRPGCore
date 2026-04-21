@@ -93,11 +93,11 @@ namespace AnyRPG
         {
             if (newSkill == null)
             {
-                Debug.LogError("CharacterSkillManager.LearnSkill: newSkill is null!");
+                //Debug.LogError("CharacterSkillManager.LearnSkill: newSkill is null!");
                 return;
             }
 
-            Debug.Log($"{unitController.gameObject.name}.CharacterSkillManager.LearnSkill({newSkill.ResourceName})");
+            //Debug.Log($"{unitController.gameObject.name}.CharacterSkillManager.LearnSkill({newSkill.ResourceName})");
 
             if (!skillList.ContainsKey(newSkill.ResourceName))
             {
@@ -129,13 +129,13 @@ namespace AnyRPG
 
                 InitializeSkillProgress(newSkill);
 
-                Debug.Log($"Successfully added skill: {newSkill.ResourceName}");
+                //Debug.Log($"Successfully added skill: {newSkill.ResourceName}");
 
                 unitController.UnitEventController.NotifyOnLearnSkill(newSkill);
             }
             else
             {
-                Debug.LogWarning($"Skill {newSkill.ResourceName} already learned, skipping.");
+                //Debug.LogWarning($"Skill {newSkill.ResourceName} already learned, skipping.");
             }
         }
 
@@ -296,7 +296,7 @@ namespace AnyRPG
                     prog.level++;
 
                     LevelUpSkillEffect();
-
+                    unitController.CharacterStats.RecalculateLevel();
                     LearnAbilitiesForSkillLevel(prog.skill, prog.level);
 
                     if (fishNet == null || fishNet.IsServerInitialized)
@@ -310,6 +310,7 @@ namespace AnyRPG
                         // client > ask server
                         fishNet.HandleSetSkillLevelServer(prog.skill.ResourceName, prog.level);
                     }
+
                     Debug.Log($"{prog.skill.ResourceName} leveled to {prog.level}");
                 }
                 //Debug.Log($"Players {prog.skill} Level: {prog.level} Current XP: {prog.xp} XP Needed: {needed -= prog.xp}");
@@ -393,21 +394,24 @@ namespace AnyRPG
 
         public void AddWeaponXP(UnitProfile enemy, WeaponSkill associatedSkill)
         {
-            if (associatedSkill != null && !HasSkill(associatedSkill))
+            if (associatedSkill == null)
+                return;
+
+            if (!HasSkill(associatedSkill))
             {
                 LearnSkill(associatedSkill);
             }
 
-            foreach (Skill skill in SkillList.Values.Cast<WeaponSkill>())
+            if (skillList.TryGetValue(associatedSkill.ResourceName, out Skill foundSkill))
             {
-                if (skill.ResourceName == associatedSkill.ResourceName)
+                if (foundSkill is WeaponSkill weaponSkill)
                 {
-                    RequestGainSkillXP(skill, enemy.BaseXP, enemy.EnemyLevel);
+                    RequestGainSkillXP(weaponSkill, enemy.BaseXP, enemy.EnemyLevel);
                 }
-                else
-                {
-                    Debug.LogWarning($"{associatedSkill.ResourceName} does not match any skill in list");
-                }
+            }
+            else
+            {
+                Debug.LogWarning($"Weapon skill {associatedSkill.ResourceName} not found in skillList");
             }
         }
 

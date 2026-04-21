@@ -189,6 +189,7 @@ namespace AnyRPG {
             unitController.UnitEventController.NotifyOnAddEquipment(equipmentSlotProfile, instantiatedEquipment);
             equippedWeight += instantiatedEquipment.Equipment.Weight;
             unitController.CharacterInventoryManager.CalculateEncumbered();
+        
         }
 
         public override void UnequipEquipment(EquipmentSlotProfile equipmentSlotProfile) {
@@ -242,6 +243,8 @@ namespace AnyRPG {
             unitController.CharacterCombat.HandleEquipmentChanged(newItem, oldItem, slotIndex, equipmentSlotProfile);
             unitController.CharacterAbilityManager.HandleEquipmentChanged(newItem, oldItem, slotIndex);
             unitController.UnitAnimator.HandleEquipmentChanged(newItem, oldItem, slotIndex);
+
+            unitController.CharacterStats.RecalculateLevel();
 
             // now that all stats have been recalculated, it's safe to fire this event, so things that listen will show the correct values
             //unitController.UnitEventController.NotifyOnEquipmentChanged(newItem, oldItem, slotIndex);
@@ -326,13 +329,13 @@ namespace AnyRPG {
                     }
                 }
             }
-            if (weaponCount == 0) {
-                // there are no weapons equipped
-                // check if the character class is set and contains a weapon skill that is considered to be active when no weapon is equipped
-                if (weaponAffinity.WeaponSkillProps.DefaultWeaponSkill && unitController.BaseCharacter.CapabilityConsumerProcessor.IsWeaponSkillSupported(weaponAffinity)) {
-                    return true;
-                }
-            }
+            //if (weaponCount == 0) {
+            //    // there are no weapons equipped
+            //    // check if the character class is set and contains a weapon skill that is considered to be active when no weapon is equipped
+            //    if (weaponAffinity.WeaponSkillProps.DefaultWeaponSkill && unitController.BaseCharacter.CapabilityConsumerProcessor.IsWeaponSkillSupported(weaponAffinity)) {
+            //        return true;
+            //    }
+            //}
             return false;
         }
 

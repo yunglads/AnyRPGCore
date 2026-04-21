@@ -2647,7 +2647,7 @@ namespace AnyRPG {
             //unitController.UnitEventController.NotifyOnGainSkillXP(skill.ResourceName, xp);
             float newXP = unitController.CharacterSkillManager.GetSkillXP(skillName);
             HandleGainSkillXP(skillName, newXP, nodeLevel, 0);
-            Debug.Log("Server RPC reached");
+            //Debug.Log("Server RPC reached");
         }
 
         [ObserversRpc]
@@ -2714,6 +2714,7 @@ namespace AnyRPG {
             //if (buildingDef != null && buildingDef.BuildingScope == BuildingScope.SharedTown)
             //systemGameManager.TownManager.SaveSharedProgress();
             HandleBuildingProgressChanged(buildingID, currentPhase, fullProgress);
+            systemGameManager.TownManager.NotifyBuildingUpgraded(buildingID, (BuildingPhase)currentPhase);
         }
 
         [ObserversRpc]
@@ -2728,6 +2729,8 @@ namespace AnyRPG {
             BuildingPanel panel = systemGameManager.UIManager.buildingUpgradeWindow.CloseableWindowContents as BuildingPanel;
             if (panel != null)
                 panel.RefreshUI();
+
+            systemGameManager.TownManager.NotifyBuildingUpgraded(buildingID, (BuildingPhase)newPhase);
         }
 
         [ServerRpc]

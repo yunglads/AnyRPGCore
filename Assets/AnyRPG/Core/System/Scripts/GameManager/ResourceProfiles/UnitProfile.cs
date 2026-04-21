@@ -164,6 +164,18 @@ namespace AnyRPG {
 
         private List<Equipment> equipmentList = new List<Equipment>();
 
+        [Header("Stat Overrides")]
+
+        [SerializeField]
+        private float healthOverride = -1f;
+
+        [SerializeField]
+        private float staminaOverride = -1f;
+        
+        [SerializeField]
+        private float manaOverride = -1f;
+
+
         [Header("Combat")]
 
         [Tooltip("If true, the unit will attack anything in its aggro radius based on faction relationship")]
@@ -377,6 +389,9 @@ namespace AnyRPG {
 
         public float BaseXP { get => baseXP; set => baseXP = value; }
         public int EnemyLevel { get => enemyLevel; set => enemyLevel = value; }
+        public float HealthOverride => healthOverride;
+        public float StaminaOverride => staminaOverride;
+        public float ManaOverride => manaOverride;
 
         public override void SetGameManagerReferences() {
             base.SetGameManagerReferences();

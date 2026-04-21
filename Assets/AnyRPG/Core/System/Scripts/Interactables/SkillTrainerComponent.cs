@@ -117,7 +117,7 @@ namespace AnyRPG {
                 }
                 counter++;
 
-                Debug.Log($"Skills in list: {returnList.Values}");
+                //Debug.Log($"Skills in list: {returnList.Values}");
             }
 
             return returnList;
@@ -136,7 +136,7 @@ namespace AnyRPG {
                 //Debug.Log($"Not found in Props.Skills, trying systemDataFactory for WeaponSkill...");
                 skill = systemDataFactory.GetResource<WeaponSkill>(skillName) as Skill;
             }
-            Debug.Log($"SkillTrainerComponent.LearnSkill() found skill: {(skill == null ? "NULL" : skill.ResourceName)}");
+            //Debug.Log($"SkillTrainerComponent.LearnSkill() found skill: {(skill == null ? "NULL" : skill.ResourceName)}");
             if (skill == null)
             {
                 Debug.LogError($"Could not find skill '{skillName}' anywhere!");

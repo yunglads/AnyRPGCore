@@ -71,9 +71,9 @@ namespace AnyRPG {
 
         public void AddSkill(Skill newSkill)
         {
-            Debug.Log("SkillButton.AddSkill(" + (skillName != null && skillName != string.Empty ? skillName : "null") + ")");
+            //Debug.Log("SkillButton.AddSkill(" + (skillName != null && skillName != string.Empty ? skillName : "null") + ")");
             currentSkill = newSkill;
-            Debug.Log($"currentSkill: {currentSkill} newSkill: {newSkill}");
+            //Debug.Log($"currentSkill: {currentSkill} newSkill: {newSkill}");
             if (currentSkill != null)
             {
                 icon.sprite = currentSkill.Icon;

@@ -59,7 +59,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6736614858171169985}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
   - {fileID: 6477698825359501210}
   - {fileID: 569671886078505354}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2639292791216672425}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -121,6 +121,25 @@ MonoBehaviour:
   _isTerrainMesh: 0
   _isSphericalMesh: 0
   _uiSelected: 0
+--- !u!114 &2639292791216672425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79425504febc2843801a7aa28fd9495, type: 3}
+  m_Name: Layer_25
+  m_EditorClassIdentifier: Assembly-CSharp::GSPAWN.PluginObjectLayer
+  _guid:
+    _guidString: 0a11aab1-6867-4287-9cac-acd21c69da6b
+  _layer: 25
+  _isErasable: 1
+  _isTerrainMesh: 0
+  _isSphericalMesh: 0
+  _uiSelected: 0
 --- !u!114 &3023613108208523986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +174,25 @@ MonoBehaviour:
   _guid:
     _guidString: d4d04e4f-fd74-4f46-9fa6-3e613d97c963
   _layer: 22
+  _isErasable: 1
+  _isTerrainMesh: 0
+  _isSphericalMesh: 0
+  _uiSelected: 0
+--- !u!114 &6736614858171169985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79425504febc2843801a7aa28fd9495, type: 3}
+  m_Name: Layer_8
+  m_EditorClassIdentifier: Assembly-CSharp::GSPAWN.PluginObjectLayer
+  _guid:
+    _guidString: de621c33-5361-4d35-9e2d-117ea8471490
+  _layer: 8
   _isErasable: 1
   _isTerrainMesh: 0
   _isSphericalMesh: 0

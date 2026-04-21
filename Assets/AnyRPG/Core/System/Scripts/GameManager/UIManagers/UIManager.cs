@@ -631,6 +631,9 @@ namespace AnyRPG {
             defaultWindowPositions.Add("MessageLogWindowX", MessageLogWindow.RectTransform.anchoredPosition.x);
             defaultWindowPositions.Add("MessageLogWindowY", MessageLogWindow.RectTransform.anchoredPosition.y);
 
+            defaultWindowPositions.Add("BuildingUpgradeWindowX", buildingUpgradeWindow.RectTransform.anchoredPosition.x);
+            defaultWindowPositions.Add("BuildingUpgradeWindowY", buildingUpgradeWindow.RectTransform.anchoredPosition.y);
+
             defaultWindowPositions.Add("MessageFeedManagerX", MessageFeedManager.MessageFeedWindow.RectTransform.anchoredPosition.x);
             defaultWindowPositions.Add("MessageFeedManagerY", MessageFeedManager.MessageFeedWindow.RectTransform.anchoredPosition.y);
 
@@ -664,9 +667,6 @@ namespace AnyRPG {
 
             defaultWindowPositions.Add("MouseOverWindowX", MouseOverWindow.RectTransform.anchoredPosition.x);
             defaultWindowPositions.Add("MouseOverWindowY", MouseOverWindow.RectTransform.anchoredPosition.y);
-
-            defaultWindowPositions.Add("BuildingUpgradeWindowX", buildingUpgradeWindow.RectTransform.anchoredPosition.x);
-            defaultWindowPositions.Add("BuildingUpgradeWindowY", buildingUpgradeWindow.RectTransform.anchoredPosition.y);
 
         }
 

@@ -74,7 +74,7 @@ namespace AnyRPG {
         private NetworkManagerServer networkManagerServer = null;
 
         [SerializeField]
-        private TownBuildingManager townManager = null;
+        private TownBuildingManager townManager;
 
         // system scripts
         private AuthenticationService authenticationService = new AuthenticationService();
@@ -492,6 +492,12 @@ namespace AnyRPG {
 
             UpdateSimulationMode();
             //networkManagerServer.OnSetGameMode(gameMode);
+        }
+
+        public void SetTownManager(TownBuildingManager manager)
+        {
+            townManager = manager;
+            //Debug.Log($"TownManager overwritten with: {manager.GetInstanceID()}");
         }
 
         private void UpdateSimulationMode() {

@@ -69,31 +69,34 @@ namespace AnyRPG {
         public float GlideFallSpeed { get => currentGlideFallSpeed; }
         public bool IsAlive { get => isAlive; }
         //public BaseCharacter BaseCharacter { get => unitController; set => unitController = value; }
-
-        //public int Level { get => currentLevel; }
+        public int CurrentLevel { get => currentLevel; }
         public int CurrentXP { get => currentXP; set => currentXP = value; }
 
         public int Level
         {
             get
             {
-                // Option A: Use highest skill level
-                if (unitController?.CharacterSkillManager != null)
+                if (unitController?.CharacterSkillManager == null)
+                    return 1;
+
+                WeaponSkill weaponSkill = null;
+
+                var equippedWeapon = unitController.CharacterEquipmentManager?.GetEquippedWeapon();
+
+                if (equippedWeapon != null)
                 {
-                    int maxSkillLevel = 1;
-                    foreach (var prog in unitController.CharacterSkillManager.SkillList.Values)
-                    {
-                        int skillLevel = unitController.CharacterSkillManager.GetSkillLevel(prog);
-                        if (skillLevel > maxSkillLevel)
-                        {
-                            maxSkillLevel = skillLevel;
-                        }
-                    }
-                    return maxSkillLevel;
+                    weaponSkill = equippedWeapon.WeaponSkill;
                 }
 
-                // Option B: Just return a fixed level
-                return 1; // or systemConfigurationManager.SkillLevelCap
+                if (weaponSkill == null)
+                {
+                    weaponSkill = systemDataFactory.GetResource<WeaponSkill>("Brawler");
+                }
+
+                if (weaponSkill == null)
+                    return 1;
+
+                return unitController.CharacterSkillManager.GetSkillLevel(weaponSkill);
             }
         }
 
@@ -1134,6 +1137,9 @@ namespace AnyRPG {
         //}
 
         public void SetLevel(int newLevel) {
+            if (currentLevel == newLevel)
+                return;
+
             SetLevelInternal(newLevel);
             unitController.UnitEventController.NotifyOnLevelChanged(currentLevel);
         }
@@ -1689,6 +1695,22 @@ namespace AnyRPG {
         }
 
         public float GetPowerResourceMaxAmount(PowerResource powerResource) {
+            
+            if (powerResource.IsHealth && unitController.UnitProfile.HealthOverride > 0)
+            {
+                return unitController.UnitProfile.HealthOverride;
+            }
+
+            if (powerResource.ResourceName == "Stamina" && unitController.UnitProfile.StaminaOverride > 0)
+            {
+                return unitController.UnitProfile.StaminaOverride;
+            }
+
+            if (powerResource.ResourceName == "Mana" && unitController.UnitProfile.ManaOverride > 0)
+            {
+                return unitController.UnitProfile.ManaOverride;
+            }
+
             float returnValue = 0f;
             if (powerResourceDictionary.ContainsKey(powerResource)) {
                 if (unitController != null) {
@@ -1801,6 +1823,27 @@ namespace AnyRPG {
                 }
             }
             return false;
+        }
+
+        public void RecalculateLevel()
+        {
+            if (unitController?.CharacterSkillManager == null)
+            {
+                SetLevel(1);
+                return;
+            }
+
+            WeaponSkill weaponSkill = unitController.CharacterEquipmentManager?.GetEquippedWeapon()?.WeaponSkill
+                ?? systemDataFactory.GetResource<WeaponSkill>("Brawler");
+
+            if (weaponSkill == null)
+            {
+                SetLevel(1);
+                return;
+            }
+
+            int newLevel = unitController.CharacterSkillManager.GetSkillLevel(weaponSkill);
+            SetLevel(newLevel);
         }
     }
 

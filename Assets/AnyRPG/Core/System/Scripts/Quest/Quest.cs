@@ -120,6 +120,12 @@ namespace AnyRPG {
         [SerializeField]
         protected bool allowRawComplete = false;
 
+        [SerializeField]
+        [ResourceSelector(resourceType = typeof(Quest))]
+        private List<string> nextQuestNames = new List<string>();
+
+        private List<Quest> nextQuests = new List<Quest>();
+
         // game manager references
         protected MessageLogServer messageLogServer = null;
         protected CurrencyConverter currencyConverter = null;
@@ -197,6 +203,11 @@ namespace AnyRPG {
             base.ProcessMarkComplete(sourceUnitController, printMessages);
             if (printMessages == true) {
                 sourceUnitController.WriteMessageFeedMessage(string.Format("{0} Complete!", DisplayName));
+            }
+
+            foreach (Quest nextQuest in nextQuests)
+            {
+                nextQuest.AcceptQuest(sourceUnitController);
             }
         }
 
@@ -477,6 +488,16 @@ namespace AnyRPG {
                     openingDialog = dialog;
                 } else {
                     Debug.LogError("Quest.SetupScriptableObjects(): Could not find dialog : " + ResourceName + " while inititalizing quest " + ResourceName + ".  CHECK INSPECTOR");
+                }
+            }
+
+            nextQuests = new List<Quest>();
+            foreach (string questName in nextQuestNames)
+            {
+                Quest quest = systemDataFactory.GetResource<Quest>(questName);
+                if (quest != null)
+                {
+                    nextQuests.Add(quest);
                 }
             }
         }
