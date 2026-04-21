@@ -6,6 +6,12 @@ namespace AnyRPG {
     [CreateAssetMenu(fileName = "New Unit Profile", menuName = "AnyRPG/UnitProfile")]
     public class UnitProfile : DescribableResource, IStatProvider, ICapabilityProvider, ISerializationCallbackReceiver, IUUID {
 
+        [Header("Nameplate")]
+
+        [Tooltip("If true, the nameplate will show the title instead of the faction.  If true, the title will show in the nameplate instead of the faction.  If false, the faction will show in the nameplate instead of the title.  This only applies if a title is set.  If no title is set, the faction will be used regardless of this setting.")]
+        [SerializeField]
+        private bool suppressNameplateFaction = false;
+
         [Header("Unit Prefab")]
 
         [Tooltip("If true, the unit prefab is loaded by searching for a UnitPrefabProfile with the same name as this resource.")]
@@ -44,14 +50,6 @@ namespace AnyRPG {
         [Tooltip("The name that will show over the character head and in unit frames")]
         [SerializeField]
         protected string characterName;
-
-        [Tooltip("XP granted for killing this unit")]
-        [SerializeField]
-        private float baseXP = 25f;
-
-        [Tooltip("Set Level for XP scaling")]
-        [SerializeField]
-        private int enemyLevel;
 
         [Tooltip("If set, this will show in the nameplate instead of the faction")]
         [SerializeField]
@@ -373,10 +371,9 @@ namespace AnyRPG {
         public List<string> MovementAudioProfileNames { get => movementAudioProfileNames; set => movementAudioProfileNames = value; }
         public bool FaceInteractionTarget { get => faceInteractionTarget; set => faceInteractionTarget = value; }
         public List<AbilityEffectProperties> DefaultHitEffectList { get => defaultHitEffectList; set => defaultHitEffectList = value; }
-        //public bool PersistCharacterState { get => persistCharacterState; set => persistCharacterState = value; }
+        public bool SuppressNameplateFaction { get => suppressNameplateFaction; set => suppressNameplateFaction = value; }
 
-        public float BaseXP { get => baseXP; set => baseXP = value; }
-        public int EnemyLevel { get => enemyLevel; set => enemyLevel = value; }
+        //public bool PersistCharacterState { get => persistCharacterState; set => persistCharacterState = value; }
 
         public override void SetGameManagerReferences() {
             base.SetGameManagerReferences();

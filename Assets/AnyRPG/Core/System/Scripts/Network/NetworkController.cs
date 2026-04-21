@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -46,7 +44,7 @@ namespace AnyRPG {
         public abstract void RequestSetPlayerCharacterClass(Interactable interactable, int componentIndex);
         public abstract void SetPlayerCharacterSpecialization(Interactable interactable, int componentIndex);
         public abstract void RequestSetPlayerFaction(Interactable interactable, int componentIndex);
-        public abstract void RequestLearnSkill(Interactable interactable, int componentIndex, string skillName);
+        public abstract void RequestLearnSkill(Interactable interactable, int componentIndex, int skillId);
         public abstract void RequestSendMail(Interactable interactable, int componentIndex, MailMessageRequest sendMailRequest);
         public abstract void RequestAcceptQuest(Interactable interactable, int componentIndex, Quest quest);
         public abstract void RequestCompleteQuest(Interactable interactable, int componentIndex, Quest quest, QuestRewardChoices questRewardChoices);
@@ -76,6 +74,7 @@ namespace AnyRPG {
         public abstract void RequestBeginTrade(int characterId);
         public abstract void RequestDeclineTrade();
         public abstract void RequestAcceptTrade();
+        public abstract void RequestAddItemsToTrade(List<long> itemInstanceIdList);
         public abstract void RequestAddItemsToTradeSlot(int buttonIndex, List<long> itemInstanceIdList);
         public abstract void RequestAddCurrencyToTrade(CurrencyNode currencyNode);
         public abstract void RequestConfirmTrade();

@@ -27,8 +27,6 @@ namespace AnyRPG {
         // components
         protected UnitController unitController;
 
-        private UnitProfile enemyProf = null;
-
         // track equipped weapons for managing default hit effects
         protected List<Weapon> equippedWeapons = new List<Weapon>();
 
@@ -70,7 +68,6 @@ namespace AnyRPG {
         public List<AbilityEffectProperties> DefaultHitEffects { get => defaultHitEffects; set => defaultHitEffects = value; }
         public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
         public float LastAttackBegin { get => lastAttackBegin; }
-        public UnitProfile EnemyProf { get => enemyProf; set => enemyProf = value; }
 
         public CharacterCombat(UnitController unitController, SystemGameManager systemGameManager) {
             this.unitController = unitController;
@@ -259,8 +256,8 @@ namespace AnyRPG {
 
                 // determine if this target is capable of fighting (ie, not environmental effect), and if so, enter combat
                 CharacterUnit _characterUnit = sourceCaster.AbilityManager.GetCharacterUnit();
-                if (_characterUnit != null) {
-                    AggroTable.AddToAggroTable(_characterUnit, (int)totalThreat);
+                if (_characterUnit?.UnitController != null) {
+                    AggroTable.AddToAggroTable(_characterUnit.UnitController, (int)totalThreat);
                     // commented out and moved to TakeDamage
                     //EnterCombat(_interactable);
                 }
@@ -283,10 +280,10 @@ namespace AnyRPG {
                 //Debug.Log($"{unitController.gameObject.name}.TryToDropCombat(): topAgroNode was not null");
                 // this next condition should prevent crashes as a result of level unloads
                 foreach (AggroNode aggroNode in AggroTable.AggroNodes) {
-                    UnitController _aiController = aggroNode.aggroTarget.UnitController;
+                    UnitController _aiController = aggroNode.aggroTarget;
                     // since players don't have an agro radius, we can skip the check and drop combat automatically
                     if (_aiController != null) {
-                        if (Vector3.Distance(unitController.transform.position, aggroNode.aggroTarget.Interactable.transform.position) < _aiController.AggroRadius) {
+                        if (Vector3.Distance(unitController.transform.position, aggroNode.aggroTarget.transform.position) < _aiController.AggroRadius) {
                             // fail if we are inside the agro radius of an AI on our agro table
                             return;
                         }
@@ -427,11 +424,10 @@ namespace AnyRPG {
         /// </summary>
         /// <param name="target"></param>
         /// return true if this is a new entry, false if not
-        public virtual bool EnterCombat(Interactable target) {
+        public virtual bool EnterCombat(UnitController target) {
             //Debug.Log($"{unitController.gameObject.name}.CharacterCombat.EnterCombat({(target == null ? "null" : target.gameObject.name)})");
 
-            CharacterUnit _characterUnit = CharacterUnit.GetCharacterUnit(target);
-            if (_characterUnit == null || _characterUnit.UnitController.CharacterStats.IsAlive == false || unitController.CharacterStats.IsAlive == false) {
+            if (target == null || target.CharacterStats.IsAlive == false || unitController.CharacterStats.IsAlive == false) {
                 return false;
             }
 
@@ -452,11 +448,11 @@ namespace AnyRPG {
             */
 
             inCombat = true;
-            if (!aggroTable.AggroTableContains(CharacterUnit.GetCharacterUnit(target))) {
+            if (!aggroTable.AggroTableContains(target)) {
                 unitController.UnitEventController.NotifyOnEnterCombat(target);
             }
             unitController.UnitModelController.HoldWeapons();
-            return aggroTable.AddToAggroTable(CharacterUnit.GetCharacterUnit(target), 0);
+            return aggroTable.AddToAggroTable(target, 0);
         }
 
         public AbilityProperties GetValidAttackAbility() {
@@ -646,8 +642,8 @@ namespace AnyRPG {
             if (unitController.CharacterStats.IsAlive) {
 
                 CharacterUnit _characterUnit = sourceCharacter.AbilityManager.GetCharacterUnit();
-                if (_characterUnit != null && aggroTable.AggroTableContains(_characterUnit) == false) {
-                    unitController.Aggro(_characterUnit);
+                if (_characterUnit?.UnitController != null && aggroTable.AggroTableContains(_characterUnit.UnitController) == false) {
+                    unitController.Aggro(_characterUnit.UnitController);
                 }
                 //Debug.Log($"{unitController.gameObject.name} about to take " + damage.ToString() + " damage. Character is alive");
                 //float distance = Vector3.Distance(transform.position, sourcePosition);
@@ -675,46 +671,14 @@ namespace AnyRPG {
             return false;
         }
 
-        public virtual void OnKillConfirmed(UnitController sourceCharacter, float creditPercent) {
+        public virtual void OnKillConfirmed(UnitController sourceUnitController, float creditPercent) {
             //Debug.Log($"{unitController.gameObject.name} received death broadcast from " + sourceCharacter.AbilityManager.name);
-            if (sourceCharacter != null) {
-                unitController.UnitEventController.NotifyOnKillEvent(sourceCharacter, creditPercent);
+            if (sourceUnitController != null) {
+                unitController.UnitEventController.NotifyOnKillEvent(sourceUnitController, creditPercent);
             }
-            aggroTable.ClearSingleTarget(sourceCharacter.CharacterUnit);
+            aggroTable.ClearSingleTarget(sourceUnitController);
             TryToDropCombat();
             unitController?.UnitEventController.NotifyOnKillTarget();
-
-            //Debug.Log($"OnKillConfirmed - Source: {unitController.gameObject.name} | Mode: {unitController.UnitControllerMode}");
-
-            CharacterEquipmentManager equipmentManager = unitController.CharacterEquipmentManager;
-            WeaponSkill weaponSkill = equipmentManager.GetEquippedWeapon()?.WeaponSkill;
-            CharacterSkillManager skillManager = unitController.CharacterSkillManager;
-            enemyProf = sourceCharacter.UnitProfile;
-
-            //Debug.Log($"Current WeaponSkill is: {weaponSkill}");
-
-            if (unitController.UnitControllerMode != UnitControllerMode.Player)
-            {
-                Debug.Log($"Skipping XP - {unitController.gameObject.name} is not a player, mode is: {unitController.UnitControllerMode}");
-                return;
-            }
-
-            if (weaponSkill == null || weaponSkill.ResourceName == string.Empty)
-            {
-                WeaponSkill skill = systemDataFactory.GetResource<WeaponSkill>("Pugilism");
-
-                weaponSkill = skill;
-            }
-
-            if (weaponSkill != null && enemyProf != null)
-            {
-                //Debug.Log($"Killer: {unitController.gameObject.name} | Weapon: {weaponSkill.DisplayName} | Enemy: {enemyProf.DisplayName}");
-                skillManager.AddWeaponXP(enemyProf, weaponSkill);
-            }
-            else
-            {
-                Debug.Log($"Missing data - weaponSkill: {weaponSkill?.DisplayName ?? "null"} | enemyProf: {enemyProf?.DisplayName ?? "null"}");
-            }
         }
 
         public virtual void BroadcastCharacterDeath() {
@@ -726,7 +690,7 @@ namespace AnyRPG {
                     if (_aggroNode.aggroTarget == null) {
                         //Debug.Log($"{unitController.gameObject.name}: aggronode.aggrotarget is null!");
                     } else {
-                        CharacterCombat _otherCharacterCombat = _aggroNode.aggroTarget.UnitController.CharacterCombat as CharacterCombat;
+                        CharacterCombat _otherCharacterCombat = _aggroNode.aggroTarget.CharacterCombat as CharacterCombat;
                         if (_otherCharacterCombat != null) {
                             broadcastDictionary.Add(_otherCharacterCombat, (_aggroNode.aggroValue > 0 ? 1 : 0));
                         } else {
