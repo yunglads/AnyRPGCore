@@ -995,22 +995,22 @@ namespace AnyRPG {
 
 
 
-        public void RequestLearnSkill(Interactable interactable, int componentIndex, int skillId) {
+        public void RequestLearnSkill(Interactable interactable, int componentIndex, string skillName) {
             FishNetInteractable networkInteractable = null;
             if (interactable != null) {
                 networkInteractable = interactable.GetComponent<FishNetInteractable>();
             }
-            RequestLearnSkillServer(networkInteractable, componentIndex, skillId);
+            RequestLearnSkillServer(networkInteractable, componentIndex, skillName);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void RequestLearnSkillServer(FishNetInteractable targetNetworkInteractable, int componentIndex, int skillId, NetworkConnection networkConnection = null) {
+        public void RequestLearnSkillServer(FishNetInteractable targetNetworkInteractable, int componentIndex, string skillName, NetworkConnection networkConnection = null) {
 
             Interactable interactable = null;
             if (targetNetworkInteractable != null) {
                 interactable = targetNetworkInteractable.Interactable;
             }
-            networkManagerServer.LearnSkill(interactable, componentIndex, skillId, networkConnection.ClientId);
+            networkManagerServer.LearnSkill(interactable, componentIndex, skillName, networkConnection.ClientId);
         }
 
         public void RequestAcceptQuest(Interactable interactable, int componentIndex, Quest quest) {

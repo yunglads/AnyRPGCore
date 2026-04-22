@@ -51,6 +51,7 @@ namespace AnyRPG {
 
             BeginInteraction(targetInteractable);
             uIManager.craftingWindow.CloseWindow();
+            uIManager.buildingUpgradeWindow.CloseWindow();
             uIManager.interactionWindow.OpenWindow();
         }
 

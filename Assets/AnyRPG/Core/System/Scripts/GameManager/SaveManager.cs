@@ -663,6 +663,8 @@ namespace AnyRPG {
                 uIManager.interactionWindow.RectTransform.anchoredPosition = new Vector3(PlayerPrefs.GetFloat("InteractionWindowX"), PlayerPrefs.GetFloat("InteractionWindowY"), 0);
             if (PlayerPrefs.HasKey("CraftingWindowX") && PlayerPrefs.HasKey("CraftingWindowY"))
                 uIManager.craftingWindow.RectTransform.anchoredPosition = new Vector3(PlayerPrefs.GetFloat("CraftingWindowX"), PlayerPrefs.GetFloat("CraftingWindowY"), 0);
+            if (PlayerPrefs.HasKey("BuildingUpgradeWindowX") && PlayerPrefs.HasKey("BuildingUpgradeWindowY"))
+                uIManager.buildingUpgradeWindow.RectTransform.anchoredPosition = new Vector3(PlayerPrefs.GetFloat("BuildingUpgradeWindowX"), PlayerPrefs.GetFloat("BuildingUpgradeWindowY"), 0);
             if (PlayerPrefs.HasKey("MainMapWindowX") && PlayerPrefs.HasKey("MainMapWindowY"))
                 uIManager.mainMapWindow.RectTransform.anchoredPosition = new Vector3(PlayerPrefs.GetFloat("MainMapWindowX"), PlayerPrefs.GetFloat("MainMapWindowY"), 0);
             if (PlayerPrefs.HasKey("DialogWindowX") && PlayerPrefs.HasKey("DialogWindowY"))
@@ -765,6 +767,8 @@ namespace AnyRPG {
             PlayerPrefs.SetFloat("InteractionWindowY", uIManager.interactionWindow.RectTransform.anchoredPosition.y);
             PlayerPrefs.SetFloat("CraftingWindowX", uIManager.craftingWindow.RectTransform.anchoredPosition.x);
             PlayerPrefs.SetFloat("CraftingWindowY", uIManager.craftingWindow.RectTransform.anchoredPosition.y);
+            PlayerPrefs.SetFloat("BuildingUpgradeWindowX", uIManager.buildingUpgradeWindow.RectTransform.anchoredPosition.x);
+            PlayerPrefs.SetFloat("BuildingUpgradeWindowY", uIManager.buildingUpgradeWindow.RectTransform.anchoredPosition.y);
             PlayerPrefs.SetFloat("MainMapWindowX", uIManager.mainMapWindow.RectTransform.anchoredPosition.x);
             PlayerPrefs.SetFloat("MainMapWindowY", uIManager.mainMapWindow.RectTransform.anchoredPosition.y);
             PlayerPrefs.SetFloat("DialogWindowX", uIManager.dialogWindow.RectTransform.anchoredPosition.x);

@@ -27,6 +27,8 @@ namespace AnyRPG {
         // components
         protected UnitController unitController;
 
+        private UnitProfile enemyProf = null;
+
         // track equipped weapons for managing default hit effects
         protected List<Weapon> equippedWeapons = new List<Weapon>();
 
@@ -68,6 +70,7 @@ namespace AnyRPG {
         public List<AbilityEffectProperties> DefaultHitEffects { get => defaultHitEffects; set => defaultHitEffects = value; }
         public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
         public float LastAttackBegin { get => lastAttackBegin; }
+        public UnitProfile EnemyProf { get => enemyProf; set => enemyProf = value; }
 
         public CharacterCombat(UnitController unitController, SystemGameManager systemGameManager) {
             this.unitController = unitController;
@@ -685,7 +688,7 @@ namespace AnyRPG {
             CharacterEquipmentManager equipmentManager = unitController.CharacterEquipmentManager;
             WeaponSkill weaponSkill = equipmentManager.GetEquippedWeapon()?.WeaponSkill;
             CharacterSkillManager skillManager = unitController.CharacterSkillManager;
-            enemyProf = sourceCharacter.UnitProfile;
+            enemyProf = sourceUnitController.UnitProfile;
 
             //Debug.Log($"Current WeaponSkill is: {weaponSkill}");
 

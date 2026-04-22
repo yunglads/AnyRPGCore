@@ -44,7 +44,7 @@ namespace AnyRPG {
         public abstract void RequestSetPlayerCharacterClass(Interactable interactable, int componentIndex);
         public abstract void SetPlayerCharacterSpecialization(Interactable interactable, int componentIndex);
         public abstract void RequestSetPlayerFaction(Interactable interactable, int componentIndex);
-        public abstract void RequestLearnSkill(Interactable interactable, int componentIndex, int skillId);
+        public abstract void RequestLearnSkill(Interactable interactable, int componentIndex, string skillName);
         public abstract void RequestSendMail(Interactable interactable, int componentIndex, MailMessageRequest sendMailRequest);
         public abstract void RequestAcceptQuest(Interactable interactable, int componentIndex, Quest quest);
         public abstract void RequestCompleteQuest(Interactable interactable, int componentIndex, Quest quest, QuestRewardChoices questRewardChoices);

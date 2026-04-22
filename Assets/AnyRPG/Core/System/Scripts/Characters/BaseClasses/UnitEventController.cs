@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AnyRPG {
@@ -205,6 +206,10 @@ namespace AnyRPG {
         public event Action<StorageContainerComponent, int> OnRequestMoveItemFromStorageContainer = delegate { };
         public event Action<InstantiatedBag, int, bool> OnRequestEquipBagFromSlot = delegate { };
         public event Action<InstantiatedEquipment> OnRequestUnequip = delegate { };
+
+        public event System.Action<string, float, int> OnGainSkillXP = delegate { };
+        public event System.Action<string, int> OnSkillLevelChanged = delegate { };
+        public event System.Action<string, int, List<BuildingProgressSaveData>> OnBuildingProgressChanged = delegate { };
 
         //public event System.Action<BaseAbilityProperties, Interactable> OnTargetInAbilityRangeFail = delegate { };
 
@@ -1134,6 +1139,20 @@ namespace AnyRPG {
             OnRequestUnequip(instantiatedEquipment);
         }
 
+        public void NotifyOnGainSkillXP(string skill, float currentXP, int nodeLevel)
+        {
+            OnGainSkillXP.Invoke(skill, currentXP, nodeLevel);
+        }
+
+        public void NotifyOnSkillLevelChanged(string skill, int currentLevel)
+        {
+            OnSkillLevelChanged.Invoke(skill, currentLevel);
+        }
+
+        public void NotifyOnBuildingProgressChanged(string buildingID, int newPhase, List<BuildingProgressSaveData> buildingProgress)
+        {
+            OnBuildingProgressChanged.Invoke(buildingID, newPhase, buildingProgress);
+        }
 
         #endregion
 

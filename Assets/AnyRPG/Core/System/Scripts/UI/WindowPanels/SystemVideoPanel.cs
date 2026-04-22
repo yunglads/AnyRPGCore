@@ -99,6 +99,8 @@ namespace AnyRPG {
             InitializeFullScreen();
             CheckVSync();
 
+            CheckCameraControlMode();
+
             // check and set advanced settings which may override main quality setting
             //CheckAdvancedVideoSettings();
         }
@@ -259,7 +261,7 @@ namespace AnyRPG {
         private void CheckCameraControlMode()
         {
             cameraDropdown.ClearOptions();
-            cameraDropdown.AddOptions(new List<string> { "Classic", "Free Look", "Action" });
+            cameraDropdown.AddOptions(new List<string> { "Classic", "Isometric", "Action" });
             cameraDropdown.value = PlayerPrefs.GetInt("CameraControlMode", 0);
             cameraDropdown.RefreshShownValue();
 
@@ -276,7 +278,7 @@ namespace AnyRPG {
 
         private void ApplyCameraControlMode(int modeIndex)
         {
-            //systemGameManager.CameraManager.MainCameraController.SetCameraMode((AnyRPGCameraController)modeIndex);
+            systemConfigurationManager.CameraViewMode = (CameraViewMode)modeIndex;
         }
 
         public void ShadowsOff() {

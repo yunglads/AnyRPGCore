@@ -87,6 +87,19 @@ namespace AnyRPG {
             return returnValue;
         }
 
+        public Weapon GetEquippedWeapon()
+        {
+            foreach (EquipmentInventorySlot slot in CurrentEquipment.Values)
+            {
+                if (slot.InstantiatedEquipment != null
+                    && slot.InstantiatedEquipment.Equipment is Weapon weapon)
+                {
+                    return weapon;
+                }
+            }
+            return null;
+        }
+
         /// <summary>
         /// meant to be called by SetUnitProfile since it relies on that for the equipment list
         /// </summary>

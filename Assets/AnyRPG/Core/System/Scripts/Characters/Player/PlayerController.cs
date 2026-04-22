@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 using static UnityEngine.GraphicsBuffer;
 
 namespace AnyRPG {
-    public class PlayerController : ConfiguredClass {
+    public class PlayerController : ConfiguredClass
+    {
 
         public event System.Action<int> AbilityButtonPressedHandler = delegate { };
         public event System.Action<bool> ToggleRunHandler = delegate { };
@@ -59,7 +60,8 @@ namespace AnyRPG {
         public RaycastHit MouseOverhit { get => mouseOverhit; set => mouseOverhit = value; }
         public MovementData MovementData { get => movementData; }
 
-        public override void SetGameManagerReferences() {
+        public override void SetGameManagerReferences()
+        {
             base.SetGameManagerReferences();
             inputManager = systemGameManager.InputManager;
             playerManagerClient = systemGameManager.PlayerManagerClient;
@@ -79,10 +81,12 @@ namespace AnyRPG {
             systemEventManager = systemGameManager.SystemEventManager;
         }
 
-        public void AddInteractable(Interactable interactable) {
+        public void AddInteractable(Interactable interactable)
+        {
             //Debug.Log($"PlayerController.AddInteractable({interactable.gameObject.name})");
 
-            if (interactables.Contains(interactable) == false) {
+            if (interactables.Contains(interactable) == false)
+            {
                 interactables.Add(interactable);
             }
 
@@ -93,27 +97,34 @@ namespace AnyRPG {
         /// Remove an interactable from the list of interactables in range
         /// </summary>
         /// <param name="_interactable"></param>
-        public void RemoveInteractable(Interactable interactable) {
+        public void RemoveInteractable(Interactable interactable)
+        {
             //Debug.Log($"PlayerController.RemoveInteractable({interactable.gameObject.name})");
 
-            if (interactables.Contains(interactable)) {
+            if (interactables.Contains(interactable))
+            {
                 interactables.Remove(interactable);
             }
             ShowHideInteractionPopup();
         }
 
-        public void ShowHideInteractionPopup() {
+        public void ShowHideInteractionPopup()
+        {
             //Debug.Log("PlayerController.ShowHideInteractionPopup() count: " + interactables.Count);
 
             if (interactables.Count > 0
-                && interactables[interactables.Count - 1].GetCurrentInteractables(playerManagerClient.UnitController).Count > 0) {
+                && interactables[interactables.Count - 1].GetCurrentInteractables(playerManagerClient.UnitController).Count > 0)
+            {
                 uIManager.ShowInteractionTooltip(interactables[interactables.Count - 1]);
-            } else {
+            }
+            else
+            {
                 uIManager.HideInteractionToolTip();
             }
         }
 
-        protected void OnEnable() {
+        protected void OnEnable()
+        {
             // put this in player spawn
             allowedInput = true;
             lastTabTargetTime = DateTime.Now;
@@ -124,26 +135,31 @@ namespace AnyRPG {
             //ToggleRun();
         }
 
-        public void ProcessLevelUnload() {
+        public void ProcessLevelUnload()
+        {
             //Debug.Log($"{gameObject.name}.PlayerController.ProcessLevelUnload()");
             ClearInteractables();
         }
 
-        public void ClearInteractables() {
+        public void ClearInteractables()
+        {
             //Debug.Log($"{gameObject.name}.PlayerController.ClearInteractables()");
             interactables.Clear();
         }
 
-        private void CollectMoveInput() {
+        private void CollectMoveInput()
+        {
             //Debug.Log("PlayerController.CollectMoveInput()");
             movementData.ResetMoveInput();
 
-            if (allowedInput == false) {
+            if (allowedInput == false)
+            {
                 //Debug.Log("Not allowed to Collect Move Input. Exiting PlayerController.CollectMoveInput()");
                 return;
             }
-            
-            if (windowManager.CurrentWindow == null) {
+
+            if (windowManager.CurrentWindow == null)
+            {
                 movementData.RightAnalogHorizontal = Input.GetAxis("RightAnalogHorizontal");
             }
 
@@ -152,26 +168,34 @@ namespace AnyRPG {
 
             //movementData.GamepadModeActive = controlsManager.GamepadModeActive;
             if (strafeModeActive == false
-                && cameraManager.MainCameraController.FirstPersonView == false) {
+                && cameraManager.MainCameraController.FirstPersonView == false)
+            {
                 //Debug.Log("PlayerController.CollectMoveInput() setting RotateModelMode to true because strafe mode is off and we are not in first person view");
                 movementData.RotateModelMode = true;
-            } else {
+            }
+            else
+            {
                 //Debug.Log("PlayerController.CollectMoveInput() setting RotateModelMode to false because strafe mode is on or we are in first person view");
                 movementData.RotateModelMode = false;
             }
 
             // don't allow jump or crouch while activating action bars
-            if (controlsManager.LeftTriggerDown == false && controlsManager.RightTriggerDown == false) {
-                if (inputManager.KeyBindWasPressed("JUMP")) {
+            if (controlsManager.LeftTriggerDown == false && controlsManager.RightTriggerDown == false)
+            {
+                if (inputManager.KeyBindWasPressed("JUMP"))
+                {
                     movementData.InputJump = true;
                 }
-                if (inputManager.KeyBindWasPressedOrHeld("JUMP")) {
+                if (inputManager.KeyBindWasPressedOrHeld("JUMP"))
+                {
                     movementData.InputFly = true;
                 }
-                if (inputManager.KeyBindWasPressedOrHeld("CROUCH")) {
+                if (inputManager.KeyBindWasPressedOrHeld("CROUCH"))
+                {
                     movementData.InputSink = true;
                 }
-                if (inputManager.KeyBindWasPressed("CROUCH")) {
+                if (inputManager.KeyBindWasPressed("CROUCH"))
+                {
                     movementData.InputCrouch = true;
                 }
             }
@@ -191,11 +215,13 @@ namespace AnyRPG {
 
             // turn off autorun if there is any movement input
             if (autorunActive
-                && ((movementData.InputHorizontal != 0f) || (movementData.InputVertical != 0f) || movementData.InputJump || movementData.InputFly || movementData.InputSink || movementData.InputStrafe || movementData.InputCrouch)) {
+                && ((movementData.InputHorizontal != 0f) || (movementData.InputVertical != 0f) || movementData.InputJump || movementData.InputFly || movementData.InputSink || movementData.InputStrafe || movementData.InputCrouch))
+            {
                 ToggleAutorun();
             }
 
-            if (autorunActive) {
+            if (autorunActive)
+            {
                 movementData.InputVertical = 1;
             }
 
@@ -203,14 +229,17 @@ namespace AnyRPG {
             movementData.TurnInput = new Vector3(movementData.InputTurn, 0, 0);
 
             if (inputManager.rightMouseButtonDown
-                && (inputManager.rightMouseButtonClickedOverUI == false || (namePlateManager != null ? namePlateManager.MouseOverNamePlate() : false))) {
+                && (inputManager.rightMouseButtonClickedOverUI == false || (namePlateManager != null ? namePlateManager.MouseOverNamePlate() : false)))
+            {
                 movementData.RightMouseButtonDown = true;
                 // we will pretend the right mouse was dragged if we have move input so the character will run away from the screen if the camera was pointing
                 // behind them at the start of the right mouse down, which is a common situation when trying to run away from something attacking you.
                 // Otherwise, the player would have to drag the mouse in a direction before the character would start moving, which could be frustrating in a combat situation.
-                if (inputManager.rightMouseButtonDownPosition != Input.mousePosition || movementData.HasMoveInput()) {
+                if (inputManager.rightMouseButtonDownPosition != Input.mousePosition || movementData.HasMoveInput())
+                {
                     if (movementData.RotateModelMode == false
-                        || cameraManager.MainCameraController.FirstPersonView == true) {
+                        || cameraManager.MainCameraController.FirstPersonView == true)
+                    {
                         movementData.FaceCameraDirection = true;
                     }
                 }
@@ -219,22 +248,31 @@ namespace AnyRPG {
             if (cameraManager.MainCameraController.FirstPersonView == true
                 && inputManager.leftMouseButtonDown
                 && (inputManager.leftMouseButtonClickedOverUI == false || (namePlateManager != null ? namePlateManager.MouseOverNamePlate() : false))
-                && (inputManager.leftMouseButtonDownPosition != Input.mousePosition || movementData.HasMoveInput())) {
+                && (inputManager.leftMouseButtonDownPosition != Input.mousePosition || movementData.HasMoveInput()))
+            {
                 movementData.FaceCameraDirection = true;
             }
 
             // if we are in first person view, we want to face the camera direction anytime we have move input, even if the mouse is not being used, because the player will expect that pushing forward will move them in the direction they are looking, and pushing back will move them backwards relative to the direction they are looking, etc.  This is a common behavior in first person games, and not having it would be frustrating.
-            if (cameraManager.MainCameraController.FirstPersonView == true && movementData.HasMoveInput() && movementData.HasTurnInput() == false) {
+            if (cameraManager.MainCameraController.FirstPersonView == true && movementData.HasMoveInput() && movementData.HasTurnInput() == false)
+            {
                 movementData.FaceCameraDirection = true;
             }
 
             if (mouseLookActive
                 && (movementData.RotateModelMode == false || cameraManager.MainCameraController.FirstPersonView == true)
-                && (Input.GetAxis("Mouse X") != 0f || Input.GetAxis("Mouse Y") != 0f)) { 
+                && (Input.GetAxis("Mouse X") != 0f || Input.GetAxis("Mouse Y") != 0f))
+            {
                 movementData.FaceCameraDirection = true;
             }
 
-            if (movementData.HasAnyInput()) {
+            if (systemConfigurationManager.CameraViewMode == CameraViewMode.Action)
+            {
+                movementData.FaceCameraDirection = true;
+            }
+
+            if (movementData.HasAnyInput())
+            {
                 // turn off the projector, so it has to be done client side
                 playerManagerClient.ActiveUnitController.CommonMovementNotifier();
             }
@@ -242,21 +280,25 @@ namespace AnyRPG {
             playerManagerClient.ActiveUnitController.UnitMovementController.AddMovementData(movementData);
         }
 
-        public void ProcessInput() {
+        public void ProcessInput()
+        {
             //Debug.Log("PlayerController.ProcessInput()");
             //ResetMoveInput();
 
-            if (playerManagerClient.ActiveUnitController == null) {
+            if (playerManagerClient.ActiveUnitController == null)
+            {
                 //Debug.Log($"{gameObject.name}.PlayerController.ProcessInput(): Player Unit is not spawned. Exiting");
                 return;
             }
 
-            if (playerManagerClient.ActiveUnitController.CameraTargetReady == false) {
+            if (playerManagerClient.ActiveUnitController.CameraTargetReady == false)
+            {
                 //Debug.Log($"{gameObject.name}.PlayerController.ProcessInput(): Camera Target is not ready. Exiting");
                 return;
             }
 
-            if (allowedInput == false) {
+            if (allowedInput == false)
+            {
                 //Debug.Log("Not allowed to Collect Move Input. Exiting PlayerController ProcessInput!");
                 return;
             }
@@ -265,7 +307,8 @@ namespace AnyRPG {
 
             HandleMouseOver();
 
-            if (playerManagerClient.ActiveUnitController?.CharacterStats.IsAlive == false) {
+            if (playerManagerClient.ActiveUnitController?.CharacterStats.IsAlive == false)
+            {
                 // can't interact, perform abilities or handle movement when dead
                 return;
             }
@@ -282,11 +325,13 @@ namespace AnyRPG {
             RegisterTab();
 
             // everything below this point cannot be done while control locked
-            if (playerManagerClient.ActiveUnitController.ControlLocked == true) {
+            if (playerManagerClient.ActiveUnitController.ControlLocked == true)
+            {
                 return;
             }
 
-            if (systemConfigurationManager.AllowFreeMove == true) {
+            if (systemConfigurationManager.AllowFreeMove == true)
+            {
                 CollectMoveInput();
             }
 
@@ -297,46 +342,59 @@ namespace AnyRPG {
             RegisterAbilityButtonPresses();
         }
 
-        private void CheckToggleStrafe() {
+        private void CheckToggleStrafe()
+        {
             //Debug.Log("PlayerController.CheckToggleStrafe()");
 
-            if (inputManager.KeyBindWasPressed("TOGGLESTRAFE") && playerManagerClient.ActiveUnitController.UnitProfile.UnitPrefabProps.ForceRotateModelMode == false) {
+            if (inputManager.KeyBindWasPressed("TOGGLESTRAFE") && playerManagerClient.ActiveUnitController.UnitProfile.UnitPrefabProps.ForceRotateModelMode == false)
+            {
                 ToggleStrafe();
             }
         }
 
-        private void ToggleStrafe() {
+        private void ToggleStrafe()
+        {
             strafeModeActive = !strafeModeActive;
             messageFeedManager.WriteMessage($"Strafe Mode: {(strafeModeActive ? "On" : "Off")}");
         }
 
-        private void CheckToggleMouseLook() {
-            if (inputManager.KeyBindWasPressed("TOGGLEMOUSELOOK")) {
+        private void CheckToggleMouseLook()
+        {
+            if (inputManager.KeyBindWasPressed("TOGGLEMOUSELOOK"))
+            {
                 ToggleMouseLook();
             }
         }
 
-        private void ToggleMouseLook() {
+        private void ToggleMouseLook()
+        {
             mouseLookActive = !mouseLookActive;
             messageFeedManager.WriteMessage($"Mouse Look: {(mouseLookActive ? "On" : "Off")}");
         }
 
-        private Vector3 NormalizedVelocity(Vector3 inputVelocity) {
-            if (inputVelocity.magnitude > 1) {
+        private Vector3 NormalizedVelocity(Vector3 inputVelocity)
+        {
+            if (inputVelocity.magnitude > 1)
+            {
                 inputVelocity.Normalize();
             }
             return inputVelocity;
         }
 
-        private void ToggleRun() {
+        private void ToggleRun()
+        {
             //Debug.Log("PlayerController.ToggleRun()");
             if (inputManager.KeyBindWasPressed("TOGGLERUN")
-                || (controlsManager.DPadDownPressed == true && controlsManager.LeftTriggerDown == false && controlsManager.RightTriggerDown == false)) {
+                || (controlsManager.DPadDownPressed == true && controlsManager.LeftTriggerDown == false && controlsManager.RightTriggerDown == false))
+            {
                 EventParamProperties eventParamProperties = new EventParamProperties();
-                if (playerManagerClient.ActiveUnitController.Walking == false) {
+                if (playerManagerClient.ActiveUnitController.Walking == false)
+                {
                     playerManagerClient.ActiveUnitController.Walking = true;
                     eventParamProperties.simpleParams.BoolParam = true;
-                } else {
+                }
+                else
+                {
                     playerManagerClient.ActiveUnitController.Walking = false;
                     eventParamProperties.simpleParams.BoolParam = false;
                 }
@@ -346,19 +404,25 @@ namespace AnyRPG {
             }
         }
 
-        private void CheckToggleAutorun() {
+        private void CheckToggleAutorun()
+        {
             if (inputManager.KeyBindWasPressed("TOGGLEAUTORUN")
-                || inputManager.KeyBindWasPressed("JOYSTICKBUTTON8") == true) {
+                || inputManager.KeyBindWasPressed("JOYSTICKBUTTON8") == true)
+            {
                 ToggleAutorun();
             }
         }
 
-        private void ToggleAutorun() {
+        private void ToggleAutorun()
+        {
             EventParamProperties eventParamProperties = new EventParamProperties();
-            if (autorunActive == false) {
+            if (autorunActive == false)
+            {
                 autorunActive = true;
                 eventParamProperties.simpleParams.BoolParam = true;
-            } else {
+            }
+            else
+            {
                 autorunActive = false;
                 eventParamProperties.simpleParams.BoolParam = false;
             }
@@ -366,11 +430,13 @@ namespace AnyRPG {
             messageFeedManager.WriteMessage("Autorun: " + autorunActive.ToString());
         }
 
-        private bool MouseOutsideScreen() {
+        private bool MouseOutsideScreen()
+        {
             if (Input.mousePosition.x < 0f
                             || Input.mousePosition.x > Screen.width
                             || Input.mousePosition.y < 0f
-                            || Input.mousePosition.y > Screen.height) {
+                            || Input.mousePosition.y > Screen.height)
+            {
                 return true;
             }
             return false;
@@ -380,70 +446,178 @@ namespace AnyRPG {
         /// this code is necessary because the only other solution to mouseover through the player is to set the player to layer Ignore Raycast
         /// which breaks the invector controller
         /// </summary>
-        private void HandleMouseOver() {
-            //Debug.Log($"{gameObject.name}.PlayerController.HandleMouseOver()");
-            if (cameraManager.ActiveMainCamera == null) {
-                // we are in a cutscene and shouldn't be dealing with mouseover
+        private void HandleMouseOver()
+        {
+            if (cameraManager.ActiveMainCamera == null) return;
+
+            if (systemConfigurationManager.CameraViewMode == CameraViewMode.Action)
+            {
+                // skip if mouse is disabled or window is open — cursor raycast not needed
+                if (windowManager.WindowStack.Count > 0)
+                {
+                    DisableMouseOver();
+                    return;
+                }
+
+                int playerMask = 1 << LayerMask.NameToLayer("Player");
+                int ignoreMask = 1 << LayerMask.NameToLayer("Ignore Raycast");
+                int spellMask = 1 << LayerMask.NameToLayer("SpellEffects");
+                int waterMask = 1 << LayerMask.NameToLayer("Water");
+                int layerMask = ~(playerMask | ignoreMask | spellMask | waterMask);
+
+                Ray ray = cameraManager.ActiveMainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.yellow, 0.1f);
+
+                if (Physics.Raycast(ray, out mouseOverhit, 100f, layerMask))
+                {
+                    Interactable newInteractable = mouseOverhit.collider.GetComponent<Interactable>();
+                    if (newInteractable == null)
+                    {
+                        newInteractable = mouseOverhit.collider.GetComponentInParent<Interactable>();
+                    }
+                    if (mouseOverInteractable != null && mouseOverInteractable != newInteractable)
+                    {
+                        mouseOverInteractable.IsMouseOverUnit = false;
+                        mouseOverInteractable.OnMouseOut();
+                    }
+                    if (newInteractable != null && mouseOverInteractable != newInteractable)
+                    {
+                        newInteractable.IsMouseOverUnit = true;
+                        newInteractable.OnMouseIn();
+                    }
+                    mouseOverInteractable = newInteractable;
+                }
+                else
+                {
+                    DisableMouseOver();
+                }
                 return;
             }
 
-            // don't do anything if the mouse is outside the screen bounds
-            if (MouseOutsideScreen()) {
-                DisableMouseOver();
-                return;
-            }
+            // Classic and Isometric — original mouse raycast behavior
+            if (systemConfigurationManager.CameraViewMode == CameraViewMode.Classic
+                || systemConfigurationManager.CameraViewMode == CameraViewMode.Isometric)
+            {
 
-            // gamepad mode can hide the cursor.  Mouseover should not be activated when the cursor is hidden
-            if (controlsManager.MouseDisabled == true) {
-                return;
-            }
+                if (MouseOutsideScreen())
+                {
+                    DisableMouseOver();
+                    return;
+                }
+                if (controlsManager.MouseDisabled == true)
+                {
+                    return;
+                }
 
-            Ray ray = cameraManager.ActiveMainCamera.ScreenPointToRay(Input.mousePosition);
-            int playerMask = 1 << LayerMask.NameToLayer("Player");
-            int ignoreMask = 1 << LayerMask.NameToLayer("Ignore Raycast");
-            int spellMask = 1 << LayerMask.NameToLayer("SpellEffects");
-            int waterMask = 1 << LayerMask.NameToLayer("Water");
-            int layerMask = ~(playerMask | ignoreMask | spellMask | waterMask);
-            //int layerMask = ~( ignoreMask | spellMask | waterMask);
+                Ray ray = cameraManager.ActiveMainCamera.ScreenPointToRay(Input.mousePosition);
+                int playerMask = 1 << LayerMask.NameToLayer("Player");
+                int ignoreMask = 1 << LayerMask.NameToLayer("Ignore Raycast");
+                int spellMask = 1 << LayerMask.NameToLayer("SpellEffects");
+                int waterMask = 1 << LayerMask.NameToLayer("Water");
+                int layerMask = ~(playerMask | ignoreMask | spellMask | waterMask);
 
-            bool disableMouseOver = false;
-            bool mouseOverNamePlate = false;
-            mouseOverNamePlate = namePlateManager.MouseOverNamePlate();
+                bool disableMouseOver = false;
+                bool mouseOverNamePlate = namePlateManager.MouseOverNamePlate();
 
-            if (!EventSystem.current.IsPointerOverGameObject() && !mouseOverNamePlate) {
-                if (Physics.Raycast(ray, out mouseOverhit, 100, layerMask)) {
-                    // prevent clicking on mount
-                    if (mouseOverhit.collider.gameObject != playerManagerClient.ActiveUnitController.gameObject
-                        && mouseOverhit.collider.gameObject != playerManagerClient.UnitController.gameObject) {
-                        Interactable newInteractable = mouseOverhit.collider.GetComponent<Interactable>();
-                        if (newInteractable == null) {
-                            newInteractable = mouseOverhit.collider.GetComponentInParent<Interactable>();
+                if (!EventSystem.current.IsPointerOverGameObject() && !mouseOverNamePlate)
+                {
+                    if (Physics.Raycast(ray, out mouseOverhit, 100, layerMask))
+                    {
+                        if (mouseOverhit.collider.gameObject != playerManagerClient.ActiveUnitController.gameObject
+                            && mouseOverhit.collider.gameObject != playerManagerClient.UnitController.gameObject)
+                        {
+                            Interactable newInteractable = mouseOverhit.collider.GetComponent<Interactable>();
+                            if (newInteractable == null)
+                            {
+                                newInteractable = mouseOverhit.collider.GetComponentInParent<Interactable>();
+                            }
+                            if (mouseOverInteractable != null && mouseOverInteractable != newInteractable)
+                            {
+                                mouseOverInteractable.IsMouseOverUnit = false;
+                                mouseOverInteractable.OnMouseOut();
+                            }
+                            if (newInteractable != null && mouseOverInteractable != newInteractable)
+                            {
+                                newInteractable.IsMouseOverUnit = true;
+                                newInteractable.OnMouseIn();
+                            }
+                            mouseOverInteractable = newInteractable;
                         }
-
-                        if (mouseOverInteractable != null && mouseOverInteractable != newInteractable) {
-                            // since we hit something, and our existing thing was not null, we have to exit the old one
-                            mouseOverInteractable.IsMouseOverUnit = false;
-                            mouseOverInteractable.OnMouseOut();
-                        }
-
-                        if (newInteractable != null && mouseOverInteractable != newInteractable) {
-                            // we have a new interactable, activate mouseover
-                            newInteractable.IsMouseOverUnit = true;
-                            newInteractable.OnMouseIn();
-                        }
-                        mouseOverInteractable = newInteractable;
                     }
                 }
-            } else {
-                disableMouseOver = true;
-                //Debug.Log($"{gameObject.name}.PlayerController.HandleMouseOver(): mouseovernameplate: " + namePlateManager.MouseOverNamePlate() + "; pointerovergameobject: " + EventSystem.current.IsPointerOverGameObject());
+                else
+                {
+                    disableMouseOver = true;
+                }
+
+                if (disableMouseOver)
+                {
+                    DisableMouseOver();
+                }
             }
 
-            if (disableMouseOver) {
-                // we did not hit any interactable, check if a current interactable is set and unset it
-                DisableMouseOver();
-            }
+            //Debug.Log($"{gameObject.name}.PlayerController.HandleMouseOver()");
+            //if (cameraManager.ActiveMainCamera == null) {
+            //    // we are in a cutscene and shouldn't be dealing with mouseover
+            //    return;
+            //}
 
+            //// don't do anything if the mouse is outside the screen bounds
+            //if (MouseOutsideScreen()) {
+            //    DisableMouseOver();
+            //    return;
+            //}
+
+            //// gamepad mode can hide the cursor.  Mouseover should not be activated when the cursor is hidden
+            //if (controlsManager.MouseDisabled == true) {
+            //    return;
+            //}
+
+            //Ray ray = cameraManager.ActiveMainCamera.ScreenPointToRay(Input.mousePosition);
+            //int playerMask = 1 << LayerMask.NameToLayer("Player");
+            //int ignoreMask = 1 << LayerMask.NameToLayer("Ignore Raycast");
+            //int spellMask = 1 << LayerMask.NameToLayer("SpellEffects");
+            //int waterMask = 1 << LayerMask.NameToLayer("Water");
+            //int layerMask = ~(playerMask | ignoreMask | spellMask | waterMask);
+            ////int layerMask = ~( ignoreMask | spellMask | waterMask);
+
+            //bool disableMouseOver = false;
+            //bool mouseOverNamePlate = false;
+            //mouseOverNamePlate = namePlateManager.MouseOverNamePlate();
+
+            //if (!EventSystem.current.IsPointerOverGameObject() && !mouseOverNamePlate) {
+            //    if (Physics.Raycast(ray, out mouseOverhit, 100, layerMask)) {
+            //        // prevent clicking on mount
+            //        if (mouseOverhit.collider.gameObject != playerManagerClient.ActiveUnitController.gameObject
+            //            && mouseOverhit.collider.gameObject != playerManagerClient.UnitController.gameObject) {
+            //            Interactable newInteractable = mouseOverhit.collider.GetComponent<Interactable>();
+            //            if (newInteractable == null) {
+            //                newInteractable = mouseOverhit.collider.GetComponentInParent<Interactable>();
+            //            }
+
+            //            if (mouseOverInteractable != null && mouseOverInteractable != newInteractable) {
+            //                // since we hit something, and our existing thing was not null, we have to exit the old one
+            //                mouseOverInteractable.IsMouseOverUnit = false;
+            //                mouseOverInteractable.OnMouseOut();
+            //            }
+
+            //            if (newInteractable != null && mouseOverInteractable != newInteractable) {
+            //                // we have a new interactable, activate mouseover
+            //                newInteractable.IsMouseOverUnit = true;
+            //                newInteractable.OnMouseIn();
+            //            }
+            //            mouseOverInteractable = newInteractable;
+            //        }
+            //    }
+            //} else {
+            //    disableMouseOver = true;
+            //    //Debug.Log($"{gameObject.name}.PlayerController.HandleMouseOver(): mouseovernameplate: " + namePlateManager.MouseOverNamePlate() + "; pointerovergameobject: " + EventSystem.current.IsPointerOverGameObject());
+            //}
+
+            //if (disableMouseOver) {
+            //    // we did not hit any interactable, check if a current interactable is set and unset it
+            //    DisableMouseOver();
+            //}
         }
 
         public void DisableMouseOver() {

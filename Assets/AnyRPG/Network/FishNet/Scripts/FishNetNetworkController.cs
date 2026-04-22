@@ -519,8 +519,8 @@ namespace AnyRPG {
             clientConnector.AcceptFriendInvite(inviteCharacterId);
         }
 
-        public override void RequestLearnSkill(Interactable interactable, int componentIndex, int skillId) {
-            clientConnector.RequestLearnSkill(interactable, componentIndex, skillId);
+        public override void RequestLearnSkill(Interactable interactable, int componentIndex, string skillName) {
+            clientConnector.RequestLearnSkill(interactable, componentIndex, skillName);
         }
 
         public override void RequestSendMail(Interactable interactable, int componentIndex, MailMessageRequest sendMailRequest) {

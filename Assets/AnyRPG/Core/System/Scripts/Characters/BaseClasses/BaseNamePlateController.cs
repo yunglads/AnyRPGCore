@@ -165,7 +165,7 @@ namespace AnyRPG {
         }
 
         public virtual bool CanSpawnNamePlate() {
-            //Debug.Log((namePlateUnit == null ? "null" : namePlateUnit.gameObject.name) + ".BasenamePlateController.CanSpawnNamePlate()");
+            //Debug.Log((interactable.NamePlateProps.DisplayName == null ? "null" : interactable.gameObject.name) + ".BasenamePlateController.CanSpawnNamePlate()");
             if (interactable == null) {
                 return false;
             }

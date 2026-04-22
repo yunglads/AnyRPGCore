@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2928320751916093757}
   - component: {fileID: 7989242567668304555}
   - component: {fileID: 581519027303314695}
-  m_Layer: 22
+  m_Layer: 8
   m_Name: DefaultCharacterUnit
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!114 &-2928320751916093757
@@ -120,18 +120,9 @@ MonoBehaviour:
   hasNamePlate: 1
   namePlateProps:
     displayName: 
-    suppressNamePlate: 0
-    suppressFaction: 1
     overrideNameplatePosition: 0
     namePlatePosition: {x: 0, y: 0, z: 0}
-    useSnapShot: 1
-    unitFrameTarget: 
-    unitFrameCameraLookOffset: {x: 0, y: 0, z: 0}
-    unitFrameCameraPositionOffset: {x: 0, y: 0, z: 0}
-    unitPreviewTarget: 
-    unitPreviewCameraLookOffset: {x: 0, y: 1, z: 0}
-    unitPreviewCameraPositionOffset: {x: 0, y: 1, z: 2.5}
-  unitControllerMode: 2
+  unitControllerMode: 1
   patrolNames: []
   behaviorNames: []
   useBehaviorCopy: 0
@@ -147,8 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ff920aaeff32c47b919cdd7f10e67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UUID: b1c47fbf-db49-44e3-a599-de4fd9821421
-  forceUpdateUUID: 0
+  m_UUID: 5115cf6c-af65-4f8f-8e7f-eda10e8ed12b
+  forceUpdateUUID: 1
 --- !u!136 &581519027303314695
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -189,6 +180,11 @@ PrefabInstance:
         type: 3}
       propertyPath: aggroCollider
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6933948215130008292, guid: ffef65e2e170bd54a9b915f85d943c90,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7037563352445287163, guid: ffef65e2e170bd54a9b915f85d943c90,
         type: 3}

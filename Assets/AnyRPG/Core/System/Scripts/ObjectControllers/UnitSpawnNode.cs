@@ -147,6 +147,7 @@ namespace AnyRPG {
                     return false;
                 }
             }
+            Debug.Log("prereqs met. Should spawn now?");
             // there are no prerequisites, or all prerequisites are complete
             return true;
         }
@@ -416,7 +417,7 @@ namespace AnyRPG {
                     CommonSpawn(unitLevel, extraLevels, dynamicLevel, unitProfiles[spawnIndex], unitToughness, sourceUnitController);
                 }
             } else {
-                //Debug.Log($"{gameObject.name}.UnitSpawnNode.Spawn(): cannot trigger spawn.  CanTriggerSpawn() is false.");
+                Debug.Log($"{gameObject.name}.UnitSpawnNode.Spawn(): cannot trigger spawn.  CanTriggerSpawn() is false.");
             }
 
         }

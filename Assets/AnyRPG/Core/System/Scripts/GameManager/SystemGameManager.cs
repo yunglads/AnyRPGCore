@@ -257,6 +257,7 @@ namespace AnyRPG {
         public ushort CommandLineServerPort { get => commandLineServerPort; set => commandLineServerPort = value; }
         public NetworkServerMode CommandLineServerMode { get => commandLineServerMode; set => commandLineServerMode = value; }
         public GameObject DroppedItemPrefab { get => droppedItemPrefab; set => droppedItemPrefab = value; }
+        public TownBuildingManager TownManager { get => townManager ; set => townManager = value; }
 
         private void Awake() {
             Init();

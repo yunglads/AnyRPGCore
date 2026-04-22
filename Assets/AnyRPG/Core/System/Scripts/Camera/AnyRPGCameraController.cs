@@ -78,8 +78,8 @@ namespace AnyRPG
         //[Tooltip("Key used to interact in Action mode.")]
         //[SerializeField] private KeyCode actionInteractKey = KeyCode.E;
 
-        [Tooltip("Mouse sensitivity when in Action mode.")]
-        [SerializeField] private float actionMouseSensitivity = 1f;
+        //[Tooltip("Mouse sensitivity when in Action mode.")]
+        //[SerializeField] private float actionMouseSensitivity = 1f;
 
         //[Tooltip("Assign your existing crosshair dot Image here.")]
         //[SerializeField] private Image crosshairDot = null;
@@ -386,9 +386,10 @@ namespace AnyRPG
                 return;
             }
 
+            float turnSpeed = (PlayerPrefs.GetFloat("MouseTurnSpeed") + 0.1f);
             // Read raw mouse delta and apply directly to the orbit angles
-            float mouseX = Input.GetAxis("Mouse X") * yawSpeed * actionMouseSensitivity;
-            float mouseY = Input.GetAxis("Mouse Y") * yawSpeed * actionMouseSensitivity * (PlayerPrefs.GetInt("MouseInvert") == 0 ? 1 : -1);
+            float mouseX = Input.GetAxis("Mouse X") * yawSpeed * turnSpeed;
+            float mouseY = Input.GetAxis("Mouse Y") * yawSpeed * turnSpeed * (PlayerPrefs.GetInt("MouseInvert") == 0 ? 1 : -1);
 
             if (mouseX != 0f || mouseY != 0f)
             {

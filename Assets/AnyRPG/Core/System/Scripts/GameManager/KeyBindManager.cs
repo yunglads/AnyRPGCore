@@ -68,7 +68,7 @@ namespace AnyRPG {
             InitializeKey("TOGGLERUN", KeyCode.KeypadDivide, KeyCode.None, KeyCode.None, "Toggle Run", KeyBindType.Normal);
             InitializeKey("TOGGLEAUTORUN", KeyCode.KeypadMultiply, KeyCode.None, KeyCode.None, "Toggle Autorun", KeyBindType.Normal);
             InitializeKey("TOGGLESTRAFE", KeyCode.T, KeyCode.JoystickButton9, KeyCode.JoystickButton9, "Toggle Strafe", KeyBindType.Normal);
-            InitializeKey("TOGGLEMOUSELOOK", KeyCode.V, KeyCode.V, KeyCode.V, "Toggle Mouse Look", KeyBindType.Normal);
+            //InitializeKey("TOGGLEMOUSELOOK", KeyCode.V, KeyCode.V, KeyCode.V, "Toggle Mouse Look", KeyBindType.Normal);
             InitializeKey("INTERACT", KeyCode.Mouse1, KeyCode.None, KeyCode.None, "Interact", KeyBindType.Normal);
 
             InitializeKey("ACCEPT", KeyCode.KeypadEnter, xBoxKeys["ACCEPT"], KeyCode.None, "Accept", KeyBindType.Constant);

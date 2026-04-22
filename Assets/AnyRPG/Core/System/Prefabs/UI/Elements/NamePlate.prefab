@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7180890015043114395}
   - component: {fileID: 5096042024030692669}
   - component: {fileID: 6061209364815236440}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: SpeechBubbleBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 4996812608823398883}
   - component: {fileID: 2626328969364284387}
   - component: {fileID: 7618118366248465174}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: HealthSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 4500708850064099577}
   - component: {fileID: 4832079158717005686}
   - component: {fileID: 5160652377100890252}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 3984125413676568990}
   - component: {fileID: 2746023257176366935}
   - component: {fileID: 6095618513358582408}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: SpeechBubbleContents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 2992431069631783403}
   - component: {fileID: 1412019659624601444}
   - component: {fileID: 2368814004498033600}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: GenericIndicatorBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,7 +623,7 @@ GameObject:
   - component: {fileID: 5545649688606205309}
   - component: {fileID: 1720798106522334500}
   - component: {fileID: 5374608469763384763}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: CharacterNameBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -740,7 +740,7 @@ GameObject:
   - component: {fileID: 443893529772531042}
   - component: {fileID: 6625067876293506885}
   - component: {fileID: 3327832415100599839}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: QuestIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -847,6 +847,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -893,7 +894,7 @@ GameObject:
   - component: {fileID: 5101322145205665138}
   - component: {fileID: 3438422265827180547}
   - component: {fileID: 1163039204968242210}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: SpeechBubbleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1019,6 +1020,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1066,7 +1068,7 @@ GameObject:
   - component: {fileID: 7407374711614501321}
   - component: {fileID: 56941636182677553}
   - component: {fileID: 1846091222118925993}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: NamePlateContents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1200,7 +1202,7 @@ GameObject:
   - component: {fileID: 239754435213731631}
   - component: {fileID: 4720995268780066965}
   - component: {fileID: 3714006090058744030}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: HealthBarOutline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1339,7 +1341,7 @@ GameObject:
   - component: {fileID: 3819305538974546782}
   - component: {fileID: 9093536180070283781}
   - component: {fileID: 5244177391415615568}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: CharacterName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1433,6 +1435,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1571,7 +1574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4883302986797016563}
   - component: {fileID: 746073631134800511}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: NamePlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1641,7 +1644,7 @@ GameObject:
   - component: {fileID: 1699356247059525803}
   - component: {fileID: 4901316552488753961}
   - component: {fileID: 220868858454406070}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: HealthBarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1753,7 +1756,7 @@ GameObject:
   - component: {fileID: 6789418581222405268}
   - component: {fileID: 561360023061598311}
   - component: {fileID: 3695061252573464839}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: QuestIndicatorBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1867,7 +1870,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 695024784340889372}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: SpeechBubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1904,7 +1907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 374218395385649074}
   - component: {fileID: 393046587338582210}
-  m_Layer: 21
+  m_Layer: 5
   m_Name: NamePlateContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

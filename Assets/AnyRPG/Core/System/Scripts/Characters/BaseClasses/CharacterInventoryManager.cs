@@ -683,6 +683,38 @@ namespace AnyRPG {
             unitController.UnitEventController.NotifyOnItemCountChanged(item);
         }
 
+        public int GetInvItemCount(string type, bool partialMatch = false)
+        {
+            //Debug.Log("InventoryManager.GetItemCount(" + type + ")");
+            int itemCount = 0;
+
+            foreach (InventorySlot slot in inventorySlots)
+            {
+                if (!slot.IsEmpty && SystemDataUtility.MatchResource(slot.InstantiatedItem.Item.ResourceName, type, partialMatch))
+                {
+                    itemCount += slot.Count;
+                }
+            }
+
+            return itemCount;
+        }
+
+        public int GetBankItemCount(string type, bool partialMatch = false)
+        {
+            //Debug.Log("InventoryManager.GetItemCount(" + type + ")");
+            int itemCount = 0;
+
+            foreach (InventorySlot slot in bankSlots)
+            {
+                if (!slot.IsEmpty && SystemDataUtility.MatchResource(slot.InstantiatedItem.Item.ResourceName, type, partialMatch))
+                {
+                    itemCount += slot.Count;
+                }
+            }
+
+            return itemCount;
+        }
+
         public int GetItemCount(string type, bool partialMatch = false) {
             //Debug.Log("InventoryManager.GetItemCount(" + type + ")");
             int itemCount = 0;

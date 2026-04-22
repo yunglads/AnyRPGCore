@@ -51,6 +51,14 @@ namespace AnyRPG {
         [SerializeField]
         protected string characterName;
 
+        [Tooltip("XP granted for killing this unit")]
+        [SerializeField]
+        private float baseXP = 25f;
+
+        [Tooltip("Set Level for XP scaling")]
+        [SerializeField]
+        private int enemyLevel;
+
         [Tooltip("If set, this will show in the nameplate instead of the faction")]
         [SerializeField]
         protected string title = string.Empty;
