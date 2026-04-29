@@ -15,7 +15,8 @@ MonoBehaviour:
   _profiles:
   - {fileID: 11400000, guid: 6b29164c2c73c974890cbf4bcda351c0, type: 2}
   _activeProfile: {fileID: 11400000, guid: 6b29164c2c73c974890cbf4bcda351c0, type: 2}
-  _prefabCreationSettingsUI: {fileID: 0}
+  _prefabCreationSettingsUI: {fileID: 11400000, guid: 04473dffb663fba448c541ca36db224b,
+    type: 2}
   _objectGroupCreationSettingsUI: {fileID: 0}
 --- !u!114 &326223070609135020
 MonoBehaviour:

@@ -409,6 +409,7 @@ namespace AnyRPG {
             //localGameServerClient.Configure(this);
             friendServiceClient.Configure(this);
             friendServiceServer.Configure(this);
+            townManager.Configure(this);
         }
 
         private void ProcessCommandLineParameters() {

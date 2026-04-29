@@ -147,7 +147,8 @@ namespace AnyRPG {
                     return false;
                 }
             }
-            Debug.Log("prereqs met. Should spawn now?");
+
+            //Debug.Log("prereqs met. Should spawn now?");
             // there are no prerequisites, or all prerequisites are complete
             return true;
         }

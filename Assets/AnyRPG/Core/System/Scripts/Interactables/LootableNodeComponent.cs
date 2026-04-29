@@ -105,8 +105,8 @@ namespace AnyRPG {
             // DISABLE MINIMAP ICON WHILE ITEM IS NOT SPAWNED
             // this next line is already done outside the loop so should not be needed here ?
             //HandlePrerequisiteUpdates();
-
-            currentTimer = Props.SpawnTimer;
+            int timerRNG = Random.Range(0, (int)Props.SpawnTimer);
+            currentTimer = Props.SpawnTimer + timerRNG;
             while (currentTimer > 0) {
                 //Debug.Log("Spawn Timer: " + currentTimer);
                 yield return new WaitForSeconds(1);
