@@ -106,6 +106,7 @@ namespace AnyRPG {
                 return interactable.GetNameplatePosition();
             }
         }
+
         public virtual int Level {
             get {
                 return 1;

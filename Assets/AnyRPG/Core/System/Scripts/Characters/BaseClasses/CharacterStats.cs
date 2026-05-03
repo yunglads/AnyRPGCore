@@ -76,13 +76,27 @@ namespace AnyRPG {
         {
             get
             {
+                // for AI units use the traditional unitprofile level
+                if (unitController.UnitControllerMode == UnitControllerMode.AI
+                    || unitController.UnitControllerMode == UnitControllerMode.Pet)
+                {
+                    if (unitController.UnitProfile.EnemyLevel == 0)
+                    {
+                        return 1;
+                    }
+                    else
+                        return unitController.UnitProfile.EnemyLevel;
+                }
+
+                // for players use the skill-based level system
                 if (unitController?.CharacterSkillManager == null)
+                {
+                    Debug.Log("SkillManager null returning level 1");
                     return 1;
-
+                }
+     
                 WeaponSkill weaponSkill = null;
-
                 var equippedWeapon = unitController.CharacterEquipmentManager?.GetEquippedWeapon();
-
                 if (equippedWeapon != null)
                 {
                     weaponSkill = equippedWeapon.WeaponSkill;

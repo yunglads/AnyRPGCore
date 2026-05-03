@@ -5,14 +5,20 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Games/NewGame/Scenes/NewGame/NewGame.unity
-    guid: 3627d0dc2f376a948986afd63b2ef988
-  - enabled: 0
-    path: Assets/Games/NewGame/Scenes/NewGameMainMenu/NewGameMainMenu.unity
-    guid: 3c06cdf44af81b54884d7d29cdeb2760
-  - enabled: 0
-    path: Assets/Games/NewGame/Scenes/NewScene/NewScene.unity
-    guid: 9aa6caaadaebbd846b9acef81d86faad
+  - enabled: 1
+    path: Assets/Games/GenMMO/Scenes/GenMMO/GenMMO.unity
+    guid: 9acaf46d75f6acf4a8533939bc279943
+  - enabled: 1
+    path: Assets/Games/GenMMO/Scenes/GenMMOMainMenu/GenMMOMainMenu.unity
+    guid: 445b5de60e0d5944680ea685db18b61c
+  - enabled: 1
+    path: Assets/Games/GenMMO/Scenes/TownHub/TownHub.unity
+    guid: 3bb196824c7921d4ba0ca9380b19dbae
+  - enabled: 1
+    path: Assets/Games/GenMMO/Scenes/CavesDungeon/CavesDungeon.unity
+    guid: f11514b4fae45834f8a3ed6cc8923d8c
+  - enabled: 1
+    path: Assets/Games/GenMMO/Scenes/TestingGrounds/TestingGrounds.unity
+    guid: 5c193d650908d5449977adef8b0a955a
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

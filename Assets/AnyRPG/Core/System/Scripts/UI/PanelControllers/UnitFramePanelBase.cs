@@ -329,6 +329,11 @@ namespace AnyRPG {
 
             CreateSubscriptions();
 
+            if (unitController != null && unitController == playerManagerClient.ActiveUnitController)
+            {
+
+            }
+
             HandleLevelChanged(unitController.NamePlateController.Level);
         }
 

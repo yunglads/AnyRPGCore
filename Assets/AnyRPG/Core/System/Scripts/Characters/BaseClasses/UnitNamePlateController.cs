@@ -58,11 +58,7 @@ namespace AnyRPG
         {
             get
             {
-                if (unitController.BaseCharacter != null && unitController.CharacterStats != null)
-                {
-                    return unitController.CharacterStats.Level;
-                }
-                return base.Level;
+                return unitController.CharacterStats.Level;
             }
         }
         public override List<PowerResource> PowerResourceList

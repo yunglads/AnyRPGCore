@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 7989242567668304555}
   - component: {fileID: 581519027303314695}
   m_Layer: 22
-  m_Name: DefaultCharacterUnit
+  m_Name: DefaultSmallAnimalUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2692339740015506113}
   m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 0.4
+  m_Radius: 0.25
   m_Speed: 3.5
   m_Acceleration: 20
   avoidancePriority: 50
@@ -90,7 +90,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 0.75
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ff920aaeff32c47b919cdd7f10e67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UUID: 849ed544-c19c-4817-9d36-13181badf834
+  m_UUID: dacbf581-566e-4115-a885-fd3b3087410e
   forceUpdateUUID: 1
 --- !u!136 &581519027303314695
 CapsuleCollider:
@@ -198,10 +198,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 2
+  m_Radius: 0.25
+  m_Height: 0.75
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.35, z: 0}
 --- !u!1 &3036432507823585981
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +308,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnitComponents
       objectReference: {fileID: 0}
+    - target: {fileID: 5278682610872286667, guid: ffef65e2e170bd54a9b915f85d943c90,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6237856615278352361, guid: ffef65e2e170bd54a9b915f85d943c90,
         type: 3}
       propertyPath: aggroCollider
@@ -342,6 +347,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041140844660009876, guid: ffef65e2e170bd54a9b915f85d943c90,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

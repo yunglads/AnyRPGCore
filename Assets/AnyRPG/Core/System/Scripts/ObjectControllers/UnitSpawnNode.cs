@@ -445,6 +445,11 @@ namespace AnyRPG {
                 return;
             }
             */
+            if (unitProfile.EnemyLevel > unitLevel)
+            {
+                unitLevel = unitProfile.EnemyLevel;
+                Debug.Log($"{unitProfile.DisplayName}'s enemyLevel is > unitLevel. Setting unitlevel to {unitLevel}");
+            }
 
             int _unitLevel = unitLevel;
             if (sourceUnitController != null) {
