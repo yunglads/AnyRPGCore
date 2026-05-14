@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 538d6633bb6a78045a8a1a80af081212
+timeCreated: 1465628489
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/scenes/scene_winter.unity
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 59ceab0d07b40324a9c156168086b44b
+timeCreated: 1474875333
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/furniture/stool_a.prefab
+  uploadId: 716458

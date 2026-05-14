@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: abdfe14bcdf3ffc4b9a812ab6b6e08ec
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/scenes/PostProcessingProfilesBuiltIn/Sunset_PostprocessingProfile.asset
+  uploadId: 716458

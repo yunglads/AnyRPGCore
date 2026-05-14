@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3875bdc620103a842b1351e1c0a90a53
+timeCreated: 1467276258
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/tower_b/tower_b_deco_a.prefab
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4095aed5b4df87a41996e9df53b27178
+timeCreated: 1477992347
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/chandelier.prefab
+  uploadId: 716458

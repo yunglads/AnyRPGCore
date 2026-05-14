@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fafd35ace08da3b418b10cd8cf444c54
+timeCreated: 1474967402
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/kitchen_prop_g.prefab
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f1dedbbf292e19a40a5deb3431eb2693
+timeCreated: 1474605319
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/doors/door_e_iron.prefab
+  uploadId: 716458

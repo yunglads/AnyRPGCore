@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 224d28d373eeb4af1bc7a65ac9ce3bab
+timeCreated: 1468500814
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/prop_wood_a.prefab
+  uploadId: 716458

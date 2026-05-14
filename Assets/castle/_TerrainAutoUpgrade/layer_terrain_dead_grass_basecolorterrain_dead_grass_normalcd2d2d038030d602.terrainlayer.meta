@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0e4b2baeb32a8ca44b1b15b71a96b32e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 8574412962073106934
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/_TerrainAutoUpgrade/layer_terrain_dead_grass_basecolorterrain_dead_grass_normalcd2d2d038030d602.terrainlayer
+  uploadId: 716458

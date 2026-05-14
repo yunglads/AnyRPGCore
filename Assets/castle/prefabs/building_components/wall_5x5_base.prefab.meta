@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 270119a89f3dd29469fe3df7a6c80c3c
+timeCreated: 1474000185
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/wall_5x5_base.prefab
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cedce3a7751f5b0459a2f8bfa0c804c2
+timeCreated: 1477613018
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/tree_b_branch.mat
+  uploadId: 716458

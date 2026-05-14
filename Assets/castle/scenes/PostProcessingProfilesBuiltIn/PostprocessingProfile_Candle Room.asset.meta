@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8a2eb6554a3ceed479406dced85bc375
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/scenes/PostProcessingProfilesBuiltIn/PostprocessingProfile_Candle
+    Room.asset
+  uploadId: 716458

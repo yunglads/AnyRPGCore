@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0b00389ea03be21469697c8fa8615b97
+timeCreated: 1478498368
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/banner.mat
+  uploadId: 716458

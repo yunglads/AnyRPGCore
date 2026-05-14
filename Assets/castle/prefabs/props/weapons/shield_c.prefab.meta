@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e2c78ef5c0be9554b9773a916c75e7ac
+timeCreated: 1473939381
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/weapons/shield_c.prefab
+  uploadId: 716458

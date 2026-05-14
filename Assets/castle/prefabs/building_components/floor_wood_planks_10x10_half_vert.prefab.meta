@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5be7d4997bb22a743a734a30ff3ac5ab
+timeCreated: 1474294981
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/floor_wood_planks_10x10_half_vert.prefab
+  uploadId: 716458

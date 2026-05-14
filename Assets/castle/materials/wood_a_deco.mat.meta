@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5bd731f514653453e86153dda69f5e47
+timeCreated: 1468412498
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/wood_a_deco.mat
+  uploadId: 716458

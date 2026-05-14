@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 05ccceaf78b0c994a936ac89964b7819
+timeCreated: 1474882248
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/chimney_kitchen.mat
+  uploadId: 716458

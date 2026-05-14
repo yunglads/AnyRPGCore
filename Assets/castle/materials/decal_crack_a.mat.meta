@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 20b0dc7eebb37d841bfe1d14a8098a33
+timeCreated: 1475995624
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/decal_crack_a.mat
+  uploadId: 716458

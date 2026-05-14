@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d9dc9258db3e085429d856b2866c82ed
+timeCreated: 1473939305
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/shields.mat
+  uploadId: 716458

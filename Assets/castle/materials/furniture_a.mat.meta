@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 115f5932969b69643bfa51f257060148
+timeCreated: 1474864918
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/furniture_a.mat
+  uploadId: 716458

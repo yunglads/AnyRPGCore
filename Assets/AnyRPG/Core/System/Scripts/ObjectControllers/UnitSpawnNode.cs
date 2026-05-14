@@ -820,6 +820,11 @@ namespace AnyRPG {
             }
         }
 
+        public int GetSpawnCount()
+        {
+            return spawnReferences.Count;
+        }
+
     }
 
     /*

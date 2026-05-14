@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dce6289c8e1b3bd4a8cc69cbbe51e2d1
+timeCreated: 1476693528
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/weaponholder.prefab
+  uploadId: 716458

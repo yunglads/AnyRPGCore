@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 60b6d60b43c4f5c448c865d55e28f04a
+timeCreated: 1477276715
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/torture_gear_a.prefab
+  uploadId: 716458

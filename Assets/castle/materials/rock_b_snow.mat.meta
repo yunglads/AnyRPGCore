@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 46ca9c7eb2e788248bad23e1b2c360c6
+timeCreated: 1477212594
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/rock_b_snow.mat
+  uploadId: 716458

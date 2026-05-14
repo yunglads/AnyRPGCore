@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 56f8bd49d49563e44bea93bf6b8b0501
+timeCreated: 1474605329
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/doors/door_e_wood.prefab
+  uploadId: 716458

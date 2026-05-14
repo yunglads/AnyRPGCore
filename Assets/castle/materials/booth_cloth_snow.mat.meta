@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 519a79123344b2e41bbdbaa3c9cef2a3
+timeCreated: 1478242349
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/booth_cloth_snow.mat
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7ac12b465d399be4fa6478e439295c5f
+timeCreated: 1474268491
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/tower_c/tower_c_segment_b_inside.prefab
+  uploadId: 716458

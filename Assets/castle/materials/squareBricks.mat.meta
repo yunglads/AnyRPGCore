@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3d1cbf6b047790546b2d5f35d1b41317
+timeCreated: 1466516340
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/squareBricks.mat
+  uploadId: 716458

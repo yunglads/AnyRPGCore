@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cac655499cbedd645bf63c8768676710
+timeCreated: 1478566521
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/nature/mountain_a.prefab
+  uploadId: 716458

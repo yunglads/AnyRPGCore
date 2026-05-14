@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 00d208d2e8d5d534b8d354261a30cb00
+timeCreated: 1476180492
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/bed_a.mat
+  uploadId: 716458

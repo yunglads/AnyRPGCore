@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e0894bcfb06c2874685f34eca87e00a0
+timeCreated: 1475024356
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/package_a.prefab
+  uploadId: 716458

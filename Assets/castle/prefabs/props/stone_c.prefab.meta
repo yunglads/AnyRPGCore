@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 753674a87ee37644686d01f77044c313
+timeCreated: 1474333673
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/stone_c.prefab
+  uploadId: 716458

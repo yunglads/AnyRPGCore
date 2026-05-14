@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cf4b39c92f54a4029800e830ba219b7e
+timeCreated: 1468600169
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/wooden_arcade.prefab
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 86033fb78582d484087ed094c419e51f
+timeCreated: 1475143601
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/cloth_b.prefab
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c8ba371a78f86b04683e924cbed126b8
+timeCreated: 1466499229
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/wall_b.mat
+  uploadId: 716458

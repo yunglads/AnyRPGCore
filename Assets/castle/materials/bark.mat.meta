@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: df5189a45f7aec24faaebeac5cbeb3e1
+timeCreated: 1467360750
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/bark.mat
+  uploadId: 716458

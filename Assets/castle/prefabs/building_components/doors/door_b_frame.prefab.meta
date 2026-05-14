@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0e7b329166c42d048a9f44cfaa7a448c
+timeCreated: 1474620525
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/doors/door_b_frame.prefab
+  uploadId: 716458

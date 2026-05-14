@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 43a6d913a7e8b8541b643ce8703c6785
+timeCreated: 1464668548
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/window_b_snow.mat
+  uploadId: 716458

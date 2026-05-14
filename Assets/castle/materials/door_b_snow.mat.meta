@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 71bcefa1675364541ad32be0f7d67b91
+timeCreated: 1474366460
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/door_b_snow.mat
+  uploadId: 716458

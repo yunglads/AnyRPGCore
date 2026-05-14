@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 028e11dddd78aec44acf5b71c364d912
+timeCreated: 1476857702
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/gate_a_tunnel_b.prefab
+  uploadId: 716458

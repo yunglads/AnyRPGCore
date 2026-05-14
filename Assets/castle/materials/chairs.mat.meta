@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5e034e889aee56a4d9d3092eb0b62423
+timeCreated: 1477464838
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/chairs.mat
+  uploadId: 716458

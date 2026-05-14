@@ -261,7 +261,7 @@ namespace AnyRPG {
         private void CheckCameraControlMode()
         {
             cameraDropdown.ClearOptions();
-            cameraDropdown.AddOptions(new List<string> { "Classic", "Isometric", "Action" });
+            cameraDropdown.AddOptions(new List<string> { "Classic", "Action" });
             cameraDropdown.value = PlayerPrefs.GetInt("CameraControlMode", 0);
             cameraDropdown.RefreshShownValue();
 

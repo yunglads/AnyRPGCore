@@ -466,9 +466,9 @@ namespace AnyRPG {
                 int layerMask = ~(playerMask | ignoreMask | spellMask | waterMask);
 
                 Ray ray = cameraManager.ActiveMainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.yellow, 0.1f);
+                //Debug.DrawRay(ray.origin, ray.direction * 100f, Color.yellow, 0.1f);
 
-                if (Physics.Raycast(ray, out mouseOverhit, 100f, layerMask))
+                if (Physics.Raycast(ray, out mouseOverhit, 15f, layerMask))
                 {
                     Interactable newInteractable = mouseOverhit.collider.GetComponent<Interactable>();
                     if (newInteractable == null)

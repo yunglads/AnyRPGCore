@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5fa894f30a9cf084fae83414ca899155
+timeCreated: 1477992966
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/candleholder_a.prefab
+  uploadId: 716458

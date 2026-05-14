@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 981fd9a8ffc797f4492af7fa85ac2b72
+timeCreated: 1474005153
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/nature/rock_c.prefab
+  uploadId: 716458

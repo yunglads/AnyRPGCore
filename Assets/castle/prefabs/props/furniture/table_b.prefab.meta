@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ead30912946825e498097c6e9f66a9ea
+timeCreated: 1476695463
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/furniture/table_b.prefab
+  uploadId: 716458

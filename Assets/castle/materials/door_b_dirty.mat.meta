@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e6b4531caccda6b4e8234f8346b143c2
+timeCreated: 1474619917
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/door_b_dirty.mat
+  uploadId: 716458

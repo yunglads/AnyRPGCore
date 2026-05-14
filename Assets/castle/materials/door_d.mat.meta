@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b6c3555fcf1fb6949ac3399c06be9a76
+timeCreated: 1474447943
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/door_d.mat
+  uploadId: 716458

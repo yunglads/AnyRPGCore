@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8f0093b66d93c304fb49b28d10bf40c0
+timeCreated: 1476578965
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/roof/roof_outside_large_end.prefab
+  uploadId: 716458

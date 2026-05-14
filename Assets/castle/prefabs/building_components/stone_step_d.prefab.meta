@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b8f9419e83d835a409816f37000e17e7
+timeCreated: 1474075999
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/stone_step_d.prefab
+  uploadId: 716458

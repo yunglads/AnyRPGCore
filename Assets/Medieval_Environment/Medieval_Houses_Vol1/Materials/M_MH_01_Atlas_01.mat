@@ -120,7 +120,7 @@ Material:
     - Vector1_c2de9f71d02c491aac6c9aa6e0930a33: 0
     - Vector1_ccc9ba9a630b4cf8a64ef386ff2e6a5a: 1.2
     - Vector1_df4745aecbb44d3996268732309d54e8: 1
-    - Vector1_fd98558fd732497a80c53ed90fb7255d: 1
+    - Vector1_fd98558fd732497a80c53ed90fb7255d: 0.402
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaCutoffEnable: 0

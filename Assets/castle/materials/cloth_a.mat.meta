@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 53ca8d22c2a87ea4894bc66f9064f92c
+timeCreated: 1475118200
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/cloth_a.mat
+  uploadId: 716458

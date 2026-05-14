@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a363347e3c1c54e4e8cf4f0c51801bed
+timeCreated: 1478587754
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/throne.mat
+  uploadId: 716458

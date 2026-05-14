@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6fc463ea849ad2a48b0295ee1519f19c
+timeCreated: 1478751288
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/anim/shot_3v_candle_scene.anim
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 773a9ef24526d9b48862db01a26a1dcc
+timeCreated: 1475979407
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/support_beams_b.prefab
+  uploadId: 716458

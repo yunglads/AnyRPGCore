@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e6601700c927bac4e93a797f14a221fc
+timeCreated: 1474000176
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/wall_5x5_base_corner.prefab
+  uploadId: 716458

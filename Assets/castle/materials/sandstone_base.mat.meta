@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1a4a99cd867134e4ab3cc9a89c451f7f
+timeCreated: 1466498356
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/sandstone_base.mat
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ca4bdbaf32091be4cb7d96d9a194479e
+timeCreated: 1473991414
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/wall_a_x2_snow.mat
+  uploadId: 716458

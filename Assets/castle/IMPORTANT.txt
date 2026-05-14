@@ -1,0 +1,23 @@
+Thank you for purchasing the Big Castle Kit package! We hope it meets your needs and wish you the best of luck with your project.
+
+Please follow the steps outlined below to get started:
+
+Built-In Render Pipeline
+!!!Ensure Shader Graph is installed.!!!
+This package uses linear color space and the deferred render path. Please adjust your project settings accordingly.
+
+Universal Render Pipeline (URP)
+Import the package into your URP project.
+Convert standard Unity materials to URP by navigating to: Edit > Rendering > Materials.
+Enable for all cutout materials (tree_b_branch, grass, leafes_plane, all decal* mats) the alpha clipping checkbox.
+
+High Definition Render Pipeline (HDRP)
+Import the package into your HDRP project.
+Convert standard Unity materials to HDRP by navigating to: Edit > Rendering > Materials.
+Enable for all cutout materials (tree_b_branch, grass, leafes_plane, all decal* mats) the alpha clipping checkbox.
+Increase the Emission value of the flame shader in the Shadergraph Editor to your liking.
+
+If you have any questions or need assistance, feel free to contact us.
+
+Best regards,
+Triplebrick

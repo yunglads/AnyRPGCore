@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fd9febd3a4707194ab31fe5ae1663ac4
+timeCreated: 1477980688
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/candles.mat
+  uploadId: 716458

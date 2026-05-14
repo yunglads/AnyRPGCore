@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 558a6b10684c6674cadfaa4a249dd1a5
+timeCreated: 1476006040
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/decals/decal_crack_c.prefab
+  uploadId: 716458

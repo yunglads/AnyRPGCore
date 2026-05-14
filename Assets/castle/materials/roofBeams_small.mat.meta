@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 72d9e9af87fa5bf4ab0e534329ab188c
+timeCreated: 1465523030
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/roofBeams_small.mat
+  uploadId: 716458

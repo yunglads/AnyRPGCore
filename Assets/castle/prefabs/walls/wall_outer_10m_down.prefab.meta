@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8ef5c85a1f63c1d49a23ebc6365c4d8d
+timeCreated: 1467343064
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/walls/wall_outer_10m_down.prefab
+  uploadId: 716458

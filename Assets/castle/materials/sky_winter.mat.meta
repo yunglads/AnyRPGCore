@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1b6738d562187da4fa14dfe771aa5d06
+timeCreated: 1464999438
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/sky_winter.mat
+  uploadId: 716458

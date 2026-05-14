@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1f42495660716ee45857fc88be063f5d
+timeCreated: 1474016548
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/roof/roof_deco_n.prefab
+  uploadId: 716458

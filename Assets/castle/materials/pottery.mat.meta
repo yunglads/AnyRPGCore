@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3182603b37e22438aae2e0a98e69107a
+timeCreated: 1469021358
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/pottery.mat
+  uploadId: 716458

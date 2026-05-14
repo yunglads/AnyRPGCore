@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4a2fc886f4f9d4847affb38bd576449d
+timeCreated: 1468945004
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/wheel_barrow.mat
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e1b9a8ab50b704940a35b29d95e78739
+timeCreated: 1476702859
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/furniture/chair_d.prefab
+  uploadId: 716458

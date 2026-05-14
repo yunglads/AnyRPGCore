@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ce07c8c218c574dd0ac589a6e720d89f
+timeCreated: 1468566255
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/wood_a_planks.mat
+  uploadId: 716458

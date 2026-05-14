@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c781fb401257be84fa565a9382b0f2ef
+timeCreated: 1465877597
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/mountain_c.mat
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 670bad110ae7b284d8bb65a2a28935fd
+timeCreated: 1474620032
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/doors/door_b_dirty.prefab
+  uploadId: 716458

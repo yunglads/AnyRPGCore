@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8ed017debd410a14783d490af19ad56f
+timeCreated: 1474025149
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/floor_a.mat
+  uploadId: 716458

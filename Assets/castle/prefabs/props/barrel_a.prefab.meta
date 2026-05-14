@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7e881a878ea148642b4f9622d67a6909
+timeCreated: 1475054131
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/barrel_a.prefab
+  uploadId: 716458

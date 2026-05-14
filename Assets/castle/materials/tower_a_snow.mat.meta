@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d8300458211b7c346a4b1cd6fe9f47e8
+timeCreated: 1466675143
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/tower_a_snow.mat
+  uploadId: 716458

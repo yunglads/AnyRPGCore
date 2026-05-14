@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 37897e0207c114e4cac92c1977a42790
+timeCreated: 1463401382
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/gate_a_snow.mat
+  uploadId: 716458

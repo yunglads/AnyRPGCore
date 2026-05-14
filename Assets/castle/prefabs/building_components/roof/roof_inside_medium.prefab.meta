@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e92fbbaeb3e07114da6b0e1bfdd3cd23
+timeCreated: 1476584174
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/roof/roof_inside_medium.prefab
+  uploadId: 716458

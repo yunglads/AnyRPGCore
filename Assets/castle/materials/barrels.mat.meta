@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fa80b9b81fb84aa459ebd7e93d267929
+timeCreated: 1475052338
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/barrels.mat
+  uploadId: 716458

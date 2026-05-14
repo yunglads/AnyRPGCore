@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 765cbe8c263af9441b09de326401f51e
+timeCreated: 1463823650
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/stonesWallDeco_snow.mat
+  uploadId: 716458

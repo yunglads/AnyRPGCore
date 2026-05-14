@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 281dc430f204c074e9bf90bb1c193d9e
+timeCreated: 1466001871
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/leafes_plane.mat
+  uploadId: 716458

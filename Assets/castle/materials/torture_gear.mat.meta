@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ada19a3341513054d8138cfa23f37eec
+timeCreated: 1477276411
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/torture_gear.mat
+  uploadId: 716458

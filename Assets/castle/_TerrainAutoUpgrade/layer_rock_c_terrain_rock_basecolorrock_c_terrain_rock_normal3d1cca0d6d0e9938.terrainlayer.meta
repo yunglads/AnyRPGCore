@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: acb8ab4f32e59c64db0e51c9b0c3cd8d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 8574412962073106934
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/_TerrainAutoUpgrade/layer_rock_c_terrain_rock_basecolorrock_c_terrain_rock_normal3d1cca0d6d0e9938.terrainlayer
+  uploadId: 716458

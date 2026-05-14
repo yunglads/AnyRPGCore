@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f8f56fd4a5a2e5f45a7126719e8e93b1
+timeCreated: 1474263270
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/tower_c/tower_c_floor_half.prefab
+  uploadId: 716458

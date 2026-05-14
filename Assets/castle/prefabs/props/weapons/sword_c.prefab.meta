@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 815e56d8534f97a428c68143bcd72323
+timeCreated: 1471494017
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/weapons/sword_c.prefab
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9f7072303db0d894398b7b1449feaa50
+timeCreated: 1474875346
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/furniture/bench_a.prefab
+  uploadId: 716458

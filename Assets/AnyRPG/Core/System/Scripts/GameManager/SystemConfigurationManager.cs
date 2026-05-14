@@ -1226,6 +1226,6 @@ namespace AnyRPG {
 
     public enum PlayerNameSource { DefaultPlayerName, UnitProfile }
 
-    public enum CameraViewMode { Classic, Isometric, Action }
+    public enum CameraViewMode { Classic, Action, Isometric }
 
 }

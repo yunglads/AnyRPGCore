@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e9e87b86f2fcb47af856ff36d327606d
+timeCreated: 1469021634
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/pottery_f.prefab
+  uploadId: 716458

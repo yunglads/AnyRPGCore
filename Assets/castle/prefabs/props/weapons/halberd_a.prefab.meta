@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ca3fa2ab0de749a41adeb5364dfb8b3f
+timeCreated: 1471919136
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/weapons/halberd_a.prefab
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b7d98f512a90f66488838243df56111a
+timeCreated: 1474592914
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/door_e_iron.mat
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ed64376e7d38006419d464d719c7255f
+timeCreated: 1475054144
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/barrel_broken_b.prefab
+  uploadId: 716458

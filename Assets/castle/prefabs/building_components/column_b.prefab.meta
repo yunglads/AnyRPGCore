@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 134aed1c450414241bde68a39b23bc8a
+timeCreated: 1474678672
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/column_b.prefab
+  uploadId: 716458

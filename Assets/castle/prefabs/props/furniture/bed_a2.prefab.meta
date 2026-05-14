@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a7c2d4c1d7b54054d96d6f9df3d30a50
+timeCreated: 1476182439
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/furniture/bed_a2.prefab
+  uploadId: 716458

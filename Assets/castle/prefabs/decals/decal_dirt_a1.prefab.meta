@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a8acae6a7ed480447a051145a15a4edd
+timeCreated: 1476006018
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/decals/decal_dirt_a1.prefab
+  uploadId: 716458

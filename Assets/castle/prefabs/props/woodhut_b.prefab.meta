@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bcba6b241a91c43e383a5150e9681332
+timeCreated: 1468508658
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/woodhut_b.prefab
+  uploadId: 716458

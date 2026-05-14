@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 695ecdf518d8bd54a94538eefe63665f
+timeCreated: 1476516832
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/furniture/cabinet_e.prefab
+  uploadId: 716458

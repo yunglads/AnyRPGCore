@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 622d473c3d6b980438ba450da95582c2
+timeCreated: 1476922627
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/roof/roof_small_frame.prefab
+  uploadId: 716458

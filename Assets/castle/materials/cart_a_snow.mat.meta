@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6575d568c2081294ebf8d4d280df3950
+timeCreated: 1466166108
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/cart_a_snow.mat
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 36c5e31f201992a4da7e340b96492057
+timeCreated: 1477127444
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/nature/tree_b.prefab
+  uploadId: 716458

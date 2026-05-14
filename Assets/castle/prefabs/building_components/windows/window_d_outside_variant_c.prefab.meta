@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 86f87aff4f0e0b349957680859280dd4
+timeCreated: 1474095687
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/building_components/windows/window_d_outside_variant_c.prefab
+  uploadId: 716458

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 12cb96b31d199df47871fcf08be6f7a6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/scenes/PostProcessingProfilesBuiltIn/Winter_PostprocessingProfile.asset
+  uploadId: 716458

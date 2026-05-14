@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b5d2f9b0c9d686c4680c42107f9d9ae3
+timeCreated: 1474884732
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/chimney_kitchen.prefab
+  uploadId: 716458

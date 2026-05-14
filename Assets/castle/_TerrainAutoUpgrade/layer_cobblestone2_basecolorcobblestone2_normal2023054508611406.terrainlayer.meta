@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7c16850f736601e4ab1749cc6b3d7c14
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 8574412962073106934
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/_TerrainAutoUpgrade/layer_cobblestone2_basecolorcobblestone2_normal2023054508611406.terrainlayer
+  uploadId: 716458

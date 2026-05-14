@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e7a8c77af9d3c2c478c96e0ee4078425
+timeCreated: 1474598370
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/materials/door_e_wood_snow.mat
+  uploadId: 716458

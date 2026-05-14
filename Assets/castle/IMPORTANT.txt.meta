@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 377203e2a54e94843a66a24b0b3037ad
+timeCreated: 1479791342
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/IMPORTANT.txt
+  uploadId: 716458

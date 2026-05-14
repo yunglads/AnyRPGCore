@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a0cc29355120b0b40a9e6a5e5500b06b
+timeCreated: 1477636144
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/nature/ivy_a.prefab
+  uploadId: 716458

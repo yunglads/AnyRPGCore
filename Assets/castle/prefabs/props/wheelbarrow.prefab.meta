@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e13d7520a7b754bb19d87e8284e4e803
+timeCreated: 1468945480
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 75818
+  packageName: The Big Castle Kit
+  packageVersion: 1.9
+  assetPath: Assets/castle/prefabs/props/wheelbarrow.prefab
+  uploadId: 716458
