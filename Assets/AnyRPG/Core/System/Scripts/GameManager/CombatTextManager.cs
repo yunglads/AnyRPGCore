@@ -134,8 +134,8 @@ namespace AnyRPG {
                 */
                 combatTextController.RectTransform.rect.Set(combatTextController.RectTransform.rect.x, combatTextController.RectTransform.rect.y, 0, 0);
                 combatTextController.InitializeCombatTextController(target,
-                    (combatType == CombatTextType.gainBuff || combatType == CombatTextType.loseBuff) ? abilityEffectContext.AbilityEffect.Icon : null,
-                    (combatType == CombatTextType.gainBuff || combatType == CombatTextType.loseBuff) ? abilityEffectContext.AbilityEffect.DisplayName : GetDisplayText(combatType, damage),
+                    (combatType == CombatTextType.gainBuff || combatType == CombatTextType.loseBuff) ? abilityEffectContext.abilityEffect.Icon : null,
+                    (combatType == CombatTextType.gainBuff || combatType == CombatTextType.loseBuff) ? abilityEffectContext.abilityEffect.DisplayName : GetDisplayText(combatType, damage),
                     combatType,
                     combatMagnitude,
                     abilityEffectContext

@@ -140,7 +140,7 @@ namespace AnyRPG {
         protected OutlineController outlineController = null;
         protected ObjectMaterialController objectMaterialController = null;
         protected InteractableEventController interactableEventController = new InteractableEventController();
-        protected BaseNamePlateController namePlateController = null;
+        protected BaseNamePlateController nameplateController = null;
 
         protected Transform nameplateTransform = null;
         protected Vector3 nameplateVector = Vector3.zero;
@@ -244,7 +244,7 @@ namespace AnyRPG {
             }
         }
         public PersistentObjectComponent PersistentObjectComponent { get => persistentObjectComponent; set => persistentObjectComponent = value; }
-        public virtual BaseNamePlateController NamePlateController { get => namePlateController; }
+        public virtual BaseNamePlateController NamePlateController { get => nameplateController; }
         public virtual NamePlateProps NamePlateProps { get => namePlateProps; set => namePlateProps = value; }
         public Vector3 NameplateVector { get => nameplateVector; }
 
@@ -270,12 +270,20 @@ namespace AnyRPG {
 
             nameplateTransform = transform;
 
-            namePlateController = new BaseNamePlateController(this, systemGameManager);
-            if (startHasRun && namePlateController != null) {
-                namePlateController.InitializeNamePlate();
-            }
+            //namePlateController = new BaseNamePlateController(this, systemGameManager);
+            //if (startHasRun && namePlateController != null) {
+            //    namePlateController.InitializeNamePlate();
+            //}
+
+            CreateNameplateController();
         }
 
+        protected virtual void CreateNameplateController()
+        {
+            //Debug.Log($"{gameObject.name}.Interactable.CreateNameplateController() instanceId: {GetInstanceID()}");
+
+            nameplateController = new BaseNamePlateController(this, systemGameManager);
+        }
 
         protected override void PostConfigure() {
             //Debug.Log($"{gameObject.name}.Interactable.PostConfigure()");
@@ -331,6 +339,11 @@ namespace AnyRPG {
 
         public virtual void ProcessPlayerUnitSpawn(UnitController sourceUnitController) {
             UpdateOnPlayerUnitSpawn(sourceUnitController);
+        }
+
+        protected virtual void SpawnInteractableNameplate()
+        {
+            InitializeNamePlateController();
         }
 
         protected virtual void ConfigureComponents() {
@@ -1190,7 +1203,7 @@ namespace AnyRPG {
         public void RemoveNamePlate() {
             //Debug.Log($"{gameObject.name}.NamePlateUnit.RemoveNamePlate()");
 
-            namePlateController?.RemoveNamePlate();
+            nameplateController?.RemoveNamePlate();
             namePlateReady = false;
         }
 

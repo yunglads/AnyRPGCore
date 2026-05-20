@@ -30,7 +30,7 @@ MonoBehaviour:
     m_Nodes:
     - Instance - Build
     - Instance - Run
-    m_BuildProfile: {fileID: 11400000, guid: 190bc667e0d9c0045ba1279d970592e2, type: 2}
+    m_BuildProfile: {fileID: 11400000, guid: 3750b91dc9e902b4ea5f41395f01f6f7, type: 2}
     m_ServerSettings:
       DeployMode: 0
       SimulatorSettings:

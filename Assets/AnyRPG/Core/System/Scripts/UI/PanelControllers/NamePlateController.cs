@@ -78,6 +78,7 @@ namespace AnyRPG
         public GameObject QuestIndicatorBackground { get => questIndicatorBackground; set => questIndicatorBackground = value; }
         public Image GenericIndicatorImage { get => genericIndicatorImage; set => genericIndicatorImage = value; }
         public NamePlateCanvasController NamePlateCanvasController { get => namePlateCanvasController; set => namePlateCanvasController = value; }
+        public BaseNamePlateController UnitNamePlateController { get => unitNamePlateController; }
 
         // game manager references
         private UIManager uIManager = null;
@@ -468,6 +469,66 @@ namespace AnyRPG
             {
                 //Debug.Log("charcterstats is null in nameplate on lateupdate in instanceid " + GetInstanceID().ToString());
             }
+        }
+
+        public bool PreFilter(Camera currentCamera)
+        {
+            if (unitNamePlateController == null) return false;
+            if (playerManagerClient.UnitController == null && uIManager.CutSceneBarController.CurrentCutscene == null) return false;
+
+            // 1. Viewport Check
+            Vector3 relPos = currentCamera.WorldToViewportPoint(unitNamePlateController.NameplatePosition);
+            bool inFrustum = relPos.z >= 0 && relPos.x >= 0 && relPos.x <= 1 && relPos.y >= 0 && relPos.y <= 1;
+
+            if (!inFrustum)
+            {
+                SetUIVisibility(false);
+                return false;
+            }
+
+            // 2. Distance Check
+            float distLimit = 40f;
+            Vector3 sourcePos = (uIManager.CutSceneBarController.CurrentCutscene != null)
+                ? cameraManager.CurrentCutsceneCameraController.transform.position
+                : playerManagerClient.ActiveUnitController.transform.position;
+
+            if (Vector3.Distance(sourcePos, unitNamePlateController.NameplatePosition) > distLimit)
+            {
+                SetUIVisibility(false);
+                return false;
+            }
+
+            return true; // Survived filters, needs a raycast
+        }
+
+        public void FinalizeVisibility(bool isVisible)
+        {
+            if (isVisible)
+            {
+                Camera currentCamera = (uIManager.CutSceneBarController.CurrentCutscene != null)
+                    ? cameraManager.CurrentCutsceneCameraController.Camera
+                    : cameraManager.ActiveMainCamera;
+
+                Vector3 usedPosition = currentCamera.WorldToScreenPoint(unitNamePlateController.NameplatePosition + (Vector3.up * positionOffset));
+                namePlateContents.position = usedPosition;
+                speechBubbleContents.position = usedPosition;
+
+                namePlateCanvasGroup.alpha = 1;
+                speechBubbleCanvasGroup.alpha = 1;
+                namePlateCanvasGroup.blocksRaycasts = !isPlayerUnitNamePlate;
+            }
+            else
+            {
+                SetUIVisibility(false);
+            }
+        }
+
+        private void SetUIVisibility(bool visible)
+        {
+            float alpha = visible ? 1 : 0;
+            namePlateCanvasGroup.alpha = alpha;
+            speechBubbleCanvasGroup.alpha = alpha;
+            if (!visible) namePlateCanvasGroup.blocksRaycasts = false;
         }
 
         private void SetFactionColor()

@@ -1250,7 +1250,7 @@ namespace AnyRPG {
                     ReducePowerResource(powerResource, damageAmount);
                 }
             }
-            unitController.UnitEventController.NotifyOnTakeFallDamage(damageAmount);
+            unitController.UnitEventController.NotifyOnTakeFallDamage(unitController, damageAmount);
         }
 
         public void PerformDeathCheck() {

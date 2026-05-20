@@ -11,7 +11,7 @@ namespace AnyRPG {
         public event System.Action OnAggroTarget = delegate { };
         public event System.Action OnAttack = delegate { };
         public event System.Action<IAbilityCaster, UnitController, int, CombatTextType, CombatMagnitude, string, AbilityEffectContext> OnTakeDamage = delegate { };
-        public event System.Action<int> OnTakeFallDamage = delegate { };
+        public event System.Action<UnitController, int> OnTakeFallDamage = delegate { };
         public event System.Action OnKillTarget = delegate { };
         public event System.Action OnInteract = delegate { };
         public event System.Action OnMovement = delegate { };
@@ -148,7 +148,7 @@ namespace AnyRPG {
         public event System.Action<InstantiatedBag, int, bool> OnRequestMoveBag = delegate { };
         public event System.Action<InstantiatedBag, int, bool> OnRequestAddBag = delegate { };
         public event System.Action<Vector3> OnSetGroundTarget = delegate { };
-        public event System.Action<UnitController, int, CombatTextType, CombatMagnitude, AbilityEffectContext> OnReceiveCombatTextEvent = delegate {};
+        public event System.Action<Interactable, int, CombatTextType, CombatMagnitude, AbilityEffectContext> OnReceiveCombatTextEvent = delegate {};
         public event System.Action<Recipe> OnLearnRecipe = delegate { };
         public event System.Action<Recipe> OnUnlearnRecipe = delegate { };
         public event System.Action<string, int> OnCurrencyChange = delegate { };
@@ -417,10 +417,10 @@ namespace AnyRPG {
             OnTakeDamage(source, target, damage, combatTextType, combatMagnitude, abilityName, abilityEffectContext);
         }
 
-        public void NotifyOnTakeFallDamage(int damageAmount) {
+        public void NotifyOnTakeFallDamage(UnitController unitController, int damageAmount) {
             //Debug.Log($"{unitController.gameObject.name}.UnitEventController.NotifyOnTakeFallDamage({damageAmount})");
 
-            OnTakeFallDamage(damageAmount);
+            OnTakeFallDamage(unitController, damageAmount);
         }
 
         public void NotifyOnKillTarget() {
@@ -884,8 +884,8 @@ namespace AnyRPG {
             OnSetGroundTarget(newGroundTarget);
         }
 
-        public void NotifyOnReceiveCombatTextEvent(UnitController targetUnitController, int damage, CombatTextType combatTextType, CombatMagnitude combatMagnitude, AbilityEffectContext abilityEffectContext) {
-            OnReceiveCombatTextEvent(targetUnitController, damage, combatTextType, combatMagnitude, abilityEffectContext);
+        public void NotifyOnReceiveCombatTextEvent(Interactable targetInteractable, int damage, CombatTextType combatTextType, CombatMagnitude combatMagnitude, AbilityEffectContext abilityEffectContext) {
+            OnReceiveCombatTextEvent(targetInteractable, damage, combatTextType, combatMagnitude, abilityEffectContext);
         }
 
         public void NotifyOnRequestCancelStatusEffect(StatusEffectProperties statusEffect) {

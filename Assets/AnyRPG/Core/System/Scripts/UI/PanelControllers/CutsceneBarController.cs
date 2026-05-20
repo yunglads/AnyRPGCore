@@ -100,7 +100,7 @@ namespace AnyRPG {
             //Debug.Log($"CutSceneBarController.StartCutScene({cutscene.ResourceName})");
 
             // prevent sending the last input to the player controller when the cutscene starts
-            playerManagerClient.PlayerController.ResetMoveInput();
+            playerManagerClient.PlayerController.MovementData.ResetMoveInput();
 
             if (cutscene.TimelineName != null
                 && cutscene.TimelineName != string.Empty

@@ -556,7 +556,7 @@ namespace AnyRPG {
             //Debug.Log($"{gameObject.name}.UnitController.SetCharacterRequestData(characterId: {characterRequestData.characterId})");
 
             this.characterRequestData = characterRequestData;
-            hasNameplate = characterRequestData.characterConfigurationRequest.unitProfile.HasNameplate;
+            hasNamePlate = characterRequestData.characterConfigurationRequest.unitProfile.HasNameplate;
             this.characterId = characterRequestData.characterId;
         }
 
@@ -621,11 +621,11 @@ namespace AnyRPG {
             // do nothing here, unit controller will handle enabling and disabling the interactable range based on the unit controller mode
         }
 
-        public override void InitializeNameplateController() {
+        public override void InitializeNamePlateController() {
             //Debug.Log($"{gameObject.name}.UnitController.InitializeNamePlateController()");
             // mounts and preview units shouldn't have a namePlateController active
-            if (hasNameplate && unitControllerMode != UnitControllerMode.Mount && unitControllerMode != UnitControllerMode.Preview) {
-                base.InitializeNameplateController();
+            if (hasNamePlate && unitControllerMode != UnitControllerMode.Mount && unitControllerMode != UnitControllerMode.Preview) {
+                base.InitializeNamePlateController();
             }
         }
 
@@ -827,7 +827,7 @@ namespace AnyRPG {
         private void EnablePetMode() {
             //Debug.Log($"{gameObject.name}.UnitController.EnablePetMode()");
 
-            InitializeNameplateController();
+            InitializeNamePlateController();
             EnableAICommon();
 
             // it is necessary to keep track of leash position because it was already set as destination by setting pet mode
@@ -887,7 +887,7 @@ namespace AnyRPG {
         private void EnablePlayer() {
             //Debug.Log($"{gameObject.name}.UnitController.EnablePlayer()");
 
-            InitializeNameplateController();
+            InitializeNamePlateController();
 
             if (systemGameManager.GameMode == GameMode.Local || (networkManagerServer.ServerModeActive == false && isOwner == true)) {
                 // to allow the player to click on objects through their model, the player unit on authoritative clients
@@ -940,7 +940,7 @@ namespace AnyRPG {
             //Debug.Log($"{gameObject.name}.UnitController.EnableAI()");
 
             EnableInteractableRange();
-            InitializeNameplateController();
+            InitializeNamePlateController();
             EnableAICommon();
 
             if (systemGameManager.GameMode == GameMode.Local || networkManagerServer.ServerModeActive == true || levelManagerClient.IsCutscene()) {

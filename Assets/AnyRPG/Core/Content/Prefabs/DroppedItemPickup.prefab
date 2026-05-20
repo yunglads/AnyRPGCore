@@ -89,6 +89,11 @@ MonoBehaviour:
     saveOnLevelUnload: 1
     saveOnGameSave: 1
   persistInteractableData: 1
+  hasNamePlate: 0
+  namePlateProps:
+    displayName: 
+    overrideNameplatePosition: 0
+    namePlatePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1832758616663655866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,8 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ff920aaeff32c47b919cdd7f10e67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnyRPG.UUID
-  m_UUID: d1b7e471-a63b-4d1e-9fb7-713630e8042e
-  forceUpdateUUID: 0
+  m_UUID: ecc68cea-ffd6-466b-96aa-0462f43dece6
+  forceUpdateUUID: 1
 --- !u!1001 &7160217055860307744
 PrefabInstance:
   m_ObjectHideFlags: 0

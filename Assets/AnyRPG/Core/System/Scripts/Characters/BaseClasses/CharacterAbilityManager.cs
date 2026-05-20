@@ -243,7 +243,7 @@ namespace AnyRPG {
 
             AbilityProperties usedBaseAbility = null;
             if (currentAbilityEffectContext != null) {
-                usedBaseAbility = currentAbilityEffectContext.BaseAbility;
+                usedBaseAbility = currentAbilityEffectContext.baseAbility;
             }
             if (usedBaseAbility == null) {
                 usedBaseAbility = currentCastAbility;
@@ -401,7 +401,7 @@ namespace AnyRPG {
             base.GeneratePower(ability);
             if (unitController != null && unitController.CharacterStats != null) {
                 //Debug.Log($"{gameObject.name}.GeneratePower({ability.DisplayName}): name " + ability.GeneratePowerResource.DisplayName  + "; " + ability.GetResourceGain(this));
-                unitController.CharacterStats.AddResourceAmount(ability.GeneratePowerResource, ability.GetResourceGain(unitController));
+                unitController.CharacterStats.AddResourceAmount(ability.ResourceName, ability.GetResourceGain(unitController));
             }
         }
 
@@ -531,9 +531,9 @@ namespace AnyRPG {
                     sourcePosition = sourceCollider.bounds.center;
                 }
             } else if (targetable.GetTargetOptions(unitController).LineOfSightSourceLocation == LineOfSightSourceLocation.GroundTarget && abilityEffectContext != null) {
-                sourcePosition = abilityEffectContext.GroundTargetLocation;
+                sourcePosition = abilityEffectContext.groundTargetLocation;
             } else if (targetable.GetTargetOptions(unitController).LineOfSightSourceLocation == LineOfSightSourceLocation.OriginalTarget && abilityEffectContext != null) {
-                sourcePosition = abilityEffectContext.OriginalTarget.transform.position;
+                sourcePosition = abilityEffectContext.originalTarget.transform.position;
             }
 
             Vector3 targetPosition = target.transform.position;
@@ -592,9 +592,9 @@ namespace AnyRPG {
             }
             Vector3 sourcePosition = UnitGameObject.transform.position;
             if (targetable.GetTargetOptions(unitController).TargetRangeSourceLocation == TargetRangeSourceLocation.GroundTarget && abilityEffectContext != null) {
-                sourcePosition = abilityEffectContext.GroundTargetLocation;
+                sourcePosition = abilityEffectContext.groundTargetLocation;
             } else if (targetable.GetTargetOptions(unitController).TargetRangeSourceLocation == TargetRangeSourceLocation.OriginalTarget && abilityEffectContext != null) {
-                sourcePosition = abilityEffectContext.OriginalTarget.transform.position;
+                sourcePosition = abilityEffectContext.originalTarget.transform.position;
             }
             //Debug.Log(target.name + " range(" + maxRange + ": " + Vector3.Distance(UnitGameObject.transform.position, target.transform.position));
             if (maxRange > 0 && Vector3.Distance(sourcePosition, target.InteractableGameObject.transform.position) > maxRange) {
@@ -679,7 +679,7 @@ namespace AnyRPG {
                 }
             }
 
-            abilityEffectContext.BaseAbility.HandleAbilityEndHit(
+            abilityEffectContext.baseAbility.HandleAbilityEndHit(
                 unitController,
                 targetUnitController,
                 abilityEffectContext);
@@ -693,7 +693,7 @@ namespace AnyRPG {
         /// <returns></returns>
         public override bool DidAbilityHit(Interactable target, AbilityEffectContext abilityEffectContext) {
             // reflected attacks cannot miss
-            if (abilityEffectContext.ReflectDamage == false && unitController.CharacterCombat.DidAttackMiss() == true) {
+            if (abilityEffectContext.reflectDamage == false && unitController.CharacterCombat.DidAttackMiss() == true) {
                 //Debug.Log(DisplayName + ".BaseAbility.PerformAbilityHit(" + source.name + ", " + target.name + "): attack missed");
                 unitController.CharacterCombat.ReceiveCombatMiss(target, abilityEffectContext);
                 if (target?.CharacterUnit != null) {
@@ -1011,7 +1011,7 @@ namespace AnyRPG {
             }
             // rememeber this method is meant for saved status effects and traits
             AbilityEffectContext abilityEffectContext = new AbilityEffectContext(unitController) {
-                AbilityEffect = statusEffect,
+                abilityEffect = statusEffect,
                 overrideDuration = overrideDuration,
                 savedEffect = true
             };
@@ -1303,7 +1303,7 @@ namespace AnyRPG {
             float startTime = Time.time;
             //Debug.Log($"{unitController.gameObject.name}.CharacterAbilitymanager.PerformAbilityCast({ability.ResourceName}, {(target == null ? "null" : target.name)}) Enter Ienumerator with start time: {startTime}");
 
-            abilityEffectContext.OriginalTarget = target;
+            abilityEffectContext.originalTarget = target;
             //Debug.Log(baseCharacter.gameObject.name + ".CharacterAbilitymanager.PerformAbilityCast({ability.DisplayName}): cancast is true");
             if (!ability.CanSimultaneousCast) {
                 //Debug.Log("CharacterAbilitymanager.PerformAbilityCast() ability: {ability.DisplayName} can simultaneous cast is false, setting casting to true");
@@ -1445,8 +1445,8 @@ namespace AnyRPG {
 
             if (systemGameManager.GameMode == GameMode.Local || networkManagerServer.ServerModeActive == true || levelManagerClient.IsCutscene()) {
                 AbilityEffectContext abilityEffectContext = new AbilityEffectContext(unitController) {
-                    BaseAbility = ability,
-                    GroundTargetLocation = GetGroundTarget()
+                    baseAbility = ability,
+                    groundTargetLocation = GetGroundTarget()
                 };
                 return BeginAbilityInternal(ability, target, abilityEffectContext, playerInitiated);
             }
@@ -1476,8 +1476,8 @@ namespace AnyRPG {
             base.ProcessWeaponHitEffects(attackEffect, target, abilityEffectContext);
 
             // perform default weapon hit sound
-            if (abilityEffectContext.BaseAbility != null) {
-                AudioClip audioClip = abilityEffectContext.BaseAbility.GetHitSound(unitController);
+            if (abilityEffectContext.baseAbility != null) {
+                AudioClip audioClip = abilityEffectContext.baseAbility.GetHitSound(unitController);
                 if (audioClip != null) {
                     unitController.InteractableEventController.NotifyOnPlayEffectSound(audioClip, false);
                 }
@@ -1808,8 +1808,8 @@ namespace AnyRPG {
             if (abilityEffectContext == null) {
                 abilityEffectContext = new AbilityEffectContext(unitController);
             }
-            abilityEffectContext.BaseAbility = ability;
-            abilityEffectContext.OriginalTarget = target;
+            abilityEffectContext.baseAbility = ability;
+            abilityEffectContext.originalTarget = target;
             Interactable finalTarget = target;
 
             if (!PerformPowerResourceCheck(ability)) {
@@ -1998,9 +1998,9 @@ namespace AnyRPG {
             // here character combat is sent in because currentAbilityEffectContext is only used for animated abilities
             // which requires considering the weapon skill
             if (currentAbilityEffectContext != null) {
-                AudioClip audioClip = currentAbilityEffectContext.BaseAbility.GetAnimationEventSound(unitController.CharacterCombat);
+                AudioClip audioClip = currentAbilityEffectContext.baseAbility.GetAnimationEventSound(unitController.CharacterCombat);
                 if (audioClip != null) {
-                    unitController.InteractableEventController.NotifyOnPlayEffectSound(audioClip, currentAbilityEffectContext.BaseAbility.LoopAudio);
+                    unitController.InteractableEventController.NotifyOnPlayEffectSound(audioClip, currentAbilityEffectContext.baseAbility.LoopAudio);
                 }
                 return;
             }

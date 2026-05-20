@@ -22,7 +22,7 @@ namespace AnyRPG {
             if (abilityEffectContext == null) {
                 abilityEffectContext = new AbilityEffectContext(source);
             }
-            abilityEffectContext.AbilityEffect = this;
+            abilityEffectContext.abilityEffect = this;
             Dictionary<PrefabProfile, List<GameObject>> returnObjects = base.Cast(source, target, originalTarget, abilityEffectContext);
 
             PerformAbilityHit(source, target, abilityEffectContext);

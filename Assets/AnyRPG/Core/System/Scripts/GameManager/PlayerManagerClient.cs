@@ -722,10 +722,10 @@ namespace AnyRPG {
             string messageText = string.Empty;
             string sourceName = string.Empty;
             string targetName = targetInteractable.DisplayName;
-            string reflectedString = abilityEffectContext.ReflectDamage ? " (Reflected)" : string.Empty;
+            string reflectedString = abilityEffectContext.reflectDamage ? " (Reflected)" : string.Empty;
             string criticalString = combatMagnitude == CombatMagnitude.critical ? " (Critical)" : string.Empty;
 
-            if (abilityEffectContext.ReflectDamage == false && abilityEffectContext.AbilityCaster?.AbilityManager != null) {
+            if (abilityEffectContext.reflectDamage == false && abilityEffectContext.AbilityCaster?.AbilityManager != null) {
                 if (abilityEffectContext.AbilityCaster.gameObject == unitController.gameObject) {
                     sourceName = "Your ";
                 } else {
@@ -734,10 +734,10 @@ namespace AnyRPG {
             }
 
             string abilityName = "Unknown Ability";
-            if (abilityEffectContext.BaseAbility != null) {
-                abilityName = abilityEffectContext.BaseAbility.DisplayName;
-            } else if (abilityEffectContext.AbilityEffect != null) {
-                abilityName = abilityEffectContext.AbilityEffect.DisplayName;
+            if (abilityEffectContext.baseAbility != null) {
+                abilityName = abilityEffectContext.baseAbility.DisplayName;
+            } else if (abilityEffectContext.abilityEffect != null) {
+                abilityName = abilityEffectContext.abilityEffect.DisplayName;
             }
             if (targetInteractable.gameObject == unitController.gameObject) {
                 targetName = "You";
@@ -777,7 +777,7 @@ namespace AnyRPG {
                     textColor = ColorUtility.ToHtmlStringRGB(Color.green);
                 }
                 if (abilityEffectContext.AbilityCaster != null && abilityEffectContext.AbilityCaster.gameObject == unitController.gameObject) {
-                    if (abilityEffectContext.ReflectDamage == false) {
+                    if (abilityEffectContext.reflectDamage == false) {
                         sourceName = "your ";
                     }
                     verb = "gain";
@@ -785,7 +785,7 @@ namespace AnyRPG {
                 } else {
                     verb = "gained";
                 }
-                messageText = $"{targetName} {verb} {amount} {abilityEffectContext.PowerResource.DisplayName} from {sourceName}{abilityName}{reflectedString}{criticalString}";
+                messageText = $"{targetName} {verb} {amount} {abilityEffectContext.powerResource.DisplayName} from {sourceName}{abilityName}{reflectedString}{criticalString}";
             } else if (combatTextType == CombatTextType.gainBuff) {
                 if (targetInteractable.gameObject == unitController.gameObject
                     || unitController.CharacterPetManager.ActiveUnitProfiles.Values.Select(x => x.gameObject).Contains(targetInteractable.gameObject)) {

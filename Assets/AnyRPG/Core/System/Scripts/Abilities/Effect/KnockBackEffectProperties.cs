@@ -108,8 +108,8 @@ namespace AnyRPG {
                 //int validMask = playerMask;
                 //colliders = Physics.OverlapSphere(targetPosition, explosionRadius, validMask);
                 Vector3 explosionCenter = Vector3.zero;
-                if (abilityEffectContext.GroundTargetLocation != Vector3.zero) {
-                    explosionCenter = abilityEffectContext.GroundTargetLocation;
+                if (abilityEffectContext.groundTargetLocation != Vector3.zero) {
+                    explosionCenter = abilityEffectContext.groundTargetLocation;
                 } else {
                     explosionCenter = targetPosition;
                 }

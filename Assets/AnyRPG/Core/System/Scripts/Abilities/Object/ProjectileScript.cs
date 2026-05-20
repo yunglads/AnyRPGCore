@@ -132,8 +132,8 @@ namespace AnyRPG {
                 return;
             }
             if ((target != null && other.gameObject == target.InteractableGameObject) || target == null) {
-                if (abilityEffectContext != null && abilityEffectContext.GroundTargetLocation != null) {
-                    abilityEffectContext.GroundTargetLocation = projectileGameObject.transform.position;
+                if (abilityEffectContext != null && abilityEffectContext.groundTargetLocation != null) {
+                    abilityEffectContext.groundTargetLocation = projectileGameObject.transform.position;
                 }
                 OnCollission(source, target, projectileGameObject, abilityEffectContext, this);
             }
