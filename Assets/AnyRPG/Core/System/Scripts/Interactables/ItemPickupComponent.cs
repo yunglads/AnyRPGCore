@@ -14,7 +14,7 @@ namespace AnyRPG {
             if (returnValue == 0) {
                 return returnValue;
             }
-            if ((ItemPickupProps.SpawnTimer == -1  && pickupCount > 0) || spawnCoroutine != null) {
+            if ((ItemPickupProps.SpawnTimerMin == -1  && pickupCount > 0) || spawnCoroutine != null) {
                 return 0;
             }
             return returnValue;

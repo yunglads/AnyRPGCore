@@ -38,7 +38,7 @@ namespace AnyRPG {
             if (spawnCoroutine != null) {
                 return false;
             }
-            if (Props.SpawnTimer == -1 && pickupCount > 0) {
+            if (Props.SpawnTimerMin == -1 && pickupCount > 0) {
                 return false;
             }
             return returnResult;
@@ -105,10 +105,10 @@ namespace AnyRPG {
             // DISABLE MINIMAP ICON WHILE ITEM IS NOT SPAWNED
             // this next line is already done outside the loop so should not be needed here ?
             //HandlePrerequisiteUpdates();
-            int timerRNG = Random.Range(0, (int)Props.SpawnTimer);
-            currentTimer = Props.SpawnTimer + timerRNG;
+            int timerRNG = Random.Range((int)Props.SpawnTimerMin, (int)Props.SpawnTimerMax);
+            currentTimer = timerRNG;
             while (currentTimer > 0) {
-                //Debug.Log("Spawn Timer: " + currentTimer);
+                Debug.Log("Spawn Timer: " + currentTimer);
                 yield return new WaitForSeconds(1);
                 currentTimer -= 1;
             }
@@ -185,7 +185,7 @@ namespace AnyRPG {
                 InitializeLootTableStates();
 
                 // spawn timer of -1 means don't spawn again
-                if (spawnCoroutine == null && Props.SpawnTimer >= 0f) {
+                if (spawnCoroutine == null && Props.SpawnTimerMin >= 0f) {
                     //Debug.Log($"{gameObject.name}.LootableNode.CheckDropListSize(): starting countdown; spawnTimer: " + spawnTimer);
                     spawnCoroutine = interactable.StartCoroutine(StartSpawnCountdown());
                 }
@@ -264,7 +264,7 @@ namespace AnyRPG {
             if (Props.SpawnObject != null) {
                 Props.SpawnObject.SetActive(interactableSaveData.LootableNodeSaveData[0].SpawnObjectActive);
                 if (interactableSaveData.LootableNodeSaveData[0].SpawnObjectActive == false) {
-                    if (spawnCoroutine == null && Props.SpawnTimer >= 0f) {
+                    if (spawnCoroutine == null && Props.SpawnTimerMin >= 0f) {
                         spawnCoroutine = interactable.StartCoroutine(StartSpawnCountdown());
                     }
                 }

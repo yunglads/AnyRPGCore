@@ -20,7 +20,10 @@ namespace AnyRPG {
         protected List<LootTable> lootTables = new List<LootTable>();
 
         [SerializeField]
-        protected float spawnTimer = 5f;
+        protected float spawnTimerMin = 30f;
+
+        [SerializeField]
+        protected float spawnTimerMax = 60f;
 
         [Tooltip("The gameObject that will be enabled or disabled ")]
         [SerializeField]
@@ -28,7 +31,8 @@ namespace AnyRPG {
 
         public override Sprite Icon { get => (systemConfigurationManager.LootableCharacterInteractionPanelImage != null ? systemConfigurationManager.LootableCharacterInteractionPanelImage : base.Icon); }
         public override Sprite NamePlateImage { get => (systemConfigurationManager.LootableCharacterNamePlateImage != null ? systemConfigurationManager.LootableCharacterNamePlateImage : base.NamePlateImage); }
-        public float SpawnTimer { get => spawnTimer; set => spawnTimer = value; }
+        public float SpawnTimerMin { get => spawnTimerMin; set => spawnTimerMin = value; }
+        public float SpawnTimerMax { get => spawnTimerMax; set => spawnTimerMax = value; }
         public List<LootTable> LootTables { get => lootTables; set => lootTables = value; }
         public GameObject SpawnObject { get => spawnObject; }
 
