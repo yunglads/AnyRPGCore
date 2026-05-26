@@ -46,6 +46,7 @@ MonoBehaviour:
       primaryAttachmentName: Main Hand Sword Sheathed
       unsheathedAttachmentName: Right Hand
   inlineEquipmentModels:
+    applyToEquipmentName: 
     equipmentModels:
     - rid: 5705935833309905676
   sharedEquipmentModels: 
@@ -59,7 +60,7 @@ MonoBehaviour:
   onEquipStatusEffect: 
   learnedAbilityNames: []
   requireWeaponSkill: 0
-  weaponType: One Hand Sword
+  weaponType: 
   defaultHitEffects: []
   onHitEffects: []
   animationProfileName: 

@@ -46,6 +46,7 @@ MonoBehaviour:
       primaryAttachmentName: Staff Sheathed
       unsheathedAttachmentName: Right Hand
   inlineEquipmentModels:
+    applyToEquipmentName: 
     equipmentModels:
     - rid: 5705935833309905660
   sharedEquipmentModels: 
@@ -59,7 +60,7 @@ MonoBehaviour:
   onEquipStatusEffect: 
   learnedAbilityNames: []
   requireWeaponSkill: 0
-  weaponType: Staff
+  weaponType: 
   defaultHitEffects: []
   onHitEffects: []
   animationProfileName: 

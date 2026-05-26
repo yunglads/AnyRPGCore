@@ -535,6 +535,7 @@ namespace AnyRPG {
             LoadEquipmentData(saveData);
 
             LoadSkillData(saveData);
+            LoadTownData(saveData);
             LoadRecipeData(saveData);
             LoadReputationData(saveData);
 

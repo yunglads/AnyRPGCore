@@ -42,13 +42,11 @@ MonoBehaviour:
     armorClassList:
     - Plate
     weaponSkills:
-    - One Hand Sword
-    - Two Hand Sword
-    - One Hand Mace
-    - Two Hand Mace
-    - One Hand Axe
-    - Two Hand Axe
+    - Shortsword
     - Shield
+    - Longsword
+    validPetTypes: []
+    startingPets: []
   unitTypeCapabilities:
   - unitTypes: []
     capabilities:
@@ -56,6 +54,8 @@ MonoBehaviour:
       traitNames: []
       armorClassList: []
       weaponSkills: []
+      validPetTypes: []
+      startingPets: []
   primaryStats:
   - statName: Strength
     budgetPerLevel: 5
@@ -67,6 +67,7 @@ MonoBehaviour:
       conversionRatio: 1
       ratedConversion: 0
     primaryToResourceConversion: []
+    regen: []
   - statName: Agility
     budgetPerLevel: 0
     primaryToSecondaryConversion:
@@ -74,6 +75,6 @@ MonoBehaviour:
       conversionRatio: 0.5
       ratedConversion: 1
     primaryToResourceConversion: []
+    regen: []
   powerResources:
   - Rage
-  validPetTypes: []

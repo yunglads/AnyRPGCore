@@ -46,6 +46,7 @@ MonoBehaviour:
       primaryAttachmentName: Main Hand Axe Sheathed
       unsheathedAttachmentName: Right Hand
   inlineEquipmentModels:
+    applyToEquipmentName: 
     equipmentModels:
     - rid: 5705935833309905848
   sharedEquipmentModels: 
@@ -65,7 +66,7 @@ MonoBehaviour:
   onEquipStatusEffect: 
   learnedAbilityNames: []
   requireWeaponSkill: 0
-  weaponType: One Hand Axe
+  weaponType: 
   defaultHitEffects: []
   onHitEffects: []
   animationProfileName: 
